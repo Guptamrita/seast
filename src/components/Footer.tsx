@@ -29,6 +29,12 @@ const Footer = () => (
 
           {/* Links */}
           <div className="flex flex-wrap items-center gap-1">
+            <Link
+              to="/portfolio"
+              className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 font-semibold transition-colors px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20"
+            >
+              Portfolio
+            </Link>
             {footerLinks.map((link) => (
               <a
                 key={link.url}

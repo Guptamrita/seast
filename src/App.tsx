@@ -26,6 +26,7 @@ import AdminPanel from "./pages/AdminPanel";
 import CloudAdminGuard from "./components/CloudAdminGuard";
 import NepalLoadingScreen from "./components/NepalLoadingScreen";
 import DailyMCQPage from "./pages/DailyMCQPage";
+import Portfolio from "./pages/Portfolio";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -116,6 +117,7 @@ const AppContent = () => {
             <Route path="/auth" element={<Auth />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
               <Route path="/quiz/:category/:setId?" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
               <Route path="/old-is-gold" element={<ProtectedRoute><OldIsGold /></ProtectedRoute>} />
