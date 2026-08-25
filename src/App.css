@@ -1,0 +1,124 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* ===== MCQ OPTION STYLES - VERTICAL STACK WITH PURPLE/BLUE HOVER ===== */
+
+/* Force options to stack vertically */
+.quiz-option {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 12px 16px !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  cursor: pointer !important;
+  gap: 12px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* HOVER - FULL PURPLE/BLUE BACKGROUND */
+.quiz-option:hover {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  border-color: #6366f1 !important;
+  color: white !important;
+  transform: translateX(4px) !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* SELECTED - SAME PURPLE/BLUE BACKGROUND */
+.quiz-option-selected {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  border-color: #6366f1 !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* LETTER CIRCLE (A, B, C, D) */
+.quiz-option span:first-child {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  background: #f1f5f9 !important;
+  border-radius: 50% !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+/* HOVER EFFECT ON LETTER CIRCLE */
+.quiz-option:hover span:first-child {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+/* SELECTED EFFECT ON LETTER CIRCLE */
+.quiz-option-selected span:first-child {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+/* OPTION TEXT */
+.quiz-option span:last-child {
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+/* CHECKMARK ICON */
+.quiz-checkmark {
+  width: 20px !important;
+  height: 20px !important;
+  color: white !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* Force the container to stack options vertically */
+.flex.flex-col.space-y-3 {
+  display: flex !important;
+  flex-direction: column !important;
+}
