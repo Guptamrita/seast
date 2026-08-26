@@ -84,13 +84,15 @@ const Navbar = () => {
                 transition={{ duration: 0.5 }}
                 src={logoImg}
                 alt="Samrita Collection Logo"
-                className="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/20"
+                className="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/20 ring-2 ring-blue-400/30"
               />
               <div className="hidden sm:block leading-tight">
                 <span className="font-bold text-white text-base tracking-tight block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Samrita Collection
                 </span>
-                <span className="text-blue-400 text-[10px] tracking-widest font-bold">NEPAL</span>
+                <span className="text-blue-400 text-[10px] tracking-wider font-extrabold flex items-center gap-1">
+                  DEV BY AMRITA GUPTA 🇳🇵
+                </span>
               </div>
             </Link>
 
