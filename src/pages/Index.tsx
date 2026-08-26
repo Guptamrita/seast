@@ -14,6 +14,7 @@ import {
   BookOpen,
   Trophy,
   ArrowRight,
+  ChevronRight,
   ExternalLink,
   Code2,
   Sparkles,
