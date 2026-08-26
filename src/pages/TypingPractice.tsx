@@ -13,20 +13,24 @@ import {
   Zap,
   Timer,
   CheckCircle2,
-  AlertCircle,
   Volume2,
   VolumeX,
   Sparkles,
   ChevronRight,
   ListFilter,
+  Building2,
+  Search,
 } from "lucide-react";
 
 type Mode = "english" | "nepali" | "code" | "exam";
+type AgencyFilter = "all" | "Loksewa PSC" | "NOC" | "NEB" | "TU" | "Banking" | "Code";
 
 export default function TypingPractice() {
   const [mode, setMode] = useState<Mode>("english");
-  const [selectedItem, setSelectedItem] = useState<TypingItem>(englishTypingData[0]);
+  const [agency, setAgency] = useState<AgencyFilter>("all");
   const [difficulty, setDifficulty] = useState<"all" | "easy" | "medium" | "hard">("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedItem, setSelectedItem] = useState<TypingItem>(englishTypingData[0]);
   const [input, setInput] = useState("");
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -36,7 +40,7 @@ export default function TypingPractice() {
   const [accuracy, setAccuracy] = useState(100);
   const [errorCount, setErrorCount] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
-  const [timeLimit, setTimeLimit] = useState<number | null>(null); // null = infinite, or 60, 180, 300
+  const [timeLimit, setTimeLimit] = useState<number | null>(null); // null = free, 60, 180, 300
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [bestWpm, setBestWpm] = useState<number>(() => {
     return Number(localStorage.getItem("loksewa_best_wpm")) || 0;
@@ -45,7 +49,7 @@ export default function TypingPractice() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
 
-  // Get active dataset based on mode and difficulty
+  // Filter datasets
   const getDataset = useCallback(() => {
     let list: TypingItem[] = [];
     if (mode === "english") list = englishTypingData;
@@ -53,13 +57,20 @@ export default function TypingPractice() {
     else if (mode === "code") list = codeTypingData;
     else if (mode === "exam") list = examParagraphsData;
 
+    if (agency !== "all") {
+      list = list.filter((item) => item.source === agency);
+    }
     if (difficulty !== "all") {
       list = list.filter((item) => item.difficulty === difficulty);
     }
+    if (searchTerm.trim()) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter((item) => item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q));
+    }
     return list.length > 0 ? list : (mode === "english" ? englishTypingData : nepaliTypingData);
-  }, [mode, difficulty]);
+  }, [mode, agency, difficulty, searchTerm]);
 
-  // Load new test
+  // Reset test
   const resetTest = useCallback((item?: TypingItem) => {
     const dataset = getDataset();
     const target = item || dataset[Math.floor(Math.random() * dataset.length)] || dataset[0];
@@ -77,9 +88,9 @@ export default function TypingPractice() {
 
   useEffect(() => {
     resetTest();
-  }, [mode, difficulty, resetTest]);
+  }, [mode, agency, difficulty, resetTest]);
 
-  // Audio click synthesizer
+  // Sound effect
   const playKeySound = () => {
     if (!soundEnabled) return;
     try {
@@ -90,7 +101,7 @@ export default function TypingPractice() {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(450, ctx.currentTime);
+      osc.frequency.setValueAtTime(460, ctx.currentTime);
       gain.gain.setValueAtTime(0.04, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
       osc.connect(gain);
@@ -107,7 +118,6 @@ export default function TypingPractice() {
       const elapsed = Math.floor((Date.now() - startTime) / 1000);
       setTimeElapsed(elapsed);
 
-      // Check time limit
       if (timeLimit && elapsed >= timeLimit) {
         setFinished(true);
         clearInterval(interval);
@@ -116,7 +126,7 @@ export default function TypingPractice() {
     return () => clearInterval(interval);
   }, [started, finished, startTime, timeLimit]);
 
-  // Handle typing input
+  // Input handling
   const handleInput = (val: string) => {
     if (finished) return;
 
@@ -147,14 +157,13 @@ export default function TypingPractice() {
     const elapsedSeconds = Math.max(1, (Date.now() - (startTime || Date.now())) / 1000);
     const elapsedMinutes = elapsedSeconds / 60;
 
-    // Standard word = 5 characters
+    // Loksewa standard WPM: (correct characters / 5) / minutes
     const grossWpm = Math.round(correct / 5 / elapsedMinutes);
     const calculatedCpm = Math.round((correct / elapsedSeconds) * 60);
 
     setWpm(grossWpm);
     setCpm(calculatedCpm);
 
-    // Check completion
     if (val.length >= targetText.length) {
       setFinished(true);
       if (grossWpm > bestWpm) {
@@ -167,11 +176,14 @@ export default function TypingPractice() {
   const dataset = getDataset();
   const targetText = selectedItem.text;
 
+  // Calculate Loksewa standard exam score (e.g. 5-min exam)
+  const loksewaScore = Math.max(0, Math.min(25, Math.round((wpm / 40) * 25 * (accuracy / 100))));
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4 sm:px-6 lg:px-8 selection:bg-blue-600 selection:text-white">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-6">
         
-        {/* Top Header */}
+        {/* Top Header Card */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/90 border border-slate-800 p-6 rounded-3xl shadow-xl backdrop-blur-md">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
@@ -179,10 +191,10 @@ export default function TypingPractice() {
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-heading font-extrabold text-white">
-                ⌨️ Typing Speed Master
+                ⌨️ Loksewa, NOC & NEB Typing Master
               </h1>
               <p className="text-xs sm:text-sm text-slate-400">
-                100+ Loksewa Exam Texts, Nepali Unicode & Code Snippets
+                120+ Real Exam Questions & Sentences · English, Nepali & Programming Code
               </p>
             </div>
           </div>
@@ -202,7 +214,7 @@ export default function TypingPractice() {
 
             <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700/80 px-4 py-2 rounded-2xl text-xs">
               <Trophy size={16} className="text-amber-400" />
-              <span className="text-slate-400 font-medium">Best:</span>
+              <span className="text-slate-400 font-medium">Record:</span>
               <span className="font-bold text-amber-300">{bestWpm} WPM</span>
             </div>
           </div>
@@ -211,10 +223,10 @@ export default function TypingPractice() {
         {/* Mode Selector Tabs */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-800">
           {[
-            { id: "english", label: "🇬🇧 English (50+)", desc: "Sentences & Words" },
-            { id: "nepali", label: "🇳🇵 नेपाली (25+)", desc: "Unicode & Preeti" },
-            { id: "code", label: "💻 Code Typing", desc: "C / JS / SQL" },
-            { id: "exam", label: "📋 Exam 5-Min", desc: "Full Exam Paragraphs" },
+            { id: "english", label: "🇬🇧 English Typing (50+)", desc: "PSC, NOC, NEB, TU Sets" },
+            { id: "nepali", label: "🇳🇵 नेपाली टाइपिङ (50+)", desc: "युनिकोड, ऐन, टिप्पणी" },
+            { id: "code", label: "💻 Programming Code (20+)", desc: "C, SQL, HTML, JS, Python" },
+            { id: "exam", label: "📋 Full 5-Min Exam (10+)", desc: "Loksewa Standard Simulation" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -233,116 +245,154 @@ export default function TypingPractice() {
           ))}
         </div>
 
-        {/* Filter Controls & Test Selector */}
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 p-4 rounded-2xl text-xs">
-          {/* Test dropdown list */}
-          <div className="flex items-center gap-2 flex-1 min-w-[200px]">
-            <ListFilter size={15} className="text-blue-400 flex-shrink-0" />
+        {/* Agency Badges & Filter Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 p-4 rounded-2xl text-xs">
+          
+          {/* Agency selection pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
+            <span className="text-slate-500 flex items-center gap-1 mr-1 font-semibold flex-shrink-0">
+              <Building2 size={13} /> Source:
+            </span>
+            {(["all", "Loksewa PSC", "NOC", "NEB", "TU", "Banking", "Code"] as const).map((a) => (
+              <button
+                key={a}
+                onClick={() => setAgency(a)}
+                className={`px-3 py-1 rounded-xl text-xs font-bold whitespace-nowrap transition ${
+                  agency === a
+                    ? "bg-indigo-600 text-white shadow-sm"
+                    : "bg-slate-800 text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {a === "all" ? "All Exams" : a}
+              </button>
+            ))}
+          </div>
+
+          {/* Difficulty & Timer Filters */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
+              {(["all", "easy", "medium", "hard"] as const).map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setDifficulty(d)}
+                  className={`px-2.5 py-1 rounded-lg text-xs capitalize transition ${
+                    difficulty === d ? "bg-blue-600 text-white font-bold" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
+              <Timer size={14} className="text-slate-400 ml-1.5 mr-0.5" />
+              {[
+                { val: null, label: "Free" },
+                { val: 60, label: "1m" },
+                { val: 180, label: "3m" },
+                { val: 300, label: "5m (PSC)" },
+              ].map((t) => (
+                <button
+                  key={String(t.val)}
+                  onClick={() => {
+                    setTimeLimit(t.val);
+                    resetTest(selectedItem);
+                  }}
+                  className={`px-2 py-1 rounded-lg text-xs font-medium transition ${
+                    timeLimit === t.val ? "bg-emerald-600 text-white font-bold" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Test Selector Dropdown + Search */}
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="relative flex-1 w-full">
+            <ListFilter size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-400 pointer-events-none" />
             <select
               value={selectedItem.id}
               onChange={(e) => {
                 const found = dataset.find((item) => item.id === Number(e.target.value));
                 if (found) resetTest(found);
               }}
-              className="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-900 border border-slate-800 text-slate-200 rounded-2xl pl-10 pr-4 py-2.5 text-xs font-medium focus:outline-none focus:border-blue-500 shadow-sm"
             >
               {dataset.map((item, idx) => (
                 <option key={item.id} value={item.id}>
-                  Test #{idx + 1}: {item.title} ({item.difficulty})
+                  Test #{idx + 1}: [{item.source || "Exam"}] {item.title} ({item.difficulty})
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Difficulty Filter */}
-          <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
-            {(["all", "easy", "medium", "hard"] as const).map((d) => (
-              <button
-                key={d}
-                onClick={() => setDifficulty(d)}
-                className={`px-3 py-1 rounded-lg text-xs capitalize transition ${
-                  difficulty === d
-                    ? "bg-blue-600 text-white font-bold"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                {d}
-              </button>
-            ))}
-          </div>
-
-          {/* Timer Mode Filter */}
-          <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
-            <Timer size={14} className="text-slate-400 ml-2 mr-1" />
-            {[
-              { val: null, label: "Free" },
-              { val: 60, label: "1m" },
-              { val: 180, label: "3m" },
-              { val: 300, label: "5m" },
-            ].map((t) => (
-              <button
-                key={String(t.val)}
-                onClick={() => {
-                  setTimeLimit(t.val);
-                  resetTest(selectedItem);
-                }}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition ${
-                  timeLimit === t.val
-                    ? "bg-indigo-600 text-white font-bold"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+          <div className="relative w-full sm:w-64">
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search 120+ passages..."
+              className="w-full pl-9 pr-3 py-2.5 rounded-2xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            />
           </div>
         </div>
 
         {/* Live Scoreboard HUD */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center shadow-sm">
             <p className="text-3xl font-extrabold text-blue-400">{wpm}</p>
-            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">WPM (Words)</p>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">WPM (Speed)</p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center shadow-sm">
             <p className="text-3xl font-extrabold text-indigo-400">{cpm}</p>
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">CPM (Chars)</p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center shadow-sm">
             <p className={`text-3xl font-extrabold ${accuracy >= 95 ? "text-emerald-400" : accuracy >= 80 ? "text-amber-400" : "text-rose-400"}`}>
               {accuracy}%
             </p>
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Accuracy</p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center shadow-sm">
             <p className={`text-3xl font-extrabold ${errorCount === 0 ? "text-slate-300" : "text-rose-400"}`}>
               {errorCount}
             </p>
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Errors</p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center col-span-2 sm:col-span-1">
+          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center col-span-2 sm:col-span-1 shadow-sm">
             <p className="text-3xl font-extrabold text-amber-400">
               {timeLimit ? `${Math.max(0, timeLimit - timeElapsed)}s` : `${timeElapsed}s`}
             </p>
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">
-              {timeLimit ? "Remaining" : "Time Taken"}
+              {timeLimit ? "Time Left" : "Elapsed"}
             </p>
           </div>
         </div>
 
-        {/* Text Display Canvas with Highlighting */}
+        {/* Text Highlighting Box */}
         <div className="relative bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden backdrop-blur-md">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-4 pb-3 border-b border-slate-800">
-            <span className="font-bold text-white flex items-center gap-1.5">
-              <Sparkles size={14} className="text-blue-400" />
-              {selectedItem.title}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <Sparkles size={14} className="text-blue-400" />
+                {selectedItem.title}
+              </span>
+              {selectedItem.source && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  {selectedItem.source}
+                </span>
+              )}
+            </div>
             <span className="text-[11px] bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-700 capitalize">
-              Difficulty: {selectedItem.difficulty}
+              {selectedItem.difficulty} level
             </span>
           </div>
 
@@ -371,14 +421,14 @@ export default function TypingPractice() {
           </div>
         </div>
 
-        {/* Typing Input Box */}
+        {/* Typing Input Canvas */}
         <div className="relative">
           <textarea
             ref={inputRef}
             value={input}
             onChange={(e) => handleInput(e.target.value)}
             disabled={finished}
-            placeholder={started ? "" : "Click here and start typing to begin test..."}
+            placeholder={started ? "" : "Click here and start typing to begin timer..."}
             className={`w-full bg-slate-900 border-2 border-slate-700/80 rounded-2xl p-5 text-lg sm:text-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 resize-none h-32 transition duration-200 shadow-inner ${
               mode === "code" ? "font-mono" : "font-sans"
             }`}
@@ -402,7 +452,7 @@ export default function TypingPractice() {
           </div>
         </div>
 
-        {/* Completion Modal / Result Card */}
+        {/* Completion Modal */}
         {finished && (
           <div className="bg-gradient-to-br from-slate-900 via-blue-950/40 to-slate-900 border-2 border-emerald-500/50 rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-6 animate-fade-in">
             <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
@@ -411,10 +461,10 @@ export default function TypingPractice() {
 
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white">🎉 Test Completed!</h2>
-              <p className="text-sm text-slate-400 mt-1">Here is your performance summary:</p>
+              <p className="text-sm text-slate-400 mt-1">Exam Performance Evaluation:</p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-3xl mx-auto">
               <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700">
                 <p className="text-2xl font-extrabold text-blue-400">{wpm}</p>
                 <p className="text-xs text-slate-400">Net WPM</p>
@@ -429,7 +479,11 @@ export default function TypingPractice() {
               </div>
               <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700">
                 <p className="text-2xl font-extrabold text-amber-400">{timeElapsed}s</p>
-                <p className="text-xs text-slate-400">Time Taken</p>
+                <p className="text-xs text-slate-400">Duration</p>
+              </div>
+              <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 col-span-2 sm:col-span-1">
+                <p className="text-2xl font-extrabold text-purple-400">{loksewaScore} / 25</p>
+                <p className="text-xs text-slate-400">PSC Est. Marks</p>
               </div>
             </div>
 
@@ -444,7 +498,7 @@ export default function TypingPractice() {
                 onClick={() => resetTest()}
                 className="px-8 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition"
               >
-                Next Random Test 🚀
+                Next Test 🚀
               </button>
             </div>
           </div>
