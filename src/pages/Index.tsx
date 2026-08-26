@@ -312,7 +312,7 @@ const Index = () => {
                 </button>
               </Link>
               <a
-                href="mailto:amrita.gupta@amritagupta.com.np"
+                href="mailto:sahilsarda45669@gmail.com"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-5 py-3.5 rounded-2xl text-sm transition"
               >
                 📬 Contact Developer
