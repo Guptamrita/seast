@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=Mukta:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Mukta:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -142,10 +142,15 @@
   .quiz-option-correct  { @apply border-green-500 bg-green-50 shadow-md; }
   .quiz-option-wrong    { @apply border-red-500 bg-red-50 shadow-md; }
 
-  /* Typing practice */
-  .typing-char-correct { @apply text-green-600 font-medium; }
-  .typing-char-wrong   { @apply text-red-500 bg-red-100 rounded; }
-  .typing-char-current { @apply border-b-2 border-primary; }
+  /* Typing practice keyboard & keycaps */
+  .keycap {
+    @apply inline-flex items-center justify-center rounded-lg font-mono text-xs font-semibold select-none transition-all duration-100;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .keycap-active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+  }
 
   /* Stat pills */
   .stat-pill {
@@ -167,6 +172,7 @@
   .text-balance { text-wrap: balance; }
   .font-heading { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   .font-body    { font-family: 'Inter', 'Mukta', sans-serif; }
+  .font-code    { font-family: 'JetBrains Mono', monospace; }
 }
 
 @keyframes fadeIn {
