@@ -18,6 +18,9 @@ import { exam12Questions } from "./exam12";
 import { exam13Questions } from "./exam13";
 import { exam14Questions } from "./exam14";
 import { exam15Questions } from "./exam15";
+import { exam16Questions } from "./exam16";
+import { exam17Questions } from "./exam17";
+import { exam18Questions } from "./exam18";
 
 // Import quiz files
 import { quiz1Questions } from "./quiz1";
@@ -42,6 +45,9 @@ export {
   exam13Questions,
   exam14Questions,
   exam15Questions,
+  exam16Questions,
+  exam17Questions,
+  exam18Questions,
   quiz1Questions,
   quiz2Questions,
   quiz3Questions,
@@ -65,6 +71,9 @@ export const onlineExamQuestions: Record<string, Question[]> = {
   "exam-13": exam13Questions,
   "exam-14": exam14Questions,
   "exam-15": exam15Questions,
+  "exam-16": exam16Questions,
+  "exam-17": exam17Questions,
+  "exam-18": exam18Questions,
   "quiz-1": quiz1Questions,
   "quiz-2": quiz2Questions,
   "quiz-3": quiz3Questions,

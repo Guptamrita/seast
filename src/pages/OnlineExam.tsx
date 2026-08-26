@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 
 const OnlineExam = () => {
-  // Create exam data for 15 exams (English names)
+  // Create exam data for 18 exams (English names + 2082 Updated Papers)
   const exams = [
+    { id: 16, number: "16", name: "16th Exam", titleNp: "CDSC Senior Computer Operator Exam 2082", questions: 50, time: 45, marks: 100, color: "from-amber-500 to-rose-500", bgColor: "bg-gradient-to-br from-amber-50 to-rose-50", badge: "NEW 2082" },
+    { id: 17, number: "17", name: "17th Exam", titleNp: "C Programming, Algorithms & Logic 2082", questions: 50, time: 45, marks: 100, color: "from-blue-600 to-indigo-600", bgColor: "bg-gradient-to-br from-blue-50 to-indigo-50", badge: "NEW 2082" },
+    { id: 18, number: "18", name: "18th Exam", titleNp: "NOC & TU Technical Assistant IT Exam", questions: 50, time: 45, marks: 100, color: "from-emerald-500 to-teal-500", bgColor: "bg-gradient-to-br from-emerald-50 to-teal-50", badge: "NEW 2082" },
     { id: 1, number: "1", name: "1st Exam", titleNp: "Operator Sample Exam 2082", questions: 50, time: 45, marks: 100, color: "from-blue-500 to-cyan-500", bgColor: "bg-gradient-to-br from-blue-50 to-cyan-50" },
     { id: 2, number: "2", name: "2nd Exam", titleNp: "Operator Sample Exam 2082", questions: 50, time: 45, marks: 100, color: "from-indigo-500 to-purple-500", bgColor: "bg-gradient-to-br from-indigo-50 to-purple-50" },
     { id: 3, number: "3", name: "3rd Exam", titleNp: "Operator Sample Exam 2082", questions: 30, time: 45, marks: 60, color: "from-purple-500 to-pink-500", bgColor: "bg-gradient-to-br from-purple-50 to-pink-50" },
@@ -39,57 +42,65 @@ const OnlineExam = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">📝 Online Exam</h1>
-          <p className="text-gray-500">Participate in weekly exams and check your preparation.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">📝 Online Mock Exams 2081/2082</h1>
+          <p className="text-gray-500">Real exam simulations with 20% negative marking and instant rank assessment.</p>
         </div>
 
-        {/* Operator Sample Exam Section - 15 Exams */}
+        {/* Operator Sample Exam Section */}
         <div className="mb-12">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-4 mb-6 shadow-lg">
-            <h2 className="text-xl md:text-2xl font-bold text-white text-center">📋 Operator Sample Exam 2082</h2>
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 mb-6 shadow-lg flex items-center justify-between">
+            <h2 className="text-xl md:text-2xl font-bold text-white">📋 Operator Full Mock Exams ({exams.length} Sets)</h2>
+            <span className="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full">50 Qs / 45 Mins</span>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {exams.map((exam) => (
               <div
                 key={exam.id}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 overflow-hidden cursor-pointer"
+                className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200/80 overflow-hidden flex flex-col justify-between"
               >
-                <div className="flex items-start gap-3 p-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${exam.color} flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-110 transition`}>
-                    {exam.number}
+                <div>
+                  <div className="flex items-start justify-between p-4 pb-2">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${exam.color} flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition`}>
+                        {exam.number}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-gray-800 text-base">{exam.name}</h3>
+                        <p className="text-gray-500 text-xs line-clamp-1">{exam.titleNp}</p>
+                      </div>
+                    </div>
+                    {exam.badge && (
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-rose-500 text-white uppercase animate-pulse">
+                        {exam.badge}
+                      </span>
+                    )}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-gray-800 text-lg">{exam.name}</h3>
-                    <p className="text-gray-400 text-xs">{exam.titleNp}</p>
+                  
+                  <div className="px-4 py-2">
+                    <div className="bg-slate-50 rounded-xl p-3 space-y-1.5 text-xs text-slate-600">
+                      <div className="flex justify-between">
+                        <span>📝 Questions:</span>
+                        <span className="font-bold text-slate-800">{exam.questions}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>⏱️ Time:</span>
+                        <span className="font-bold text-slate-800">{exam.time} minutes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>🏆 Total Marks:</span>
+                        <span className="font-bold text-slate-800">{exam.marks}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                
-                <div className="px-4 pb-4">
-                  <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">📝 Questions:</span>
-                      <span className="font-semibold text-gray-800">{exam.questions}</span>
-                    </div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">⏱️ Time:</span>
-                      <span className="font-semibold text-gray-800">{exam.time} minutes</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">🏆 Marks:</span>
-                      <span className="font-semibold text-gray-800">{exam.marks}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-amber-50 rounded-lg p-2 text-xs text-amber-700 text-center mb-4">
-                    ⚠️ Can take exam only once. Do not refresh page after Start.
-                  </div>
-                  
+
+                <div className="p-4 pt-2">
                   <Link
                     to={`/quiz/online-exam/exam-${exam.id}`}
-                    className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-2.5 rounded-lg font-semibold hover:opacity-90 transition-all duration-300"
+                    className="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-2.5 rounded-xl font-bold hover:shadow-md transition-all"
                   >
-                    🚀 Start
+                    🚀 Start Exam
                   </Link>
                 </div>
               </div>
@@ -98,52 +109,53 @@ const OnlineExam = () => {
         </div>
 
         {/* Public Management Quiz Section - 4 Quizzes */}
-        <div className="mt-16">
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-4 mb-6 shadow-lg">
-            <h2 className="text-xl md:text-2xl font-bold text-white text-center">📋 Public Management Quiz</h2>
+        <div className="mb-12">
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-4 mb-6 shadow-lg flex items-center justify-between">
+            <h2 className="text-xl md:text-2xl font-bold text-white">🎯 Public Management Quizzes</h2>
+            <span className="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full">25 Qs / 15 Mins</span>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {quizzes.map((quiz) => (
               <div
                 key={quiz.id}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 overflow-hidden cursor-pointer"
+                className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200/80 overflow-hidden flex flex-col justify-between"
               >
-                <div className="flex items-start gap-3 p-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${quiz.color} flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-110 transition`}>
-                    {quiz.number}
+                <div>
+                  <div className="flex items-center gap-3 p-4">
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${quiz.color} flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition`}>
+                      {quiz.number}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800 text-base">{quiz.name}</h3>
+                      <p className="text-gray-500 text-xs">{quiz.titleNp}</p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-gray-800 text-lg">{quiz.name}</h3>
-                    <p className="text-gray-400 text-xs">{quiz.titleNp}</p>
+
+                  <div className="px-4 py-2">
+                    <div className="bg-slate-50 rounded-xl p-3 space-y-1.5 text-xs text-slate-600">
+                      <div className="flex justify-between">
+                        <span>📝 Questions:</span>
+                        <span className="font-bold text-slate-800">{quiz.questions}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>⏱️ Time:</span>
+                        <span className="font-bold text-slate-800">{quiz.time} minutes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>🏆 Total Marks:</span>
+                        <span className="font-bold text-slate-800">{quiz.marks}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                
-                <div className="px-4 pb-4">
-                  <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">📝 Questions:</span>
-                      <span className="font-semibold text-gray-800">{quiz.questions}</span>
-                    </div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">⏱️ Time:</span>
-                      <span className="font-semibold text-gray-800">{quiz.time} minutes</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">🏆 Marks:</span>
-                      <span className="font-semibold text-gray-800">{quiz.marks}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-amber-50 rounded-lg p-2 text-xs text-amber-700 text-center mb-4">
-                    ⚠️ Topic-wise practice. Click Start to begin.
-                  </div>
-                  
+
+                <div className="p-4 pt-2">
                   <Link
                     to={`/quiz/online-exam/quiz-${quiz.id}`}
-                    className="block w-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-2.5 rounded-lg font-semibold hover:opacity-90 transition-all duration-300"
+                    className="block w-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-2.5 rounded-xl font-bold hover:shadow-md transition-all"
                   >
-                    ✨ Start
+                    🚀 Start Quiz
                   </Link>
                 </div>
               </div>
@@ -151,12 +163,6 @@ const OnlineExam = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-200 text-center">
-          <p className="text-sm text-gray-500">
-            💡 Think carefully before answering. All questions are mandatory. Best of luck!
-          </p>
-        </div>
       </div>
     </div>
   );
