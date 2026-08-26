@@ -24,16 +24,21 @@ const SetRanking = ({ setId, currentScore }: Props) => {
   useEffect(() => {
     if (!setId) { setLoading(false); return; }
     (async () => {
-      const { data } = await supabase.rpc("get_set_ranking", { _set_id: setId });
-      const list = ((data || []) as any[]).map((r) => ({
-        user_id: r.user_id,
-        full_name: r.full_name || "Anonymous",
-        best_score: Number(r.best_score),
-        best_pct: Number(r.best_pct) || 0,
-        attempts: Number(r.attempts),
-      }));
-      setRows(list);
-      setLoading(false);
+      try {
+        const { data } = await supabase.rpc("get_set_ranking", { _set_id: setId });
+        const list = ((data || []) as any[]).map((r) => ({
+          user_id: r.user_id,
+          full_name: r.full_name || "Anonymous",
+          best_score: Number(r.best_score),
+          best_pct: Number(r.best_pct) || 0,
+          attempts: Number(r.attempts),
+        }));
+        setRows(list);
+      } catch (e) {
+        console.warn("Set ranking fetch skipped", e);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, [setId]);
 

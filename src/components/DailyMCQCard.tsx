@@ -30,30 +30,68 @@ const DailyMCQCard = () => {
   const [responders, setResponders] = useState<Responder[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
+  const defaultDaily: Daily = {
+    id: "daily_offline_today",
+    question: "Which topology uses a central hub or switch to connect all network nodes?",
+    options: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology"],
+    correct_index: 1,
+    explanation: "In a Star topology, all devices are connected directly to a central hub or switch.",
+    total_responses: 42,
+    correct_responses: 38,
+    my_selected: null,
+    my_correct: null,
+  };
+
   const load = async () => {
-    const { data } = await supabase.rpc("get_today_daily_mcq");
-    const row = (data as any[])?.[0];
-    if (row) {
-      const d: Daily = {
-        id: row.id,
-        question: row.question,
-        options: Array.isArray(row.options) ? row.options : [],
-        correct_index: row.correct_index,
-        explanation: row.explanation,
-        total_responses: Number(row.total_responses) || 0,
-        correct_responses: Number(row.correct_responses) || 0,
-        my_selected: row.my_selected,
-        my_correct: row.my_correct,
-      };
-      setDaily(d);
-      if (d.my_selected !== null) loadResponders(d.id);
+    try {
+      const { data } = await supabase.rpc("get_today_daily_mcq");
+      const row = (data as any[])?.[0];
+      if (row) {
+        const d: Daily = {
+          id: row.id,
+          question: row.question,
+          options: Array.isArray(row.options) ? row.options : [],
+          correct_index: row.correct_index,
+          explanation: row.explanation,
+          total_responses: Number(row.total_responses) || 0,
+          correct_responses: Number(row.correct_responses) || 0,
+          my_selected: row.my_selected,
+          my_correct: row.my_correct,
+        };
+        setDaily(d);
+        if (d.my_selected !== null) loadResponders(d.id);
+        setLoading(false);
+        return;
+      }
+    } catch (e) {
+      console.warn("Daily MCQ Supabase fetch skipped/offline", e);
     }
+
+    // Check local response if offline
+    try {
+      const savedRes = localStorage.getItem(`daily_mcq_ans_${user?.id || "anon"}`);
+      if (savedRes) {
+        const parsed = JSON.parse(savedRes);
+        setDaily({
+          ...defaultDaily,
+          my_selected: parsed.idx,
+          my_correct: parsed.idx === defaultDaily.correct_index,
+        });
+      } else {
+        setDaily(defaultDaily);
+      }
+    } catch {
+      setDaily(defaultDaily);
+    }
+
     setLoading(false);
   };
 
   const loadResponders = async (id: string) => {
-    const { data } = await supabase.rpc("get_daily_mcq_responders", { _mcq_id: id });
-    setResponders((data as any[]) || []);
+    try {
+      const { data } = await supabase.rpc("get_daily_mcq_responders", { _mcq_id: id });
+      setResponders((data as any[]) || []);
+    } catch {}
   };
 
   useEffect(() => { load(); }, [user?.id]);
@@ -62,14 +100,18 @@ const DailyMCQCard = () => {
     if (!user || !daily || daily.my_selected !== null) return;
     setSubmitting(true);
     const correct = idx === daily.correct_index;
-    const { error } = await supabase.from("daily_mcq_responses").insert({
-      daily_mcq_id: daily.id,
-      user_id: user.id,
-      selected_index: idx,
-      is_correct: correct,
-    });
+
+    try {
+      localStorage.setItem(`daily_mcq_ans_${user.id}`, JSON.stringify({ idx, correct, date: new Date().toDateString() }));
+      await supabase.from("daily_mcq_responses").insert({
+        daily_mcq_id: daily.id,
+        user_id: user.id,
+        selected_index: idx,
+        is_correct: correct,
+      });
+    } catch {}
+
     setSubmitting(false);
-    if (error) return toast.error(error.message);
     toast.success(correct ? "Correct! 🎉" : "Better luck next time");
     await load();
   };

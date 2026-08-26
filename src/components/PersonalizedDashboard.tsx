@@ -36,23 +36,44 @@ const PersonalizedDashboard = () => {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const [{ data: a }, { data: p }, { data: lb }] = await Promise.all([
-        supabase
-          .from("exam_attempts")
-          .select("id,title,exam_type,category,score,total_questions,correct_count,wrong_count,skipped_count,created_at")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false }),
-        supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
-        supabase.rpc("get_leaderboard"),
-      ]);
-      setAttempts((a as Attempt[]) || []);
-      setFullName(p?.full_name || user.email?.split("@")[0] || "Friend");
-      setBoard(((lb || []) as any[]).map((r) => ({
-        user_id: r.user_id,
-        full_name: r.full_name || "Anonymous",
-        total_score: Number(r.total_score) || 0,
-        attempts: Number(r.attempts) || 0,
-      })));
+      let fetchedAttempts: Attempt[] = [];
+      let name = user.user_metadata?.full_name || user.email?.split("@")[0] || "Friend";
+      let fetchedBoard: LeaderRow[] = [];
+
+      try {
+        const [{ data: a }, { data: p }, { data: lb }] = await Promise.all([
+          supabase
+            .from("exam_attempts")
+            .select("id,title,exam_type,category,score,total_questions,correct_count,wrong_count,skipped_count,created_at")
+            .eq("user_id", user.id)
+            .order("created_at", { ascending: false }),
+          supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
+          supabase.rpc("get_leaderboard"),
+        ]);
+        if (a && a.length > 0) fetchedAttempts = a as Attempt[];
+        if (p?.full_name) name = p.full_name;
+        if (lb && Array.isArray(lb)) {
+          fetchedBoard = lb.map((r: any) => ({
+            user_id: r.user_id,
+            full_name: r.full_name || "Anonymous",
+            total_score: Number(r.total_score) || 0,
+            attempts: Number(r.attempts) || 0,
+          }));
+        }
+      } catch (e) {
+        console.warn("Supabase fetch failed in PersonalizedDashboard, loading local data:", e);
+      }
+
+      if (fetchedAttempts.length === 0) {
+        try {
+          const local = JSON.parse(localStorage.getItem("loksewa_local_attempts") || "[]");
+          fetchedAttempts = local.filter((item: any) => item.user_id === user.id);
+        } catch {}
+      }
+
+      setAttempts(fetchedAttempts);
+      setFullName(name);
+      setBoard(fetchedBoard);
       setLoading(false);
     })();
   }, [user]);

@@ -33,27 +33,50 @@ const AchievementsPanel = ({ scorePct, correct, total }: Props) => {
     if (!user || ran) return;
     setRan(true);
     (async () => {
-      // 1) update streak
-      const { data: streakData } = await supabase.rpc("update_streak");
-      const s = (streakData as any[])?.[0];
-      const currentStreak = s?.current_streak ?? 0;
-      const longestStreak = s?.longest_streak ?? 0;
+      let currentStreak = 1;
+      let longestStreak = 1;
+      let attemptsCount = 1;
+      let owned = new Set<string>();
+
+      try {
+        const storedBadges = JSON.parse(localStorage.getItem(`loksewa_badges_${user.id}`) || "[]");
+        owned = new Set(storedBadges);
+
+        const localAttempts = JSON.parse(localStorage.getItem("loksewa_local_attempts") || "[]");
+        attemptsCount = localAttempts.filter((a: any) => a.user_id === user.id).length || 1;
+      } catch {}
+
+      try {
+        // 1) update streak
+        const { data: streakData } = await supabase.rpc("update_streak");
+        const s = (streakData as any[])?.[0];
+        if (s) {
+          currentStreak = s.current_streak ?? 1;
+          longestStreak = s.longest_streak ?? 1;
+        }
+
+        // 2) count attempts
+        const { count } = await supabase
+          .from("exam_attempts").select("id", { count: "exact", head: true }).eq("user_id", user.id);
+        if (count !== null && count !== undefined) attemptsCount = count;
+
+        // 3) existing badges
+        const { data: ownedRows } = await supabase
+          .from("user_badges").select("badge_code").eq("user_id", user.id);
+        if (ownedRows) {
+          ownedRows.forEach((r: any) => owned.add(r.badge_code));
+        }
+      } catch (e) {
+        console.warn("Supabase achievements check skipped/fallback to local", e);
+      }
+
       setStreak({ current: currentStreak, longest: longestStreak });
-
-      // 2) count attempts
-      const { count: attemptsCount } = await supabase
-        .from("exam_attempts").select("id", { count: "exact", head: true }).eq("user_id", user.id);
-
-      // 3) existing badges
-      const { data: ownedRows } = await supabase
-        .from("user_badges").select("badge_code").eq("user_id", user.id);
-      const owned = new Set((ownedRows || []).map((r: any) => r.badge_code));
       setOwnedCodes(owned);
 
       // 4) compute newly earned badges
       const earn: string[] = [];
       const add = (c: string) => { if (!owned.has(c)) earn.push(c); };
-      if ((attemptsCount || 0) >= 1) add("first_exam");
+      if (attemptsCount >= 1) add("first_exam");
       if (scorePct >= 60) add("score_60");
       if (scorePct >= 80) add("score_80");
       if (scorePct >= 90) add("score_90");
@@ -61,15 +84,22 @@ const AchievementsPanel = ({ scorePct, correct, total }: Props) => {
       if (currentStreak >= 3) add("streak_3");
       if (currentStreak >= 7) add("streak_7");
       if (currentStreak >= 30) add("streak_30");
-      if ((attemptsCount || 0) >= 10) add("exams_10");
-      if ((attemptsCount || 0) >= 50) add("exams_50");
+      if (attemptsCount >= 10) add("exams_10");
+      if (attemptsCount >= 50) add("exams_50");
 
       if (earn.length) {
-        await supabase.from("user_badges").insert(earn.map(c => ({ user_id: user.id, badge_code: c })));
-        setNewBadges(earn);
         const updated = new Set(owned);
         earn.forEach(c => updated.add(c));
+        setNewBadges(earn);
         setOwnedCodes(updated);
+
+        try {
+          localStorage.setItem(`loksewa_badges_${user.id}`, JSON.stringify(Array.from(updated)));
+        } catch {}
+
+        try {
+          await supabase.from("user_badges").insert(earn.map(c => ({ user_id: user.id, badge_code: c })));
+        } catch {}
       }
     })();
   }, [user, ran, scorePct]);

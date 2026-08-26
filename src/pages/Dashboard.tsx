@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { Trophy, Target, BookOpen, TrendingUp, Clock } from "lucide-react";
+import { Trophy, Target, BookOpen, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Attempt {
@@ -27,16 +27,38 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const [{ data: a }, { data: p }] = await Promise.all([
-        supabase
-          .from("exam_attempts")
-          .select("*")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false }),
-        supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
-      ]);
-      setAttempts((a as Attempt[]) || []);
-      setFullName(p?.full_name || user.email || "");
+      let fetchedAttempts: Attempt[] = [];
+      let name = user.user_metadata?.full_name || user.email?.split("@")[0] || "Friend";
+
+      try {
+        const [{ data: a }, { data: p }] = await Promise.all([
+          supabase
+            .from("exam_attempts")
+            .select("*")
+            .eq("user_id", user.id)
+            .order("created_at", { ascending: false }),
+          supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
+        ]);
+        if (a && a.length > 0) {
+          fetchedAttempts = a as Attempt[];
+        }
+        if (p?.full_name) {
+          name = p.full_name;
+        }
+      } catch (e) {
+        console.warn("Supabase fetch failed in Dashboard, reading local data:", e);
+      }
+
+      // If remote returned nothing or failed, load from local storage
+      if (fetchedAttempts.length === 0) {
+        try {
+          const local = JSON.parse(localStorage.getItem("loksewa_local_attempts") || "[]");
+          fetchedAttempts = local.filter((item: any) => item.user_id === user.id);
+        } catch {}
+      }
+
+      setAttempts(fetchedAttempts);
+      setFullName(name);
       setLoading(false);
     })();
   }, [user]);
@@ -82,7 +104,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-card rounded-2xl shadow-sm p-5">
+        <div className="bg-card rounded-2xl shadow-sm p-5 border border-border">
           <h2 className="font-heading font-bold text-lg mb-4">📊 By Category</h2>
           {Object.keys(byCategory).length === 0 ? (
             <p className="text-muted-foreground text-sm">No attempts yet.</p>
@@ -91,7 +113,7 @@ const Dashboard = () => {
               {Object.entries(byCategory).map(([k, v]) => (
                 <div key={k}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="font-medium">{k} ({v.count})</span>
+                    <span className="font-medium capitalize">{k.replace(/-/g, " ")} ({v.count})</span>
                     <span className="font-bold">{v.avg.toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
@@ -103,7 +125,7 @@ const Dashboard = () => {
           )}
         </div>
 
-        <div className="bg-card rounded-2xl shadow-sm p-5">
+        <div className="bg-card rounded-2xl shadow-sm p-5 border border-border">
           <h2 className="font-heading font-bold text-lg mb-4">📈 Recent Trend</h2>
           {attempts.length === 0 ? (
             <p className="text-muted-foreground text-sm">Take an exam to see your trend.</p>
@@ -115,7 +137,7 @@ const Dashboard = () => {
                   <div key={i} className="flex-1 flex flex-col justify-end" title={`${pct.toFixed(1)}%`}>
                     <div
                       className={`rounded-t ${pct >= 40 ? "bg-green-500" : "bg-red-500"}`}
-                      style={{ height: `${Math.max(4, pct)}%` }}
+                      style={{ height: `${Math.max(6, pct)}%` }}
                     />
                   </div>
                 );
@@ -125,7 +147,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-card rounded-2xl shadow-sm p-5">
+      <div className="bg-card rounded-2xl shadow-sm p-5 border border-border">
         <h2 className="font-heading font-bold text-lg mb-4">🕘 Recent Exam History</h2>
         {attempts.length === 0 ? (
           <div className="text-center py-8">
@@ -154,10 +176,10 @@ const Dashboard = () => {
                   return (
                     <tr key={a.id} className="border-b hover:bg-muted/40">
                       <td className="py-2 font-medium">{a.title || "Quiz"}</td>
-                      <td className="py-2 text-xs">{a.exam_type}</td>
+                      <td className="py-2 text-xs uppercase text-muted-foreground">{a.exam_type}</td>
                       <td className="py-2 text-center">{a.score} / {a.total_questions * 2}</td>
-                      <td className="py-2 text-center text-green-600">{a.correct_count}</td>
-                      <td className="py-2 text-center text-red-600">{a.wrong_count}</td>
+                      <td className="py-2 text-center text-green-600 font-semibold">{a.correct_count}</td>
+                      <td className="py-2 text-center text-red-600 font-semibold">{a.wrong_count}</td>
                       <td className={`py-2 text-center font-bold ${pct >= 40 ? "text-green-600" : "text-red-600"}`}>{pct.toFixed(1)}%</td>
                       <td className="py-2 text-xs text-muted-foreground">{new Date(a.created_at).toLocaleDateString()}</td>
                     </tr>
@@ -172,16 +194,25 @@ const Dashboard = () => {
   );
 };
 
-const StatCard = ({ icon: Icon, label, value, color }: any) => (
-  <div className={`bg-card rounded-2xl shadow-sm p-5 border-l-4 border-${color}-500`}>
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="text-2xl font-bold mt-1">{value}</p>
+const StatCard = ({ icon: Icon, label, value, color }: any) => {
+  const colorMap: Record<string, string> = {
+    blue: "text-blue-500 border-blue-500",
+    orange: "text-amber-500 border-amber-500",
+    green: "text-emerald-500 border-emerald-500",
+    purple: "text-purple-500 border-purple-500",
+  };
+
+  return (
+    <div className={`bg-card rounded-2xl shadow-sm p-5 border-l-4 ${colorMap[color] || "border-primary"} border border-border`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs text-muted-foreground">{label}</p>
+          <p className="text-2xl font-bold mt-1">{value}</p>
+        </div>
+        <Icon className={`${colorMap[color]?.split(" ")[0] || "text-primary"} opacity-80`} size={30} />
       </div>
-      <Icon className={`text-${color}-500 opacity-60`} size={32} />
     </div>
-  </div>
-);
+  );
+};
 
 export default Dashboard;

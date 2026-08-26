@@ -223,7 +223,8 @@ const QuizPage = () => {
     if (!showResult || savedAttempt || !user || questions.length === 0) return;
     setSavedAttempt(true);
     (async () => {
-      const { error } = await supabase.from("exam_attempts").insert({
+      const attemptRecord = {
+        id: "att_" + Math.random().toString(36).substring(2, 10),
         user_id: user.id,
         exam_type: category || "quiz",
         category: category || null,
@@ -235,8 +236,36 @@ const QuizPage = () => {
         wrong_count: results.wrong,
         skipped_count: results.unanswered,
         answers: answers as any,
-      });
-      if (error) console.error("Failed to save attempt:", error);
+        created_at: new Date().toISOString(),
+      };
+
+      // Always save locally so attempts are never lost
+      try {
+        const local = JSON.parse(localStorage.getItem("loksewa_local_attempts") || "[]");
+        local.unshift(attemptRecord);
+        localStorage.setItem("loksewa_local_attempts", JSON.stringify(local.slice(0, 100)));
+      } catch (e) {
+        console.warn("Failed saving attempt locally", e);
+      }
+
+      // Try Supabase insert if reachable
+      try {
+        await supabase.from("exam_attempts").insert({
+          user_id: user.id,
+          exam_type: category || "quiz",
+          category: category || null,
+          set_id: setId || null,
+          title: title,
+          score: Math.round(results.marks),
+          total_questions: questions.length,
+          correct_count: results.correct,
+          wrong_count: results.wrong,
+          skipped_count: results.unanswered,
+          answers: answers as any,
+        });
+      } catch (e) {
+        console.warn("Could not sync attempt to Supabase cloud:", e);
+      }
     })();
   }, [showResult, savedAttempt, user, questions.length, category, setId, title, results, answers]);
 
