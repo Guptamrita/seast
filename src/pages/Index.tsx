@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useNepalTime, useCountdown } from "@/hooks/useNepalTime";
 import { practiceSubjects, motivationalQuotes } from "@/data/questions";
 import { calculateBSAge, bsMonthNames, toNepaliDigits, type BSDate } from "@/lib/nepaliCalendar";
@@ -31,24 +31,62 @@ import {
   User,
   GraduationCap,
   Briefcase,
+  Flame,
+  Star,
+  Activity,
+  Compass,
+  ArrowUpRight,
 } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
+import logoImg from "@/assets/logo.png";
 import { toast } from "sonner";
 
 // Ashad 7, 2082 BS ≈ June 22, 2026 AD
 const EXAM_DATE = new Date("2026-06-22T10:00:00+05:45");
 
-const quickAccess = [
-  { label: "MCQ Practice", icon: "❓", path: "/practice", color: "from-red-500 to-rose-600", desc: "15,000+ Subject Questions" },
-  { label: "Old Question Sets", icon: "🏆", path: "/old-is-gold", color: "from-green-500 to-emerald-600", desc: "74+ Real Exam Sets" },
-  { label: "Online Exam", icon: "📝", path: "/online-exam", color: "from-teal-500 to-cyan-600", desc: "18+ Full Mock Exams" },
-  { label: "Subjective Q&A", icon: "📖", path: "/subjective", color: "from-blue-500 to-indigo-600", desc: "Theory & Writing Sets" },
-  { label: "Official Syllabus", icon: "📋", path: "/syllabus", color: "from-purple-500 to-fuchsia-600", desc: "Federal & Provincial" },
-  { label: "Typing Master", icon: "⌨️", path: "/typing", color: "from-amber-500 to-orange-600", desc: "120+ Exam Tests" },
-  { label: "Study Notes", icon: "📒", path: "/notes", color: "from-slate-600 to-slate-800", desc: "Capsules & Formulas" },
-  { label: "Downloads & PDF", icon: "📰", path: "/downloads", color: "from-pink-500 to-rose-600", desc: "Free Syllabus & Papers" },
+const bentoFeatures = [
+  {
+    title: "15,000+ Subject MCQs",
+    subtitle: "Computer Fundamentals, Word, Excel, DBMS, OS, Networking & IT Acts",
+    icon: <BookOpen className="w-6 h-6 text-blue-400" />,
+    path: "/practice",
+    badge: "Most Popular",
+    gradient: "from-blue-600/20 via-indigo-600/10 to-transparent",
+    border: "border-blue-500/30 hover:border-blue-400",
+    stats: "15,000+ Qs",
+  },
+  {
+    title: "74+ Real Old Exam Sets",
+    subtitle: "Authentic past papers from 2064 to 2082 with detailed answer keys",
+    icon: <Trophy className="w-6 h-6 text-amber-400" />,
+    path: "/old-is-gold",
+    badge: "Official Papers",
+    gradient: "from-amber-600/20 via-orange-600/10 to-transparent",
+    border: "border-amber-500/30 hover:border-amber-400",
+    stats: "74 Sets",
+  },
+  {
+    title: "18+ Online Mock Exams",
+    subtitle: "Real-time 50 questions timed test with negative marking (-20%) & score card",
+    icon: <FileText className="w-6 h-6 text-emerald-400" />,
+    path: "/online-exam",
+    badge: "Live Simulator",
+    gradient: "from-emerald-600/20 via-teal-600/10 to-transparent",
+    border: "border-emerald-500/30 hover:border-emerald-400",
+    stats: "50 Qs / 45 Min",
+  },
+  {
+    title: "120+ Speed Typing Master",
+    subtitle: "Nepali Unicode & English Speed Typing with WPM/CPM meter and PSC score calculator",
+    icon: <Keyboard className="w-6 h-6 text-purple-400" />,
+    path: "/typing",
+    badge: "Dual Language",
+    gradient: "from-purple-600/20 via-pink-600/10 to-transparent",
+    border: "border-purple-500/30 hover:border-purple-400",
+    stats: "120+ Tests",
+  },
 ];
 
 const PROVINCIAL_EXAMS = [
@@ -116,26 +154,15 @@ const heroStats = [
   { value: "120+", label: "Typing Tests", icon: "⌨️" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300 } }
-};
-
 const Index = () => {
-  const { timeStr, dateStr, bsDate } = useNepalTime();
+  const { timeStr, dateStr } = useNepalTime();
   const countdown = useCountdown(EXAM_DATE);
   const { user } = useAuth();
+  const navigate = useNavigate();
   const quote = useMemo(() => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)], []);
   const [activeCapsuleTab, setActiveCapsuleTab] = useState(0);
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -144,67 +171,96 @@ const Index = () => {
     setTimeout(() => setCopiedText(null), 2000);
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/practice?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <PageTransition>
-      {/* ── 1. Hero Banner ───────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white pb-16 pt-12 md:pt-16 md:pb-24">
-        {/* Ambient Lights */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-600/20 blur-[140px]" />
-          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-600/20 blur-[140px]" />
+      {/* ── 1. Hero Section: Aurora Glassmorphic ─────────────────── */}
+      <section className="relative overflow-hidden bg-slate-950 text-white pt-8 pb-20 md:pt-14 md:pb-28">
+        {/* Glowing Ambient Mesh Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[550px] bg-gradient-to-tr from-blue-600/20 via-indigo-600/25 to-cyan-500/15 blur-[150px] rounded-full animate-pulse" />
+          <div className="absolute top-1/2 -left-40 w-[500px] h-[500px] bg-blue-500/10 blur-[140px] rounded-full" />
+          <div className="absolute -bottom-32 -right-40 w-[600px] h-[600px] bg-purple-600/15 blur-[150px] rounded-full" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-14">
             
-            {/* Left Column: Title & Actions */}
+            {/* Left Content Column */}
             <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="flex-1 text-center lg:text-left space-y-6"
             >
               {/* Badges */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-                <div className="inline-flex items-center gap-2 bg-blue-500/15 border border-blue-400/30 rounded-full px-4 py-1.5 text-xs font-bold text-blue-300 backdrop-blur-md shadow-lg">
+                <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-400/30 rounded-full px-4 py-1.5 text-xs font-extrabold text-blue-300 backdrop-blur-xl shadow-lg shadow-blue-500/10">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                  Samrita Collection · 2081/2082
+                  Samrita Collection · 2081/2082 BS Edition
                 </div>
                 <Link
                   to="/portfolio"
-                  className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 rounded-full px-4 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/30 transition shadow-lg"
+                  className="inline-flex items-center gap-1.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/30 rounded-full px-4 py-1.5 text-xs font-bold text-amber-300 transition shadow-lg"
                 >
-                  <Code2 size={13} /> Developed by Amrita Gupta
+                  <Code2 size={13} /> Developed by Amrita Gupta 🇳🇵
                 </Link>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black leading-tight tracking-tight drop-shadow-md">
-                <span className="text-white">🇳🇵 Loksewa & Corporate</span><br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300">
-                  IT Examination Suite
+              {/* Heading */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black leading-[1.15] tracking-tight">
+                <span className="text-white">Loksewa & Public Exam</span><br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-300 drop-shadow">
+                  Complete IT Master Suite
                 </span>
               </h1>
               
               <p className="text-slate-300 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
-                Complete preparation portal for Federal & Provincial PSC Computer Operator, NOC, NEB, TU & Banking IT examinations. 15,000+ MCQs, 18+ Real Mock Tests & Speed Typing.
+                Nepal's premier open learning ecosystem for Computer Operator, IT Officer, NOC, NEB, TU & Banking exams. 15,000+ MCQs, 74+ Old Question Papers & Real-Time Typing Speed Test.
               </p>
+
+              {/* Instant Search Bar */}
+              <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto lg:mx-0 relative">
+                <div className="relative flex items-center">
+                  <Search size={18} className="absolute left-4 text-slate-400 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search topics (e.g., Excel formulas, Networking, IT Act, Typing)..."
+                    className="w-full pl-11 pr-32 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 focus:bg-slate-900 border border-white/20 focus:border-blue-400 text-white placeholder-slate-400 text-sm focus:outline-none transition backdrop-blur-xl shadow-xl"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-md"
+                  >
+                    Search Qs
+                  </button>
+                </div>
+              </form>
               
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
+              <div className="flex flex-wrap gap-3.5 justify-center lg:justify-start pt-2">
                 <Link to="/practice">
                   <motion.button 
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-blue-600/30 text-sm hover:opacity-95 transition"
+                    className="inline-flex items-center gap-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white font-black px-7 py-3.5 rounded-2xl shadow-xl shadow-blue-600/30 text-sm hover:opacity-95 transition"
                   >
-                    Start MCQ Practice <ArrowRight size={18} />
+                    <Zap size={16} className="text-amber-300 fill-amber-300" /> Start MCQ Practice <ArrowRight size={16} />
                   </motion.button>
                 </Link>
                 <Link to="/online-exam">
                   <motion.button 
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-7 py-4 rounded-2xl backdrop-blur-md transition-all text-sm"
+                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-6 py-3.5 rounded-2xl backdrop-blur-xl transition text-sm"
                   >
                     📝 Take Mock Exam
                   </motion.button>
@@ -213,59 +269,83 @@ const Index = () => {
                   <motion.button 
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 font-bold px-6 py-4 rounded-2xl backdrop-blur-md transition-all text-sm"
+                    className="inline-flex items-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-300 font-bold px-5 py-3.5 rounded-2xl backdrop-blur-xl transition text-sm"
                   >
-                    ⌨️ Typing Test
+                    ⌨️ Typing Speed
                   </motion.button>
                 </Link>
               </div>
             </motion.div>
 
-            {/* Right Column: Clock & Quick Stats */}
+            {/* Right Interactive Telemetry & Clock Column */}
             <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col gap-4 w-full lg:w-96"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="flex flex-col gap-4 w-full lg:w-[380px]"
             >
-              {/* Clock Widget */}
-              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-6 text-center shadow-2xl relative overflow-hidden">
-                <div className="flex items-center justify-center gap-2 text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">
-                  <Clock size={14} className="text-cyan-400" /> Nepal Standard Time
+              {/* Nepal Standard Time Glass Card */}
+              <div className="rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-white/15 p-6 text-center shadow-2xl backdrop-blur-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+                
+                <div className="flex items-center justify-center gap-2 text-slate-400 text-xs font-extrabold mb-1.5 uppercase tracking-widest">
+                  <Clock size={13} className="text-cyan-400" /> Nepal Standard Time (NST)
                 </div>
-                <div className="text-4xl sm:text-5xl font-heading font-black tracking-wider text-white drop-shadow-md">
+                <div className="text-5xl font-heading font-black tracking-wider text-white drop-shadow-md py-1">
                   {timeStr}
                 </div>
-                <div className="text-cyan-300 text-xs mt-2 font-bold tracking-wide">{dateStr}</div>
+                <div className="text-cyan-300 text-xs font-bold tracking-wide mt-1">{dateStr}</div>
+              </div>
+
+              {/* Exam Countdown Card */}
+              <div className="rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-white/15 p-5 shadow-2xl backdrop-blur-2xl">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-white">
+                    <Trophy size={14} className="text-amber-400" /> Target Exam: Ashad 7, 2082
+                  </div>
+                  <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" /> LIVE
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-4 gap-2 text-center">
+                  {[
+                    { val: countdown.days, label: "DAYS" },
+                    { val: countdown.hours, label: "HRS" },
+                    { val: countdown.minutes, label: "MIN" },
+                    { val: countdown.seconds, label: "SEC" },
+                  ].map((t) => (
+                    <div key={t.label} className="bg-white/5 border border-white/10 rounded-2xl py-2.5">
+                      <div className="text-2xl font-heading font-black text-white">
+                        {t.val.toString().padStart(2, "0")}
+                      </div>
+                      <div className="text-cyan-300 text-[9px] font-extrabold tracking-widest">{t.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
               
-              {/* Mini Stats Grid */}
-              <motion.div 
-                variants={containerVariants}
-                initial="hidden"
-                animate="show"
-                className="grid grid-cols-4 gap-2.5"
-              >
+              {/* Quick Stat Chips */}
+              <div className="grid grid-cols-4 gap-2">
                 {heroStats.map((s) => (
-                  <motion.div
+                  <div
                     key={s.label}
-                    variants={itemVariants}
-                    className="bg-white/10 border border-white/10 backdrop-blur-md rounded-2xl p-3 text-center hover:bg-white/15 transition-all cursor-default"
+                    className="bg-white/5 border border-white/10 rounded-2xl p-2.5 text-center hover:bg-white/10 transition"
                   >
-                    <div className="text-xl mb-1">{s.icon}</div>
-                    <div className="text-white font-extrabold text-sm leading-none">{s.value}</div>
-                    <div className="text-slate-300 text-[10px] mt-1 font-bold uppercase tracking-wider">{s.label}</div>
-                  </motion.div>
+                    <div className="text-lg">{s.icon}</div>
+                    <div className="text-white font-extrabold text-xs leading-none mt-1">{s.value}</div>
+                    <div className="text-slate-400 text-[9px] mt-1 font-bold uppercase">{s.label}</div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
 
           </div>
         </div>
       </section>
 
-      {/* ── 2. Main Body Content ─────────────────────────────────── */}
-      <div className="container mx-auto px-4 py-12 space-y-14 max-w-7xl">
+      {/* ── 2. Bento Feature Grid Section ────────────────────────── */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-14 max-w-7xl">
 
         {/* Personalized dashboard (signed in only) */}
         {user && <PersonalizedDashboard />}
@@ -276,94 +356,117 @@ const Index = () => {
         {/* Question of the Day */}
         <QuestionOfTheDay />
 
-        {/* ── 3. Developer Spotlight (Amrita Gupta) ─────────────── */}
-        <section className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 lg:p-10 text-white shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
-              <div className="relative">
-                <img
-                  src={amritaPhoto}
-                  alt="Amrita Gupta"
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-xl ring-4 ring-blue-500/30"
-                />
-                <span className="absolute -bottom-2 -right-2 p-1.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-md">
-                  ✓ Dev
-                </span>
-              </div>
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold">
-                  <Sparkles size={12} className="text-amber-400" /> Platform Creator & Lead Developer
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-heading font-black text-white">
-                  Amrita Gupta
-                </h2>
-                <p className="text-sm text-slate-300 max-w-lg leading-relaxed">
-                  IT Support Executive & Frontend Web Designer. Designed and developed <strong>Samrita Collection</strong> to provide free, high-yield examination resources for thousands of IT candidates across Nepal.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-              <Link to="/portfolio" className="w-full sm:w-auto">
-                <button className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 text-sm hover:opacity-90 transition">
-                  <User size={16} /> View Full Portfolio
-                </button>
-              </Link>
-              <a
-                href="mailto:sahilsarda45669@gmail.com"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-5 py-3.5 rounded-2xl text-sm transition"
-              >
-                📬 Contact Developer
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 4. Quick Access Hub ────────────────────────────────── */}
+        {/* ── 3. High-Impact Bento Box Portals ───────────────────── */}
         <section>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
-                <Zap size={22} />
+                <Sparkles size={22} />
               </div>
               <div>
-                <h2 className="text-2xl font-heading font-black text-slate-900 dark:text-white">
-                  Preparation Modules
+                <h2 className="text-2xl sm:text-3xl font-heading font-black text-slate-900 dark:text-white tracking-tight">
+                  Core Examination Portals
                 </h2>
-                <p className="text-xs text-slate-500">Access all learning tools and mock exams instantly</p>
+                <p className="text-xs text-slate-500 mt-0.5">Pick a study module to start practicing right away</p>
               </div>
             </div>
           </div>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-            {quickAccess.map((item) => (
-              <Link key={item.path} to={item.path} className="group">
-                <div className={`h-full bg-gradient-to-br ${item.color} rounded-3xl p-5 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20 text-white`}>
-                  <div className="flex items-start justify-between">
-                    <span className="text-3xl p-2 rounded-2xl bg-white/20 backdrop-blur-sm shadow-sm">{item.icon}</span>
-                    <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {bentoFeatures.map((item, i) => (
+              <Link key={i} to={item.path} className="group">
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className={`h-full rounded-3xl p-6 bg-gradient-to-b ${item.gradient} bg-card border ${item.border} shadow-sm hover:shadow-xl transition-all flex flex-col justify-between relative overflow-hidden`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-3 rounded-2xl bg-white/10 dark:bg-white/5 border border-white/10 shadow-md">
+                        {item.icon}
+                      </div>
+                      <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed font-medium">
+                      {item.subtitle}
+                    </p>
                   </div>
-                  <div className="mt-4">
-                    <h3 className="text-base font-extrabold tracking-tight">{item.label}</h3>
-                    <p className="text-white/80 text-xs mt-1 font-medium">{item.desc}</p>
+
+                  <div className="mt-6 pt-4 border-t border-border/80 flex items-center justify-between text-xs font-extrabold text-blue-600 dark:text-blue-400">
+                    <span>{item.stats}</span>
+                    <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Open Module <ArrowRight size={13} />
+                    </span>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* ── 5. Quick Revision Capsule & Formula Lookup ──────────── */}
+        {/* ── 4. Developer Spotlight (Amrita Gupta) ─────────────── */}
+        <section className="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 border border-white/15 p-6 sm:p-8 lg:p-10 text-white shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+              <div className="relative flex-shrink-0">
+                <img
+                  src={amritaPhoto}
+                  alt="Amrita Gupta"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-2xl ring-4 ring-blue-500/40"
+                />
+                <span className="absolute -bottom-2 -right-2 p-1.5 rounded-full bg-emerald-500 text-white text-[10px] font-black shadow-lg">
+                  ✓ Dev
+                </span>
+              </div>
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30">
+                  <Sparkles size={12} className="text-amber-400" /> Platform Creator & Lead Developer
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-heading font-black text-white tracking-tight">
+                  Amrita Gupta
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+                  IT Support Executive & Frontend Web Designer. Created <strong>Samrita Collection</strong> to empower Loksewa, Provincial PSC, NOC & Banking IT aspirants with 100% free, premium test prep resources.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto flex-shrink-0">
+              <Link to="/portfolio" className="w-full sm:w-auto">
+                <motion.button 
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold px-6 py-3.5 rounded-2xl shadow-xl shadow-blue-600/30 text-xs hover:opacity-95 transition"
+                >
+                  <User size={15} /> View Full Portfolio
+                </motion.button>
+              </Link>
+              <a
+                href="mailto:sahilsarda45669@gmail.com"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-5 py-3.5 rounded-2xl text-xs transition backdrop-blur-md"
+              >
+                📬 sahilsarda45669@gmail.com
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. Quick Revision Capsule & Cheat Sheets ──────────── */}
         <section className="bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
               <Layers size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-heading font-black text-slate-900 dark:text-white">
-                ⚡ Quick Revision Capsule & Cheat Sheets
+              <h2 className="text-2xl font-heading font-black text-slate-900 dark:text-white tracking-tight">
+                ⚡ Quick Revision Capsule & Formula Lookup
               </h2>
               <p className="text-xs text-slate-500">Essential Excel formulas, shortcuts, network ports, and Nepal IT acts</p>
             </div>
@@ -422,7 +525,7 @@ const Index = () => {
               <Building2 size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-heading font-black text-slate-900 dark:text-white">
+              <h2 className="text-2xl font-heading font-black text-slate-900 dark:text-white tracking-tight">
                 🏛️ Provincial PSC & Corporate Exam Gateway
               </h2>
               <p className="text-xs text-slate-500">Dedicated mock tests and syllabus for all 7 provinces & public enterprises</p>
@@ -457,81 +560,36 @@ const Index = () => {
           </div>
         </section>
 
-        {/* ── 7. Countdown + Important Links ─────────────────────── */}
-        <div className="grid md:grid-cols-2 gap-8">
-
-          {/* Countdown */}
-          <section className="bg-card rounded-3xl shadow-sm border border-border overflow-hidden">
-            <div className="flex items-center justify-between p-6 pb-4 border-b border-border/60">
-              <div className="flex items-center gap-3 text-lg font-bold text-foreground">
-                <div className="p-2 bg-amber-500/10 text-amber-600 rounded-xl"><Trophy size={20} /></div>
-                Target Exam Countdown
-              </div>
-              <span className="flex items-center gap-1.5 bg-red-500/10 text-red-600 border border-red-500/20 text-xs px-3 py-1.5 rounded-full font-bold">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Live Tracker
-              </span>
-            </div>
-            
-            <div className="p-6 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-b-3xl">
-              <p className="text-slate-300 text-sm font-medium mb-6 flex items-center gap-2">
-                💻 Computer Operator (5th Level) — Written Examination
-              </p>
-              {countdown.expired ? (
-                <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-2xl p-6 text-center">
-                  <p className="text-2xl font-bold text-emerald-400">Exam Concluded! 🎉</p>
+        {/* ── 7. Important Government Links ────────────────────────── */}
+        <section className="bg-card rounded-3xl shadow-sm border border-border p-6 sm:p-8">
+          <div className="flex items-center gap-3 text-lg font-bold text-foreground mb-6">
+            <div className="p-2 bg-blue-500/10 text-blue-600 rounded-xl"><ExternalLink size={20} /></div>
+            Official Portals & Commissions
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            {importantLinks.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-muted/40 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/20 transition-all group"
+              >
+                <span className="text-2xl">{link.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-sm text-foreground group-hover:text-blue-600 transition-colors">{link.name}</p>
+                  <p className="text-xs text-muted-foreground font-medium truncate">{link.desc}</p>
                 </div>
-              ) : (
-                <div className="grid grid-cols-4 gap-3">
-                  {[
-                    { val: countdown.days, label: "DAYS" },
-                    { val: countdown.hours, label: "HRS" },
-                    { val: countdown.minutes, label: "MIN" },
-                    { val: countdown.seconds, label: "SEC" },
-                  ].map((t) => (
-                    <div key={t.label} className="bg-white/10 border border-white/10 rounded-2xl py-4 text-center backdrop-blur-sm">
-                      <div className="text-3xl md:text-4xl font-heading font-black text-white drop-shadow-md">
-                        {t.val.toString().padStart(2, "0")}
-                      </div>
-                      <div className="text-cyan-300 text-[11px] mt-1 font-bold tracking-widest">{t.label}</div>
-                    </div>
-                  ))}
+                <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center shadow-sm text-slate-400 group-hover:text-blue-600 transition">
+                  <ExternalLink size={14} />
                 </div>
-              )}
-              <p className="text-slate-400 text-xs mt-5 text-center font-medium">Ashad 7, 2082 — Target Date</p>
-            </div>
-          </section>
+              </a>
+            ))}
+          </div>
+        </section>
 
-          {/* Important Government Links */}
-          <section className="bg-card rounded-3xl shadow-sm border border-border p-6">
-            <div className="flex items-center gap-3 text-lg font-bold text-foreground mb-6">
-              <div className="p-2 bg-blue-500/10 text-blue-600 rounded-xl"><ExternalLink size={20} /></div>
-              Official Portals & Commissions
-            </div>
-            <div className="space-y-3">
-              {importantLinks.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-muted/40 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/20 transition-all group"
-                >
-                  <span className="text-2xl">{link.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm text-foreground group-hover:text-blue-600 transition-colors">{link.name}</p>
-                    <p className="text-xs text-muted-foreground font-medium truncate">{link.desc}</p>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center shadow-sm text-slate-400 group-hover:text-blue-600 transition">
-                    <ExternalLink size={14} />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* ── 8. Motivational Banner ─────────────────────────────── */}
-        <section className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white rounded-3xl p-10 text-center relative overflow-hidden shadow-xl">
+        {/* ── 8. Motivational Quote Banner ───────────────────────── */}
+        <section className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white rounded-3xl p-10 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
             backgroundSize: "32px 32px"
