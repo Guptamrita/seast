@@ -83,12 +83,12 @@ const Navbar = () => {
                 whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                 transition={{ duration: 0.5 }}
                 src={logoImg}
-                alt="Loksewa Pro Logo"
+                alt="Samrita Collection Logo"
                 className="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/20"
               />
               <div className="hidden sm:block leading-tight">
                 <span className="font-bold text-white text-base tracking-tight block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  लोकसेवा Pro
+                  Samrita Collection
                 </span>
                 <span className="text-blue-400 text-[10px] tracking-widest font-bold">NEPAL</span>
               </div>
@@ -236,12 +236,12 @@ const Navbar = () => {
                 <div className="flex items-center gap-3">
                   <img
                     src={logoImg}
-                    alt="Loksewa Pro Logo"
+                    alt="Samrita Collection Logo"
                     className="w-10 h-10 rounded-xl object-cover shadow-md"
                   />
                   <div>
                     <p className="font-bold text-white text-base" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                      लोकसेवा Pro
+                      Samrita Collection
                     </p>
                     <p className="text-blue-400 text-[10px] tracking-widest font-bold">NEPAL</p>
                   </div>

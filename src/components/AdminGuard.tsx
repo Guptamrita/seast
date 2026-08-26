@@ -30,7 +30,7 @@ const AdminLogin = ({ onLogin }: { onLogin: (password: string) => Promise<boolea
             <Shield size={32} className="text-blue-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Admin Access</h2>
-          <p className="text-gray-500 mt-1">लोकसेवा Pro — Admin Panel</p>
+          <p className="text-gray-500 mt-1">Samrita Collection — Admin Panel</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">

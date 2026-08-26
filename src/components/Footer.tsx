@@ -18,11 +18,11 @@ const Footer = () => (
           <div className="flex items-center gap-3">
             <img
               src={logoImg}
-              alt="Loksewa Pro Logo"
+              alt="Samrita Collection Logo"
               className="w-10 h-10 rounded-xl object-cover shadow-md"
             />
             <div>
-              <p className="font-heading font-bold text-foreground text-sm">लोकसेवा Pro</p>
+              <p className="font-heading font-bold text-foreground text-sm">Samrita Collection</p>
               <p className="text-xs text-muted-foreground">Computer Operator & IT Officer Prep</p>
             </div>
           </div>
@@ -50,7 +50,7 @@ const Footer = () => (
 
           {/* Copyright */}
           <p className="text-xs text-muted-foreground flex items-center gap-1">
-            © 2026 Loksewa Pro — Made with <Heart size={11} className="text-red-500 fill-red-500" /> for Nepal
+            © 2026 Samrita Collection — Made with <Heart size={11} className="text-red-500 fill-red-500" /> for Nepal
           </p>
         </div>
       </div>

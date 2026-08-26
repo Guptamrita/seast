@@ -303,7 +303,7 @@ const Admin = () => {
           <div>
             <h1 className="text-xl font-bold flex items-center gap-2">
               <Lock size={20} className="text-yellow-400" />
-              लोकसेवा Pro Admin
+              Samrita Collection Admin
               <span className="text-[10px] bg-yellow-500/30 px-2 py-0.5 rounded ml-1">v2.0</span>
             </h1>
           </div>

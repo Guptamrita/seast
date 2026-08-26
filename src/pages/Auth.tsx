@@ -45,7 +45,7 @@ const Auth = () => {
         if (error) {
           toast.error(error.message || "Failed to create account");
         } else {
-          toast.success("Account created successfully! Welcome to Loksewa Pro 🎉");
+          toast.success("Account created successfully! Welcome to Samrita Collection 🎉");
           navigate(from, { replace: true });
         }
       } else {

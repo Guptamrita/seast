@@ -1,6 +1,6 @@
-# Amrita Gupta — Loksewa Pro Nepal
+# Amrita Gupta — Samrita Collection
 
-Official website and preparation portal for Loksewa Computer Operator Exam & Portfolio.
+Official website and preparation portal for Computer Operator Exam & Portfolio (Samrita Collection).
 
 - **Live URL:** [https://amritagupta.com.np](https://amritagupta.com.np)
 - **Tech Stack:** React 18, TypeScript, Tailwind CSS, Vite, Radix UI, Framer Motion
