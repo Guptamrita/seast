@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
+import { VisitorCounter } from "@/components/VisitorCounter";
 
 const learningLinks = [
   { label: "MCQ Subject Practice", path: "/practice" },
@@ -54,7 +55,7 @@ const Footer = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 max-w-7xl">
         {/* Main 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-10 border-b border-white/10">
           
           {/* Column 1 & 2: Brand & Developer Spotlight (Spans 2 cols on desktop) */}
           <div className="lg:col-span-2 space-y-6">
@@ -185,8 +186,11 @@ const Footer = () => {
 
         </div>
 
+        {/* Live Visitor & Platform Analytics Tracker Counter */}
+        <VisitorCounter />
+
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
