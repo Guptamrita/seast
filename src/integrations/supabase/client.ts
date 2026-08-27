@@ -8,8 +8,8 @@ const rawKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "";
 // Detect if remote Supabase URL is an unresolvable placeholder or invalid
 const isUnreachableHost =
   !rawUrl ||
-  rawUrl.includes("dbcdhjuqdmkhrhqkmtpo.supabase.co") ||
   rawUrl.includes("placeholder");
+
 
 // Standard daily MCQ pool
 const defaultDailyMCQs = [

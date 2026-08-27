@@ -423,7 +423,7 @@ export default function Portfolio() {
 
               <div className="space-y-4">
                 <a 
-                  href="tel:+9779820642395"
+                  href="tel:+97798********"
                   className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:bg-slate-800 hover:border-slate-600 transition group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition">
@@ -431,7 +431,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <p className="text-xs text-slate-400 font-medium">Phone</p>
-                    <p className="text-sm font-semibold text-white">+977 9820642395</p>
+                    <p className="text-sm font-semibold text-white">+977 98********</p>
                   </div>
                 </a>
 

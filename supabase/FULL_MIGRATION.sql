@@ -1,6 +1,6 @@
 -- ============================================================
 -- FULL MIGRATION SCRIPT for new Supabase project
--- dbcdhjuqdmkhrhqkmtpo
+-- ejavucetgfbvigtfagkz
 -- Run this entire script in Supabase SQL Editor
 -- ============================================================
 
