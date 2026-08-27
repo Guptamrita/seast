@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Download, Search, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const Downloads = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -138,7 +139,12 @@ const Downloads = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
-      <div className="container mx-auto px-4 max-w-5xl">
+      <SEO
+        title="Free Loksewa Software, Fonts, PDF Papers & Tools Downloads"
+        description="Download Nepali Preeti and Kalimati fonts, Typeshala, MS Office, typing test tools, PDF question papers, and essential utilities for Computer Operator exams."
+        canonical="https://amritagupta.com.np/downloads"
+      />
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">

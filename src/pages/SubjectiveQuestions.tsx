@@ -5,6 +5,7 @@ import {
   Cpu, Monitor, GitBranch
 } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const SubjectiveQuestions = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -233,6 +234,11 @@ const SubjectiveQuestions = () => {
 
   return (
     <PageTransition className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+      <SEO
+        title="Subjective & Theory Question Bank | Loksewa Computer Operator"
+        description="Comprehensive collection of Loksewa subjective theory questions, technical definitions, comparisons, and structured answers for Computer Operator written exams."
+        canonical="https://amritagupta.com.np/subjective"
+      />
       <div className="container mx-auto px-4 max-w-5xl">
         
         {/* Header */}

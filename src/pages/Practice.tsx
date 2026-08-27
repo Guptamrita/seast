@@ -8,6 +8,7 @@ import {
   History, CloudRain, Newspaper, Dice6
 } from "lucide-react";
 import QuestionSelector from "@/components/QuestionSelector";
+import SEO from "@/components/SEO";
 
 const Practice = () => {
   const navigate = useNavigate();
@@ -123,6 +124,11 @@ const Practice = () => {
 
   return (
     <>
+      <SEO
+        title="Subject-wise MCQ Practice (15,000+ Questions)"
+        description="Comprehensive Loksewa Computer Operator MCQs by topic: Fundamentals, OS, Word, Excel, DBMS, Web Design, Cyber Security, Networking & General Knowledge."
+        canonical="https://amritagupta.com.np/practice"
+      />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
         <div className="container mx-auto px-4 max-w-7xl">
           

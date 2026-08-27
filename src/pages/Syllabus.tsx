@@ -158,8 +158,15 @@ const syllabusData = [
   },
 ];
 
+import SEO from "@/components/SEO";
+
 const Syllabus = () => (
   <div className="container mx-auto px-4 py-8 animate-fade-in">
+    <SEO
+      title="Official PSC Loksewa Computer Operator Syllabus"
+      description="Full curriculum and syllabus breakdown for Loksewa Computer Operator & Data Entry Supervisor: General Knowledge, Public Management & Technical ICT Modules."
+      canonical="https://amritagupta.com.np/syllabus"
+    />
     <h1 className="text-2xl font-heading font-bold mb-2">📋 Full PSC Syllabus</h1>
     <p className="text-muted-foreground mb-6">Computer Operator / Data Entry Supervisor — लोक सेवा आयोग</p>
 

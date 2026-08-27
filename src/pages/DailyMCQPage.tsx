@@ -1,10 +1,16 @@
 import DailyMCQCard from "@/components/DailyMCQCard";
 import { Link } from "react-router-dom";
 import { Calendar, Sparkles } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const DailyMCQPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-pink-50">
+      <SEO
+        title="Daily MCQ Question Challenge & Solutions"
+        description="Daily fresh Loksewa Computer Operator MCQ challenge with instant explanation, correct answer key, and daily streak rewards."
+        canonical="https://amritagupta.com.np/daily-mcq"
+      />
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl mb-3">

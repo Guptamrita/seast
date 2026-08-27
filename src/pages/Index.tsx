@@ -38,6 +38,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 import logoImg from "@/assets/logo.png";
@@ -180,6 +181,11 @@ const Index = () => {
 
   return (
     <PageTransition>
+      <SEO
+        title="Loksewa Computer Operator Preparation & Past Papers"
+        description="Nepal's premier open learning ecosystem for Loksewa Computer Operator, IT Officer, 15,000+ MCQs, 74+ Old Question Papers, and Real-Time Typing Speed Test."
+        canonical="https://amritagupta.com.np/"
+      />
       {/* ── 1. Hero Section: Aurora Glassmorphic ─────────────────── */}
       <section className="relative overflow-hidden bg-slate-950 text-white pt-8 pb-20 md:pt-14 md:pb-28">
         {/* Glowing Ambient Mesh Orbs */}

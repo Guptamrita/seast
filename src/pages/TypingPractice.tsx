@@ -32,6 +32,8 @@ import {
   Layers,
   ArrowRight,
 } from "lucide-react";
+import { PageTransition } from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 type Mode = "english" | "nepali" | "code" | "exam";
 type AgencyFilter = "all" | "Loksewa PSC" | "NOC" | "NEB" | "TU" | "Banking" | "Code";
@@ -308,6 +310,11 @@ export default function TypingPractice() {
 
   return (
     <div className={`min-h-screen ${curTheme.bg} ${curTheme.text} py-10 px-4 sm:px-6 lg:px-8 font-sans selection:bg-blue-600 selection:text-white transition-colors duration-300`}>
+      <SEO
+        title="Nepali & English Speed Typing Master (120+ Sets)"
+        description="Real-time Nepali Unicode & English typing speed test with WPM calculator, accuracy checker, virtual keyboard visualizer, and PSC 5-minute exam simulation."
+        canonical="https://amritagupta.com.np/typing"
+      />
       <div className="max-w-5xl mx-auto space-y-6">
         
         {/* Top Header Card */}

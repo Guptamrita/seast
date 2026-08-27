@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Users, BookOpen, BarChart3, Trash2, Edit, Plus, Shield, ShieldOff, X, Save, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import DailyMCQAdmin from "@/components/admin/DailyMCQAdmin";
+import SEO from "@/components/SEO";
 
 type Tab = "users" | "daily" | "mcqs" | "exams" | "stats";
 
@@ -19,6 +20,11 @@ const AdminPanel = () => {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO
+        title="Cloud Admin Management Panel"
+        description="Portal Cloud Administration"
+        noindex={true}
+      />
       <header className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white py-4">
         <div className="container mx-auto px-4 flex items-center justify-between flex-wrap gap-3">
           <h1 className="text-xl font-bold">🛡️ Cloud Admin Panel</h1>

@@ -27,6 +27,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SetRanking from "@/components/SetRanking";
 import AchievementsPanel from "@/components/AchievementsPanel";
+import SEO from "@/components/SEO";
 
 const QuizPage = () => {
   const { category, setId } = useParams();
@@ -308,6 +309,10 @@ const QuizPage = () => {
     
     return (
       <div className="container mx-auto px-4 py-8 max-w-2xl animate-fade-in text-center">
+        <SEO
+          title={`${title} — Online MCQ Quiz Test`}
+          description={`Interactive Loksewa Computer Operator quiz test for ${title}. Real-time evaluation and detailed answer keys.`}
+        />
         <h1 className="text-2xl font-heading font-bold mb-4">{title}</h1>
         <div className="bg-card rounded-2xl shadow-md p-6 space-y-3 text-sm">
           <p>एक पटक मात्र परीक्षा दिन पाइनेछ। 'Start' मा क्लिक गरेपछि समय गणना हुनेछ।</p>

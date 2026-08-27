@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 const OnlineExam = () => {
   // Create exam data for 18 exams (English names + 2082 Updated Papers)
@@ -33,6 +34,11 @@ const OnlineExam = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+      <SEO
+        title="18+ Real Online Mock Exams (2081/2082 Edition)"
+        description="Take real-time timed Loksewa Computer Operator online mock exams with 50 questions, instant scoring, negative marking calculation, and performance analytics."
+        canonical="https://amritagupta.com.np/online-exam"
+      />
       <div className="container mx-auto px-4 max-w-7xl">
         
         {/* Header */}

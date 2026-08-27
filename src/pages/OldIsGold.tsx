@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { oldIsGoldSets } from "@/data/questions";
 import { Search, ChevronRight, Calendar, FileText, Award, Sparkles, Target, Zap, Crown, Rocket, Star } from "lucide-react";
 import { useState } from "react";
+import SEO from "@/components/SEO";
 
 const OldIsGold = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,6 +28,11 @@ const OldIsGold = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+      <SEO
+        title="74+ Old Question Papers & Past Exam Sets (2064–2082 BS)"
+        description="Practice official Loksewa Computer Operator past exam papers from 2064 to 2082 BS. Realistic exam questions with verified answer keys."
+        canonical="https://amritagupta.com.np/old-is-gold"
+      />
       {/* Hero Section - Premium */}
       <div className="relative bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 overflow-hidden">
         <div className="absolute inset-0">

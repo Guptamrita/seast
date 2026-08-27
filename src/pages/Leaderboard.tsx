@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Trophy, Medal, Award, Crown } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import SEO from "@/components/SEO";
 
 interface Row {
   user_id: string;
@@ -97,6 +98,11 @@ const Leaderboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl animate-fade-in">
+      <SEO
+        title="Nepal National Aspirants Leaderboard & Top Scorers"
+        description="National rank standings, mock exam performance metrics, and top scores of Loksewa Computer Operator aspirants across Nepal."
+        canonical="https://amritagupta.com.np/leaderboard"
+      />
       <div className="text-center mb-8">
         <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-2" />
         <h1 className="text-4xl font-heading font-bold mb-2">Leaderboard</h1>

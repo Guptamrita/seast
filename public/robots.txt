@@ -1,8 +1,16 @@
+# robots.txt for https://amritagupta.com.np
+
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /admin-panel
+Disallow: /auth
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /admin-panel
+Disallow: /auth
 
 User-agent: Twitterbot
 Allow: /
@@ -12,3 +20,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin-panel
+Disallow: /auth
+
+# Sitemaps
+Sitemap: https://amritagupta.com.np/sitemap.xml

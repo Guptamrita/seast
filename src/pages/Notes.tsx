@@ -3,6 +3,7 @@ import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useAuth } from "@/hooks/useAuth";
 import { Lock, Shield, BookOpen, Sparkles, Search, Tag, Calendar, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 interface Note {
   id: string;
@@ -120,6 +121,11 @@ const Notes = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl animate-fade-in">
+      <SEO
+        title="Loksewa Computer Operator Study Notes & Revision Capsules"
+        description="High-yield study notes, cyber security laws, OS architectures, DBMS normalization rules, networking models, and shortcut capsules for Loksewa Computer Operator exams."
+        canonical="https://amritagupta.com.np/notes"
+      />
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
         <div>

@@ -10,6 +10,7 @@ import { practiceQuestions, practiceSubjects, oldIsGoldSets, weeklyTests } from 
 import type { Question } from '@/data/questions';
 import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
+import SEO from "@/components/SEO";
 
 // ── Types ──
 interface AdminQuestion {
@@ -295,6 +296,11 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title="Admin Management Panel"
+        description="Portal Administration"
+        noindex={true}
+      />
       <Toaster />
       
       {/* Header */}

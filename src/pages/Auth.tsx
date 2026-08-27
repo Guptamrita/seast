@@ -7,6 +7,7 @@ import {
   ShieldCheck, Trophy, BarChart3, Sparkles, CheckCircle2,
   Zap, ArrowRight
 } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -79,6 +80,12 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-slate-100 selection:bg-blue-500 selection:text-white">
+      <SEO
+        title="Student Portal Login & Register | Samrita Collection"
+        description="Sign in or register for your Samrita Collection student account to track mock exam scores, save progress, and view national ranking."
+        canonical="https://amritagupta.com.np/auth"
+        noindex={true}
+      />
       {/* Left: hero/brand panel */}
       <div className="hidden lg:flex flex-col justify-between flex-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-950 p-12 text-white relative overflow-hidden border-r border-slate-800/80">
         {/* Decorative background effects */}

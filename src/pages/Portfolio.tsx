@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 import amritaPhotoPortrait from "@/assets/amrita-photo-portrait.jpg";
 
+import SEO from "@/components/SEO";
+
 export default function Portfolio() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSending, setIsSending] = useState(false);
@@ -29,6 +31,11 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white py-8 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Amrita Gupta — Frontend Developer & Computer Operator Portfolio"
+        description="Official developer portfolio of Amrita Gupta: IT Support Executive, Computer Operator, Frontend Web Designer, and creator of Samrita Collection portal."
+        canonical="https://amritagupta.com.np/portfolio"
+      />
       {/* Background ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-blue-600/15 blur-[140px] rounded-full" />
