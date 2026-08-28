@@ -7,7 +7,7 @@ import {
   Home, Calendar, HelpCircle, Trophy, FileText,
   BookMarked, Medal, BookCheck, Keyboard, StickyNote,
   Download, ChevronRight, User, Sparkles, Zap,
-  ExternalLink, Compass, ShieldAlert
+  ExternalLink, Compass, ShieldAlert, Monitor
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
@@ -16,6 +16,7 @@ import { toast } from "sonner";
 const navItems = [
   { label: "Home",        path: "/",            icon: <Home size={15} /> },
   { label: "Portfolio",   path: "/portfolio",   icon: <User size={15} /> },
+  { label: "Sahil OS",    path: "/sahil",       icon: <Monitor size={15} /> },
   { label: "Daily MCQ",   path: "/daily-mcq",   icon: <Calendar size={15} /> },
   { label: "MCQ Practice",path: "/practice",    icon: <HelpCircle size={15} /> },
   { label: "Old Sets",    path: "/old-is-gold", icon: <Trophy size={15} /> },

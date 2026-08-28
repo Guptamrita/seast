@@ -27,6 +27,7 @@ import CloudAdminGuard from "./components/CloudAdminGuard";
 import NepalLoadingScreen from "./components/NepalLoadingScreen";
 import DailyMCQPage from "./pages/DailyMCQPage";
 import Portfolio from "./pages/Portfolio";
+import Sahil from "./pages/Sahil";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -115,6 +116,8 @@ const AppContent = () => {
               }
             />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/sahil" element={<Sahil />} />
+            <Route path="/sahil-portfolio" element={<Navigate to="/sahil" replace />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/portfolio" element={<Portfolio />} />

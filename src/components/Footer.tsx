@@ -14,7 +14,8 @@ import {
   Keyboard,
   Shield,
   Layers,
-  GraduationCap
+  GraduationCap,
+  Monitor
 } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
@@ -97,12 +98,21 @@ const Footer = () => {
                   <span className="p-0.5 rounded-full bg-emerald-500 text-white text-[8px]">✓</span>
                 </div>
                 <p className="text-[11px] text-slate-400 truncate">Platform Creator & Lead Developer</p>
-                <Link
-                  to="/portfolio"
-                  className="text-xs font-extrabold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 mt-1 transition-colors"
-                >
-                  View Developer Portfolio <Sparkles size={11} className="text-amber-400" />
-                </Link>
+                <div className="flex items-center gap-3 mt-1">
+                  <Link
+                    to="/portfolio"
+                    className="text-xs font-extrabold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 transition-colors"
+                  >
+                    Amrita Portfolio <Sparkles size={11} className="text-amber-400" />
+                  </Link>
+                  <span className="text-slate-600">•</span>
+                  <Link
+                    to="/sahil"
+                    className="text-xs font-extrabold text-orange-400 hover:text-orange-300 inline-flex items-center gap-1 transition-colors"
+                  >
+                    Sahil's Ubuntu OS <Monitor size={11} className="text-orange-400" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -148,6 +158,14 @@ const Footer = () => {
                   className="text-amber-400 hover:text-amber-300 transition-colors inline-block py-0.5 font-bold"
                 >
                   🏆 National Leaderboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/sahil"
+                  className="text-orange-400 hover:text-orange-300 transition-colors inline-block py-0.5 font-bold"
+                >
+                  💻 Sahil's Ubuntu OS
                 </Link>
               </li>
             </ul>
