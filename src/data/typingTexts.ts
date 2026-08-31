@@ -378,82 +378,122 @@ T findMax(T a, T b) {
 export const examParagraphsData: TypingItem[] = [
   {
     id: 301,
-    title: "Loksewa Federal 5-Min Exam Test (Civil Service)",
+    title: "Loksewa Federal 5-Min Practical Examination (Civil Service & IT Administration)",
     source: "Loksewa PSC",
     category: "exam",
     difficulty: "hard",
-    text: "The Civil Service in Nepal plays a pivotal role in policy implementation, public service delivery, and national development. As digital governance expands, computer operators must maintain absolute accuracy when drafting administrative memos, maintaining official websites, and processing citizen records. Mastery of keyboard ergonomics, error recognition, and sustained typing cadence ensures high performance in public examinations."
+    text: "The Civil Service in Nepal serves as the permanent executive arm of the state, bearing the constitutional responsibility for policy formulation, legislative implementation, and transparent public service delivery. With the progressive modernization of administrative machinery, information and communication technology has transformed orthodox paper registers into integrated electronic document tracking systems, cloud-based data repositories, and digital archives. A proficient computer operator in modern civil administration is required to operate office productivity suites, manage relational databases, process citizen grievance records, and ensure stringent data integrity while upholding public trust. Rapid and error-free keyboard navigation, adherence to ergonomic typing posture, and consistent cadence under timed conditions are indispensable competencies. Official correspondence, cabinet decisions, and departmental circulars require immaculate grammar, structured formatting, and precise numeric calculations. As Nepal progresses toward a decentralized federal administrative framework, local governments and provincial ministries depend on skilled technical personnel to execute online licensing, electronic revenue management, and citizen charter services. Sustained typing practice under examination constraints develops muscle memory and emotional composure, enabling aspiring civil service candidates to secure exemplary scores and contribute constructively to good governance across the nation."
   },
   {
     id: 302,
-    title: "NOC 2082 Practical Exam Set (English)",
+    title: "NOC 2082 5-Minute Practical Exam Set (Petroleum Supply & Logistics)",
     source: "NOC",
     category: "exam",
     difficulty: "hard",
-    text: "Nepal Oil Corporation operates nationwide petroleum import, storage facilities, and fuel distribution infrastructure. Digital monitoring software installed across regional terminals verifies fuel volume, inventory levels, pipeline throughput, and tanker dispatches. Reliable data entry speeds and meticulous adherence to accounting standards ensure unhindered national petroleum distribution."
+    text: "Nepal Oil Corporation operates as the nation's premier public enterprise dedicated to importing, storing, transporting, and distributing essential petroleum products with absolute reliability and safety. The modernization of terminal operations involves supervisory control and data acquisition systems, automated tank gauging, digital flow metering, and enterprise resource planning software. Computer operators within regional depots and the central headquarters maintain synchronized databases of tanker fleet movements, temperature-corrected fuel volume calculations, customs duty clearance documents, and dealer payment reconciliations. Ensuring round-the-clock fuel security requires meticulous data verification, rapid drafting of supply quota dispatches, and seamless coordination between international refiners, domestic transporters, and retail outlets. Operational hazards inherent in hydrocarbon handling necessitate strict compliance with safety guidelines, automated emergency shutdown logs, and fire prevention records. Precision in keyboard entry prevents inventory variances and financial discrepancies in high-volume billing operations. By mastering computerized logistical software, financial ledger systems, and automated dispatch protocols, technical staff empower the corporation to optimize fuel distribution, maintain stable market pricing, and safeguard consumer interests across all seventy-seven districts of Nepal."
   },
   {
     id: 303,
-    title: "NEB Computer Assistant 2081 Exam (English)",
+    title: "NEB Computer Assistant 2081/2082 5-Minute Exam (Educational Evaluation)",
     source: "NEB",
     category: "exam",
     difficulty: "hard",
-    text: "The National Examination Board oversees curriculum assessments, standardized board examinations, and academic credential certifications across all provinces of Nepal. Efficient computer operators are responsible for processing student registrations, managing optical mark reader grading scanners, and publishing reliable results without typographical discrepancies."
+    text: "The National Examination Board stands as the apex regulatory authority entrusted with conducting standardized board examinations, secondary education certificate evaluations, and academic credential authentications throughout Nepal. The administrative workload demands robust digital infrastructure capable of processing registration portfolios, subject code allocations, exam center distributions, and continuous assessment metrics for hundreds of thousands of candidates annually. Computer assistants utilize high-throughput optical mark reader scanners, distributed database clusters, and automated grading algorithms to eliminate manual computation errors and guarantee absolute evaluation fidelity. Maintaining strict confidentiality regarding question paper serialization and candidate identification codes is a foundational duty governed by institutional security protocols. In addition to regular result tabulations, technical personnel manage online public verification portals, digitized transcript archives, and migration certificate processing workflows. Rapid typing velocity paired with zero tolerance for typographical errors ensures that official publication deadlines are met without compromising data integrity. Continuous technological adaptation and digital proficiency enable the board to advance fair examination standards, minimize administrative delays, and support educational development across federal provinces."
   },
   {
     id: 304,
-    title: "TU IT Assistant 2082 Practical Test (English)",
+    title: "TU Service Commission 5-Minute IT Assistant Test (University IT Infrastructure)",
     source: "TU",
     category: "exam",
     difficulty: "hard",
-    text: "Tribhuvan University coordinates decentralized campus networks, centralized database systems, and institutional digital libraries. Technical assistants manage user authorization protocols, deploy operating system patches, troubleshoot local area network anomalies, and maintain high server availability for faculties and researchers."
+    text: "Tribhuvan University encompasses numerous constituent campuses, specialized research centers, and central academic faculties, forming the backbone of higher education in Nepal. The university's digital transformation roadmap integrates high-speed campus intranet networks, digital repositories for postgraduate theses, peer-reviewed academic publications, and centralized student information management systems. Technical and computer assistants play an indispensable role in configuring virtualized server environments, implementing cybersecurity defense barriers, managing institutional email domains, and troubleshooting local network connectivity issues. During semester and annual examination cycles, the office of the controller of examinations relies on accurate database entry to process admit cards, ledger marks, and grade point averages without discrepancy. Computer operators draft official academic correspondence, coordinate inter-faculty symposiums, and maintain online research portals that connect scholars with international scientific repositories. Sustained keyboard speed, mastery of data normalization concepts, and rigorous adherence to university administrative statutes are vital prerequisites for administrative success. By fostering efficient automated workflows and digital records archiving, IT personnel enhance the academic prestige and institutional efficacy of the university."
   },
   {
     id: 305,
-    title: "Banking IT Assistant Practical Exam (English)",
+    title: "Banking & Financial Institutions 5-Minute IT Exam (NRB / RBB / NBL Standard)",
     source: "Banking",
     category: "exam",
     difficulty: "hard",
-    text: "Commercial banks and financial institutions in Nepal enforce stringent cybersecurity measures to protect digital payment gateways, mobile banking applications, and clearing house transactions. Accurate typing and rapid document drafting are vital competencies for operators managing sensitive banking ledgers and audit records."
+    text: "Commercial banking institutions and regulatory authorities in Nepal operate in an increasingly digitized economic ecosystem characterized by real-time gross settlement systems, electronic clearing houses, and interoperable retail payment switches. Technical assistants and computer operators in financial corporations are tasked with handling core banking software ledgers, verifying customer identity documentation under anti-money laundering regulations, and maintaining encrypted communication logs. Modern financial networks require high computational resilience, multi-factor biometric authentication, automated audit trails, and strict data confidentiality to mitigate cyber threats such as ransomware, phishing attacks, and unauthorized fund transfers. Daily tasks entail reconciling electronic teller transactions, generating credit rating summaries, drafting interbank clearing statements, and updating loan portfolio ledgers with precision. High typing dexterity and disciplined attention to numeric data entry minimize costly transactional errors and preserve institutional liquidity. Continuous monitoring of automated teller machines, mobile banking servers, and offsite disaster recovery centers guarantees round-the-clock banking services to retail and corporate clients nationwide."
   },
   {
     id: 306,
-    title: "CDSC Senior Computer Operator Exam Set (English)",
+    title: "CDSC & NEPSE Senior Computer Operator 5-Min Exam (Capital Markets IT)",
     source: "Loksewa PSC",
     category: "exam",
     difficulty: "hard",
-    text: "CDS and Clearing Limited provides depository, clearing, and electronic settlement services for securities traded on the Nepal Stock Exchange. Robust server infrastructure, real-time database transactions, and cryptographic verification protocols guarantee complete transparency and investor security throughout trading cycles."
+    text: "CDS and Clearing Limited alongside the Nepal Stock Exchange constitutes the technological core of the capital markets, providing electronic book-entry settlement, dematerialized securities safekeeping, and secondary market trade processing. Senior computer operators and technical assistants maintain transactional servers that process millions of order requests, matching algorithms, and automated clearing instructions with microsecond latency. Ensuring financial transparency requires real-time reconciliation between depository participants, clearing banks, stockbrokers, and individual investor accounts. The implementation of encrypted digital signature certificates, centralized beneficiary ownership databases, and automated initial public offering allotment software has eliminated paper share fraud and accelerated settlement cycles. Operators must enter technical script codes, audit transaction logs, and generate regulatory compliance reports with uncompromising speed and accuracy under demanding market conditions. Comprehensive understanding of database query syntax, financial market regulations, and secure network protocols empowers personnel to safeguard investor trust and facilitate sustainable economic expansion."
   },
   {
     id: 307,
-    title: "लोकसेवा संघीय ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली)",
+    title: "Digital Nepal Framework & E-Governance 5-Min Exam (Public Administration)",
     source: "Loksewa PSC",
     category: "exam",
     difficulty: "hard",
-    text: "सार्वजनिक प्रशासनलाई जनउत्तरदायी, पारदर्शी र प्रभावकारी बनाउन सूचना प्रविधिको प्रयोग अपरिहार्य भएको छ। सरकारी कामकाजमा नेपाली युनिकोडको प्रयोगले विद्युतीय अभिलेख व्यवस्थापनलाई सर्वसुलभ बनाएको छ। कम्प्युटर अपरेटरले शुद्ध र द्रुत गतिमा सरकारी पत्र, टिप्पणी र निर्णयहरू टाइप गरी कार्यालयको कार्यसम्पादनलाई समयमै सम्पन्न गर्नुपर्दछ।"
+    text: "The Digital Nepal Framework represents a visionary national blueprint aimed at leveraging digital technologies across digital foundation, agriculture, health, education, energy, tourism, finance, and urban infrastructure. Government agencies are transitioning towards paperless administrative workflows through the deployment of national identity biometric databases, digital signature frameworks, open data portals, and unified mobile citizen platforms like Nagarik App. Computer operators in federal ministries and local bodies are at the forefront of this digital shift, converting historical paperwork into searchable metadata, managing public grievance tickets, and updating public service registries online. Speed, consistency, and linguistic precision in both English and Devanagari Unicode keyboards are essential to prevent backlogs in public service delivery. Robust data backup schedules, endpoint security hygiene, and proactive incident reporting protect public infrastructure from emerging cyber vulnerabilities. Developing fluent keyboard competency and technological adaptability ensures that civil service personnel effectively bridge the gap between administrative policy and citizen satisfaction."
   },
   {
     id: 308,
-    title: "नेपाल आयल निगम प्रयोगात्मक परीक्षा सेट (नेपाली)",
-    source: "NOC",
+    title: "Provincial PSC 5-Minute Practical Examination (Sub-National Administration)",
+    source: "Loksewa PSC",
     category: "exam",
     difficulty: "hard",
-    text: "नेपाल आयल निगमले देशको आर्थिक विकास र जनजीवन सहज बनाउन पेट्रोलियम पदार्थको आपूर्ति प्रणालीलाई व्यवस्थित, भरपर्दो र पारदर्शी बनाएको छ। डिपोहरूमा इन्धनको स्वचालित मौज्दात नियन्त्रण, गुणस्तर परीक्षण, र ट्याङ्कर चलानी कार्य कम्प्युटर सफ्टवेयरबाट गरिन्छ। यस कार्यमा दक्ष कम्प्युटर अपरेटरको भूमिका अत्यन्त महत्त्वपूर्ण रहन्छ।"
+    text: "Provincial Public Service Commissions across Nepal conduct competitive examinations to select administrative and technical personnel dedicated to regional development and grass-roots public service delivery. Sub-national governments manage diverse functions including municipal planning, infrastructure budgeting, public health administration, revenue collection, and social security distribution. Computer operators serve as the operational nexus in provincial ministries, entering statistical survey findings, drafting legislative bills, managing electronic tender bidding systems, and maintaining provincial gazette records. Working efficiently in fast-paced administrative environments requires profound knowledge of standard spreadsheet formulas, word processing formatting rules, and secure database entry protocols. Timed typing examinations evaluate not only gross words per minute but also sustained accuracy, punctuation control, and resilience under cognitive stress. Aspiring candidates who achieve high speed and flawless typing execution demonstrate their readiness to execute crucial administrative duties and uphold transparent governance across all provinces."
   },
   {
     id: 309,
-    title: "राष्ट्रिय परीक्षा बोर्ड प्रयोगात्मक परीक्षा सेट (नेपाली)",
-    source: "NEB",
+    title: "लोकसेवा आयोग संघीय कम्प्युटर अपरेटर ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "Loksewa PSC",
     category: "exam",
     difficulty: "hard",
-    text: "माध्यमिक शिक्षा परीक्षा तथा कक्षा बाह्रको वार्षिक परीक्षा सञ्चालन र परीक्षाफल प्रकाशन राष्ट्रिय परीक्षा बोर्डको प्रमुख जिम्मेवारी हो। लाखौं विद्यार्थीहरूको प्राप्ताङ्क प्रविष्टि, रुजु र नतिजा प्रमाणीकरण कम्प्युटर प्रणालीबाट गरिन्छ। कम्प्युटर सहायकले कुनै पनि त्रुटि नहुने गरी द्रुत गतिमा काम गर्नुपर्दछ।"
+    text: "नेपालको निजामती प्रशासनलाई स्वच्छ, निष्पक्ष, पारदर्शी र जनउत्तरदायी बनाउन सूचना तथा सञ्चार प्रविधिको भूमिका सर्वोपरी रहेको छ। आधुनिक सरकारी कार्यालयहरूमा परम्परागत ढड्डा र कागजी फाइल प्रणालीलाई विस्थापित गरी एकीकृत विद्युतीय कार्यालय व्यवस्थापन प्रणाली, डिजिटल दर्ता चलानी र अनलाइन नागरिक सेवा लागू गरिएको छ। कम्प्युटर अपरेटरले सरकारी पत्राचार, टिप्पणी, मन्त्रिपरिषद्का निर्णय, परिपत्र र प्रशासनिक प्रतिवेदनहरू शुद्ध र द्रुत गतिमा टाइप गर्नुपर्दछ। नेपाली युनिकोडको प्रयोगले देशव्यापी रूपमा सरकारी कागजातहरूको आदानप्रदान, अभिलेखीकरण र खोजी कार्यलाई अत्यन्त सरल र भरपर्दो बनाएको छ। सार्वजनिक प्रशासनमा सुशासन ऐन २०६४ र सूचनाको हक सम्बन्धी ऐन २०६४ को प्रभावकारी कार्यान्वयनका लागि तथ्यपरक सूचनाहरूको डिजिटल संकलन र अद्यावधिक अनिवार्य हुन्छ। प्रयोगात्मक परीक्षामा उच्च गति हासिल गर्न दैनिक किबोर्ड अभ्यास, शुद्ध हिज्जे, पूर्णविराम र अल्पविराम जस्ता चिह्नहरूको उचित प्रयोग र आत्मविश्वास आवश्यक पर्दछ। एक दक्ष कम्प्युटर अपरेटरले समयमै कार्यसम्पादन गरी सेवाग्राही नागरिकलाई छिटो छरितो सेवा प्रवाह गर्न र सुशासनको प्रत्याभूति दिलाउन महत्वपूर्ण योगदान पुर्याउँदछ।"
   },
   {
     id: 310,
-    title: "त्रिवि सेवा आयोग प्रयोगात्मक परीक्षा सेट (नेपाली)",
+    title: "नेपाल आयल निगम कम्प्युटर सहायक ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "NOC",
+    category: "exam",
+    difficulty: "hard",
+    text: "नेपाल आयल निगमले देशभर पेट्रोलियम पदार्थको निर्वाध आयात, वैज्ञानिक भण्डारण, सुरक्षित ढुवानी तथा न्यायोचित वितरणको बृहत् जिम्मेवारी बहन गर्दै आएको छ। आधुनिक प्रविधिको विकाससँगै निगमका सबै क्षेत्रीय डिपोहरूमा इन्धनको स्वचालित मौज्दात मापन, तापक्रम र घनत्व परीक्षण, तथा ट्याङ्कर लोड-अनलोड प्रणालीलाई कम्प्युटर प्रणालीबाट प्रत्यक्ष अनुगमन गरिन्छ। कम्प्युटर सहायकले दैनिक बिक्री वितरणको अभिलेख, डिलरहरूको भुक्तानी हिसाब, भन्सार महसुल, र इन्भेन्टरी सफ्टवेयरमा तथ्याङ्क प्रविष्टि शुद्ध र द्रुत गतिमा सम्पन्न गर्नुपर्दछ। इन्धन आपूर्ति प्रणालीमा हुने सामान्य मानवीय त्रुटिले पनि ठूलो आर्थिक नोक्सानी र बजारमा अभाव सिर्जना गर्न सक्ने भएकाले तथ्याङ्कको शुद्धता र सतर्कता अपरिहार्य हुन्छ। निगमका कर्मचारीहरूले सेवा विनियमावली अनुसार उच्च व्यावसायिक अनुशासन र पारदर्शिता कायम राख्नुपर्दछ। स्वचालित सफ्टवेयर, आधुनिक डेटाबेस र लेखा प्रणालीको कुशल प्रयोगले निगमको कार्यक्षमता अभिवृद्धि गर्न र उपभोक्ताहरूलाई गुणस्तरीय पेट्रोलियम सेवा प्रदान गर्न मद्दत पुर्याउँछ।"
+  },
+  {
+    id: 311,
+    title: "राष्ट्रिय परीक्षा बोर्ड प्राविधिक सहायक ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "NEB",
+    category: "exam",
+    difficulty: "hard",
+    text: "राष्ट्रिय परीक्षा बोर्डले देशैभरिका लाखौं विद्यार्थीहरूको माध्यमिक शिक्षा परीक्षा र कक्षा बाह्रको वार्षिक परीक्षा मर्यादित रूपमा सञ्चालन तथा परीक्षाफल प्रमाणीकरण गर्ने महत्वपूर्ण दायित्व पूरा गर्दछ। परीक्षा प्रक्रियालाई निष्पक्ष र त्रुटिरहित बनाउन विद्यार्थी दर्ता, परीक्षा केन्द्र व्यवस्थापन, ओएमआर उत्तरपुस्तिका स्क्यानिङ, र प्राप्ताङ्क प्रविष्टि सम्पूर्ण कार्य डिजिटल प्रविधिबाट गरिन्छ। प्राविधिक सहायक तथा कम्प्युटर अपरेटरले विषयगत कोड, अक्षरांकन पद्धति अनुसार जीपीए गणना, र नतिजा सम्बन्धी तथ्याङ्क गोप्य र सुरक्षित ढंगले व्यवस्थापन गर्नुपर्दछ। परीक्षाफल प्रकाशन पश्चात विद्यार्थीहरूलाई अनलाइन माध्यमबाट ट्रान्सक्रिप्ट, चारित्रिक प्रमाणपत्र, र शैक्षिक विवरण रुजु गर्ने सेवा उपलब्ध गराइन्छ। द्रुत गतिमा नेपाली युनिकोड टाइप गर्ने क्षमताले परीक्षा सम्बन्धी ठूला डेटाबेसहरूलाई समयमै अद्यावधिक गर्न र प्रशासनिक कार्यलाई प्रभावकारी बनाउन सहयोग पुग्दछ। परीक्षाको मर्यादा, निष्पक्षता र शैक्षिक गुणस्तर संरक्षणमा प्राविधिक जनशक्तिको भूमिका सदैव अग्रणी रहन्छ।"
+  },
+  {
+    id: 312,
+    title: "त्रिभुवन विश्वविद्यालय सेवा आयोग ५ मिनेट कम्प्युटर अपरेटर प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
     source: "TU",
     category: "exam",
     difficulty: "hard",
-    text: "त्रिभुवन विश्वविद्यालय अन्तर्गतका विभिन्न अध्ययन संस्थान, संकाय र अनुसन्धान केन्द्रहरूमा सूचना प्रविधिको विस्तार द्रुत गतिमा भइरहेको छ। प्राविधिक सहायकले क्याम्पसको कम्प्युटर प्रयोगशाला, डिजिटल अभिलेख, र परीक्षा सम्बन्धी सम्पूर्ण कार्यहरूमा आवश्यक प्राविधिक सहयोग उपलब्ध गराउँछ।"
+    text: "त्रिभुवन विश्वविद्यालय नेपालको उच्च शिक्षाको अग्रणी धरोहर हो जसले आफ्ना आङ्गिक क्याम्पस, केन्द्रीय विभाग र अनुसन्धान केन्द्रहरूलाई सूचना प्रविधिको सञ्जालबाट एकीकृत गरेको छ। केन्द्रीय पुस्तकालयमा स्थापित ई-रिसोर्स प्रणाली र शोधपत्र भण्डारले प्राध्यापक तथा शोधार्थीहरूलाई अन्तर्राष्ट्रिय स्तरका अनुसन्धान सामग्रीहरू अनलाइन अध्ययन गर्न सहज बनाएको छ। परीक्षा नियन्त्रण कार्यालय र सेवा आयोगको प्रशासनिक कार्यमा कम्प्युटर अपरेटरले विद्यार्थीको भर्ना विवरण, परीक्षा आवेदन फारम, प्राप्ताङ्क तालिका र नतिजा विवरण कम्प्युटरमा प्रविष्ट गर्दछन्। क्याम्पसको स्थानीय नेटवर्क सञ्चालन, डाटा ब्याकअप, र कार्यालय व्यवस्थापन सफ्टवेयरको नियमित सञ्चालन गर्न दक्ष प्राविधिक आवश्यक पर्दछ। द्रुत गति र उच्च शुद्धताका साथ टाइप गर्न सक्ने कम्प्युटर अपरेटरले विश्वविद्यालयको प्रशासनिक चुस्तता बढाउन र समयमै परीक्षाफल प्रकाशन गर्न ठोस योगदान पुर्याउँदछ।"
+  },
+  {
+    id: 313,
+    title: "बैंक तथा वित्तीय संस्था (बैंकिङ IT) ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "Banking",
+    category: "exam",
+    difficulty: "hard",
+    text: "नेपालको वित्तीय क्षेत्रमा भएको आधुनिक डिजिटल बैंकिङ विकासले नगदरहित अर्थतन्त्रको जग बलियो बनाएको छ। बैंक तथा वित्तीय संस्थाहरूले कोर बैंकिङ सफ्टवेयर, मोबाइल बैंकिङ एप, क्युआर भुक्तानी, र रियल टाइम ग्रस सेटलमेन्ट प्रणालीमार्फत दैनिक करोडौं रुपैयाँको कारोबार सुरक्षित रूपमा सम्पन्न गर्दछन्। बैंकिङ क्षेत्रका कम्प्युटर सहायकहरूले ग्राहकको खाता विवरण, कर्जा फाइल, नागरिकता र बायोमेट्रिक विवरण, तथा एन्टि-मनी लाउन्डरिङ सम्बन्धी कागजातहरू सुरक्षित रूपमा भण्डारण गर्नुपर्दछ। वित्तीय कारोबारको संवेदनशीलतालाई मध्यनजर गरी विपद् व्यवस्थापन केन्द्रमा वास्तविक समयमा डाटा प्रतिकृति सुरक्षित राखिन्छ र साइबर सुरक्षा मापदण्ड कडाइका साथ पालना गरिन्छ। द्रुत र शुद्ध टाइपिङले वित्तीय विवरणहरू समयमै तयार गर्न र ग्राहकलाई गुणस्तरीय बैंकिङ सेवा प्रवाह गर्न सहयोग गर्दछ।"
+  },
+  {
+    id: 314,
+    title: "न्याय सेवा तथा सर्वोच्च अदालत कम्प्युटर अपरेटर ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "Loksewa PSC",
+    category: "exam",
+    difficulty: "hard",
+    text: "नेपालको न्याय प्रशासनलाई छिटो, छरितो, सुलभ र भरपर्दो बनाउन अदालतहरूमा सूचना प्रविधिको प्रयोग व्यापक रूपमा विस्तार गरिएको छ। सर्वोच्च अदालत, उच्च अदालत र जिल्ला अदालतहरूमा मुद्दा दर्ता, पेशी सूची व्यवस्थापन, तारिख निर्धारण, र फैसलाको अनलाइन अभिलेखीकरण सफ्टवेयरमार्फत गरिन्छ। कम्प्युटर अपरेटरले इजलासमा हुने बहसको टिपोट, आदेश र फैसलाहरू पूर्ण शुद्धता र कानुनी शब्दावलीको ख्याल गरी द्रुत गतिमा टाइप गर्नुपर्दछ। फैसलामा हुने सानो त्रुटिले पनि न्यायिक प्रक्रियामा गम्भीर असर पार्न सक्ने हुनाले उच्च एकाग्रता र सतर्कता आवश्यक पर्दछ। डिजिटल मिसिल, भिडियो कन्फरेन्सिङबाट हुने अदालती सुनुवाइ, र फैसला कार्यान्वयन अनलाइन प्रणालीले न्यायमा सर्वसाधारणको पहुँचलाई सहज बनाएको छ। दक्ष कम्प्युटर अपरेटरले न्यायिक शुद्धता र समयमै न्याय सम्पादनमा महत्वपूर्ण भूमिका निर्वाह गर्दछ।"
+  },
+  {
+    id: 315,
+    title: "प्रदेश लोकसेवा आयोग प्रशासन तथा सूचना प्रविधि ५ मिनेट प्रयोगात्मक परीक्षा सेट (नेपाली युनिकोड)",
+    source: "Loksewa PSC",
+    category: "exam",
+    difficulty: "hard",
+    text: "संघीयताको कार्यान्वयनसँगै सातै प्रदेशका मन्त्रालय, निर्देशनालय र स्थानीय तहहरूले जनमुखी सार्वजनिक सेवा प्रवाहलाई डिजिटल माध्यमबाट सुदृढ बनाएका छन्। प्रदेश लोकसेवा आयोगले योग्य, दक्ष र प्रतिस्पर्धी कर्मचारी छनोट गर्न निष्पक्ष प्रतियोगितात्मक परीक्षा सञ्चालन गर्दछ। कम्प्युटर अपरेटरले प्रदेश सरकारका योजना, बजेट तर्जुमा, डिजिटल खरिद प्रक्रिया, र नागरिक बडापत्र सम्बन्धी विवरणहरू प्रणालीमा प्रविष्ट गर्दछन्। दुर्गम स्थानीय तहहरूमा पनि ई-सिफारिस, डिजिटल टोकन, र व्यक्तिगत घटना दर्ता अनलाइन बनाइएको छ जसले जनताको समय र खर्च बचत गरेको छ। प्रयोगात्मक परीक्षामा सफल हुन नेपाली युनिकोड र अंग्रेजी दुवै किबोर्डमा निर्धारित समयभित्र अत्यधिक शब्द टाइप गर्ने दक्षता हासिल गर्नुपर्दछ। निरन्तर लगनशीलता, शुद्ध हिज्जे र नियमित अभ्यासले मात्र परीक्षार्थीलाई उत्कृष्ट नतिजा प्राप्त गर्न सक्षम बनाउँछ।"
   }
 ];

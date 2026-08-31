@@ -260,6 +260,17 @@ export default function TypingPractice() {
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const activeCharRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (activeCharRef.current) {
+      activeCharRef.current.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [input]);
 
   const curTheme = THEME_STYLES[theme];
 
@@ -1251,11 +1262,15 @@ export default function TypingPractice() {
                   bg = "bg-rose-100 dark:bg-rose-950/70 rounded px-0.5";
                 }
               } else if (idx === input.length) {
-                style = "text-white bg-blue-600 rounded px-1 animate-pulse shadow-md shadow-blue-500/40";
+                style = "text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 dark:border-blue-400";
               }
 
               return (
-                <span key={idx} className={`${style} ${bg} transition-colors duration-75`}>
+                <span
+                  key={idx}
+                  ref={idx === input.length ? activeCharRef : null}
+                  className={`${style} ${bg} transition-colors duration-75`}
+                >
                   {char}
                 </span>
               );
@@ -1369,7 +1384,7 @@ export default function TypingPractice() {
               
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-semibold text-slate-400 hidden sm:inline">Target Key:</span>
-                <span className="text-white text-xs font-mono font-extrabold px-3 py-1 rounded-xl bg-blue-600 shadow-md shadow-blue-500/30 animate-pulse">
+                <span className="text-white text-xs font-mono font-extrabold px-3 py-1 rounded-xl bg-blue-600 shadow-md shadow-blue-500/30">
                   {nextChar === " " ? "SPACEBAR" : nextChar || "FINISHED"}
                 </span>
               </div>
@@ -1420,7 +1435,7 @@ export default function TypingPractice() {
                           isPressed
                             ? "!bg-emerald-500 !text-white shadow-lg shadow-emerald-500/40 ring-2 ring-emerald-300 scale-95 z-10"
                             : isNext
-                            ? "!bg-blue-600 !text-white border-2 !border-blue-300 ring-4 ring-blue-400/30 animate-pulse shadow-lg shadow-blue-500/30 scale-105 z-10"
+                            ? "!bg-blue-600 !text-white border-2 !border-blue-300 ring-4 ring-blue-400/30 shadow-lg shadow-blue-500/30 scale-105 z-10"
                             : ""
                         }`}
                       >
