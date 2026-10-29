@@ -325,10 +325,10 @@ const Index = () => {
                   </motion.button>
                 </Link>
                 <a
-                  href="mailto:sahilsarda45669@gmail.com"
+                  href="mailto:amritagupta950@gmail.com"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-5 py-3.5 rounded-2xl text-xs transition"
                 >
-                  📬 sahilsarda45669@gmail.com
+                  📬 amritagupta950@gmail.com
                 </a>
               </div>
             </div>

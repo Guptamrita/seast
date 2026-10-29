@@ -89,7 +89,7 @@ export default function TerminalApp({ openApp }: { openApp?: (id: string) => voi
           <div className="text-slate-300 space-y-1 text-xs sm:text-sm">
             <p className="text-white font-bold text-base">Sahil — Full-Stack Developer & Tech Builder</p>
             <p>Passionate about web technologies, system architectures, and crafting responsive applications.</p>
-            <p>Email: <a href="mailto:sahilsarda45669@gmail.com" className="text-ub-orange underline">sahilsarda45669@gmail.com</a></p>
+            <p>Email: <a href="mailto:amritagupta950@gmail.com" className="text-ub-orange underline">amritagupta950@gmail.com</a></p>
             {openApp && (
               <button 
                 onClick={() => openApp('about-sahil')}
@@ -132,7 +132,7 @@ export default function TerminalApp({ openApp }: { openApp?: (id: string) => voi
         out = (
           <div className="text-xs sm:text-sm space-y-1 text-slate-300">
             <p className="text-white font-bold">Contact Info:</p>
-            <p>Email: <a href="mailto:sahilsarda45669@gmail.com" className="text-sky-400 underline">sahilsarda45669@gmail.com</a></p>
+            <p>Email: <a href="mailto:amritagupta950@gmail.com" className="text-sky-400 underline">amritagupta950@gmail.com</a></p>
             <p>Location: Bara, Nepal</p>
           </div>
         );

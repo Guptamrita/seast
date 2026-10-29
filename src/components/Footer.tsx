@@ -193,10 +193,10 @@ const Footer = () => {
 
             <div className="pt-2">
               <a
-                href="mailto:sahilsarda45669@gmail.com"
+                href="mailto:amritagupta950@gmail.com"
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-300 hover:text-white transition-colors w-full justify-center"
               >
-                <Mail size={13} className="text-blue-400" /> sahilsarda45669@gmail.com
+                <Mail size={13} className="text-blue-400" /> amritagupta950@gmail.com
               </a>
             </div>
           </div>

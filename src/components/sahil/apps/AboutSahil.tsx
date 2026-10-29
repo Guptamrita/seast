@@ -146,7 +146,7 @@ function AboutSection() {
         <li className="flex items-start gap-3 bg-white/5 p-3.5 rounded-xl border border-white/5">
           <span className="text-xl">📫</span>
           <div>
-            Let's connect! Email me at <a href="mailto:sahilsarda45669@gmail.com" className="text-ub-orange underline hover:text-orange-400 font-medium">sahilsarda45669@gmail.com</a>.
+            Let's connect! Email me at <a href="mailto:amritagupta950@gmail.com" className="text-ub-orange underline hover:text-orange-400 font-medium">amritagupta950@gmail.com</a>.
           </div>
         </li>
       </ul>
@@ -363,7 +363,7 @@ function ResumeSection() {
             <Download className="w-4 h-4" /> Download PDF
           </a>
           <a
-            href="mailto:sahilsarda45669@gmail.com"
+            href="mailto:amritagupta950@gmail.com"
             className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm border border-white/10 transition flex items-center gap-2"
           >
             <Mail className="w-4 h-4 text-sky-400" /> Email Sahil

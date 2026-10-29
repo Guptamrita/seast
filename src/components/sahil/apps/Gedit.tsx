@@ -37,7 +37,7 @@ export default function GeditApp({ onClose }: { onClose?: () => void }) {
           <span className="text-[10px] text-blue-200 bg-blue-900/50 px-1.5 py-0.5 rounded">Gedit 3.36</span>
         </div>
         <div className="text-[11px] text-blue-200">
-          Target: <span className="text-white font-bold">sahilsarda45669@gmail.com</span>
+          Target: <span className="text-white font-bold">amritagupta950@gmail.com</span>
         </div>
       </div>
 

@@ -385,7 +385,7 @@ export default function Portfolio() {
 
               <div className="space-y-3">
                 <a 
-                  href="mailto:sahilsarda45669@gmail.com"
+                  href="mailto:amritagupta950@gmail.com"
                   className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:bg-blue-50/50 hover:border-blue-200 transition group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0284c7] group-hover:scale-105 transition">
@@ -393,7 +393,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <p className="text-xs text-slate-500 font-medium">Email Address</p>
-                    <p className="text-sm font-bold text-slate-800">sahilsarda45669@gmail.com</p>
+                    <p className="text-sm font-bold text-slate-800">amritagupta950@gmail.com</p>
                   </div>
                 </a>
 
