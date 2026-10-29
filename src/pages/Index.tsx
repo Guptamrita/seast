@@ -71,7 +71,7 @@ const quickCardsRow1 = [
 const quickCardsRow2 = [
   {
     title: "Old Questions",
-    desc: "Practice previous PSC questions",
+    desc: "Practice old questions",
     path: "/old-is-gold",
     icon: <HelpCircle className="w-5 h-5 text-white" />,
     iconBg: "bg-[#8b5cf6]",
