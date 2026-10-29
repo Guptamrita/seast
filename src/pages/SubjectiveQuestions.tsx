@@ -233,7 +233,7 @@ const SubjectiveQuestions = () => {
   };
 
   return (
-    <PageTransition className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+    <PageTransition className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
       <SEO
         title="Subjective & Theory Question Bank | Loksewa Computer Operator"
         description="Comprehensive collection of Loksewa subjective theory questions, technical definitions, comparisons, and structured answers for Computer Operator written exams."
@@ -243,23 +243,23 @@ const SubjectiveQuestions = () => {
         
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-lg mb-4">
+          <div className="inline-flex items-center justify-center w-18 h-18 bg-[#0284c7] rounded-2xl shadow-md mb-4 text-white p-4">
             <BookOpen size={36} className="text-white" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">📖 Subjective Questions</h1>
-          <p className="text-gray-500">लिखित परीक्षाका लागि महत्त्वपूर्ण प्रश्नहरूको संग्रह</p>
+          <h1 className="text-3xl md:text-4xl font-black text-[#0c2854] mb-2 tracking-tight">📖 Subjective Questions</h1>
+          <p className="text-slate-500 font-medium">लिखित परीक्षाका लागि महत्त्वपूर्ण प्रश्नहरूको संग्रह</p>
         </div>
 
         {/* Search Bar */}
         <div className="max-w-md mx-auto mb-10">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
             <input
               type="text"
               placeholder="🔍 प्रश्न खोज्नुहोस्..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 bg-white shadow-sm transition-all"
+              className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:border-[#0284c7] focus:outline-none focus:ring-2 focus:ring-[#0284c7]/20 bg-white shadow-sm transition-all text-sm font-medium text-slate-800"
             />
           </div>
         </div>

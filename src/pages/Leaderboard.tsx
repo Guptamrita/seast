@@ -97,17 +97,20 @@ const Leaderboard = () => {
   const top3 = rows.slice(0, 3);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl animate-fade-in">
-      <SEO
-        title="Nepal National Aspirants Leaderboard & Top Scorers"
-        description="National rank standings, mock exam performance metrics, and top scores of Loksewa Computer Operator aspirants across Nepal."
-        canonical="https://amritagupta.com.np/leaderboard"
-      />
-      <div className="text-center mb-8">
-        <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-2" />
-        <h1 className="text-4xl font-heading font-bold mb-2">Leaderboard</h1>
-        <p className="text-muted-foreground">Top performers across all exams</p>
-      </div>
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
+      <div className="container mx-auto px-4 max-w-5xl animate-fade-in">
+        <SEO
+          title="Nepal National Aspirants Leaderboard & Top Scorers"
+          description="National rank standings, mock exam performance metrics, and top scores of Loksewa Computer Operator aspirants across Nepal."
+          canonical="https://amritagupta.com.np/leaderboard"
+        />
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0284c7] rounded-2xl mb-4 text-white shadow-md mx-auto">
+            <Trophy className="w-8 h-8 text-[#facc15]" />
+          </div>
+          <h1 className="text-4xl font-heading font-black text-[#0c2854] mb-2 tracking-tight">Leaderboard</h1>
+          <p className="text-slate-500 font-medium">Top performers across all exams</p>
+        </div>
 
       {rows.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">No exam attempts yet. Be the first!</p>
@@ -172,6 +175,7 @@ const Leaderboard = () => {
           </div>
         </>
       )}
+      </div>
     </div>
   );
 };

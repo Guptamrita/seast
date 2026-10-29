@@ -6,38 +6,38 @@
 
 @layer base {
   :root {
-    /* Light content area */
-    --background: 220 18% 96%;
-    --foreground: 220 30% 10%;
+    /* Light content area — Aligned with Homepage layout */
+    --background: 210 40% 98%; /* #f8fafc */
+    --foreground: 222 47% 11%; /* #0f172a */
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 10%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 10%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Brand colors — Nepal-inspired */
-    --primary: 226 70% 55%;
+    /* Brand colors — Aligned with Homepage (#0284c7 and #072147) */
+    --primary: 199 89% 48%; /* #0284c7 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 158 60% 42%;
+    --secondary: 215 82% 16%; /* #072147 */
     --secondary-foreground: 0 0% 100%;
-    --accent: 350 75% 52%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 45 93% 47%; /* #facc15 yellow */
+    --accent-foreground: 222 47% 11%;
 
-    --muted: 220 14% 91%;
-    --muted-foreground: 220 12% 46%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 16% 47%;
     --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 14% 88%;
-    --input: 220 14% 88%;
-    --ring: 226 70% 55%;
+    --border: 214 32% 91%; /* #e2e8f0 */
+    --input: 214 32% 91%;
+    --ring: 199 89% 48%;
     --radius: 0.875rem;
 
-    /* Dark navbar */
-    --nav-bg: 222 47% 11%;
-    --nav-foreground: 0 0% 96%;
+    /* Dark navbar — Aligned with Homepage Header */
+    --nav-bg: 215 82% 16%; /* #072147 */
+    --nav-foreground: 0 0% 100%;
 
     /* Hero gradient */
-    --hero-from: 222 47% 14%;
-    --hero-to: 250 45% 22%;
+    --hero-from: 215 82% 16%;
+    --hero-to: 199 89% 35%;
 
     /* Card colors */
     --card-red: 0 72% 52%;

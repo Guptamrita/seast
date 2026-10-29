@@ -27,46 +27,43 @@ const OldIsGold = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800">
       <SEO
         title="74+ Old Question Papers & Past Exam Sets (2064–2082 BS)"
         description="Practice official Loksewa Computer Operator past exam papers from 2064 to 2082 BS. Realistic exam questions with verified answer keys."
         canonical="https://amritagupta.com.np/old-is-gold"
       />
-      {/* Hero Section - Premium */}
-      <div className="relative bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative bg-[#0c2854] text-white overflow-hidden border-b border-blue-900/40">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500 rounded-full filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-15"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-500 rounded-full filter blur-3xl opacity-15"></div>
         </div>
-        <div className="relative container mx-auto px-4 py-16 text-center">
-          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl mb-6 shadow-2xl animate-bounce-slow">
-            <Crown size={56} className="text-white" />
+        <div className="relative container mx-auto px-4 py-14 text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#0284c7] rounded-3xl mb-5 shadow-lg">
+            <Crown size={42} className="text-white" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-black mb-4">
-            <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
-              OLD SETS
-            </span>
+          <h1 className="text-4xl md:text-6xl font-black mb-3 tracking-tight text-white">
+            OLD <span className="text-[#facc15]">SETS</span>
           </h1>
-          <p className="text-xl text-indigo-200 mb-8 font-medium">
+          <p className="text-lg text-sky-200 mb-6 font-semibold">
             ⚡ पुराना प्रश्नपत्रहरूको खजाना ⚡
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur border border-white/20 rounded-full px-6 py-2.5">
-              <Sparkles className="text-yellow-400" size={18} />
-              <span className="text-white font-semibold">{oldIsGoldSets.length} प्रश्नपत्रहरू</span>
+          <div className="flex flex-wrap justify-center gap-3">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-5 py-2 text-sm font-bold text-white">
+              <Sparkles className="text-[#facc15]" size={16} />
+              <span>{oldIsGoldSets.length} प्रश्नपत्रहरू</span>
             </div>
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur border border-white/20 rounded-full px-6 py-2.5">
-              <Target className="text-yellow-400" size={18} />
-              <span className="text-white font-semibold">3,700+ प्रश्नहरू</span>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-5 py-2 text-sm font-bold text-white">
+              <Target className="text-[#facc15]" size={16} />
+              <span>3,700+ प्रश्नहरू</span>
             </div>
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur border border-white/20 rounded-full px-6 py-2.5">
-              <Rocket className="text-yellow-400" size={18} />
-              <span className="text-white font-semibold">7+ वर्ष अनुभव</span>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-5 py-2 text-sm font-bold text-white">
+              <Rocket className="text-[#facc15]" size={16} />
+              <span>7+ वर्ष अनुभव</span>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-slate-50 to-transparent"></div>
       </div>
 
       {/* Main Content */}

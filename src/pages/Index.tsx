@@ -1,26 +1,12 @@
-import { useState, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useNepalTime, useCountdown } from "@/hooks/useNepalTime";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motivationalQuotes } from "@/data/questions";
-import QuestionOfTheDay from "@/components/QuestionOfTheDay";
 import PersonalizedDashboard from "@/components/PersonalizedDashboard";
-import DailyMCQCard from "@/components/DailyMCQCard";
 import { useAuth } from "@/hooks/useAuth";
 import {
-  Clock,
-  Zap,
-  BookOpen,
-  Trophy,
-  ArrowRight,
-  ChevronRight,
   ExternalLink,
   Code2,
   Sparkles,
-  Layers,
-  Search,
-  Copy,
-  Check,
-  Building2,
   Keyboard,
   CheckCircle2,
   FileText,
@@ -30,6 +16,8 @@ import {
   Globe,
   Landmark,
   Monitor,
+  BookOpen,
+  ArrowRight,
 } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
 import SEO from "@/components/SEO";
@@ -37,12 +25,8 @@ import { motion } from "framer-motion";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 import pscHeroBanner from "@/assets/psc-hero-banner.jpg";
 import studentIllustration from "@/assets/student-study-illustration.png";
-import { toast } from "sonner";
 
-// Ashad 7, 2082 BS ≈ June 22, 2026 AD
-const EXAM_DATE = new Date("2026-06-22T10:00:00+05:45");
-
-// 9 Feature Cards matching the requested layout design
+// 9 Feature Cards matching the layout design
 const quickCardsRow1 = [
   {
     title: "Courses",
@@ -121,56 +105,6 @@ const quickCardsRow2 = [
   },
 ];
 
-const PROVINCIAL_EXAMS = [
-  { name: "Federal PSC (संघीय लोकसेवा)", badge: "Central", color: "from-blue-600 to-indigo-600", desc: "Computer Operator (Level 5) & Asst. Computer Operator (Level 4)" },
-  { name: "Bagmati Province (बागमती प्रदेश)", badge: "Province 3", color: "from-emerald-600 to-teal-600", desc: "Pradesh Loksewa Aayog Computer Operator & Data Entry" },
-  { name: "Koshi Province (कोशी प्रदेश)", badge: "Province 1", color: "from-cyan-600 to-blue-600", desc: "Pradesh Loksewa Aayog Computer Technician & Operator" },
-  { name: "Gandaki Province (गण्डकी प्रदेश)", badge: "Province 4", color: "from-amber-600 to-orange-600", desc: "Provincial Administration & Local Level IT Staff Exam" },
-  { name: "Lumbini Province (लुम्बिनी प्रदेश)", badge: "Province 5", color: "from-rose-600 to-pink-600", desc: "Pradesh Loksewa Aayog Computer Operator 5th Level" },
-  { name: "Karnali & Sudurpashchim", badge: "Province 6 & 7", color: "from-purple-600 to-indigo-600", desc: "Provincial & Rural Municipality IT Assistant Exams" },
-  { name: "Nepal Oil Corporation (NOC)", badge: "Public Corp", color: "from-red-600 to-orange-600", desc: "Senior Assistant (Computer / IT) 5th Level Exam Sets" },
-  { name: "Tribhuvan University (TU)", badge: "University", color: "from-indigo-600 to-purple-600", desc: "TU Service Commission Technical Assistant (IT) Sets" },
-];
-
-const QUICK_CAPSULES = [
-  {
-    category: "Excel Formulas",
-    items: [
-      { title: "=VLOOKUP(val, range, col, FALSE)", desc: "Searches for a value in the first column and returns a value in the same row." },
-      { title: "=INDEX(range, row, col)", desc: "Returns the value of an element in a table given row and column indexes." },
-      { title: "=COUNTIF(range, criteria)", desc: "Counts the number of cells within a range that meet the given condition." },
-      { title: "=CONCATENATE(text1, text2)", desc: "Joins two or more text strings into one string." },
-    ]
-  },
-  {
-    category: "Keyboard Shortcuts",
-    items: [
-      { title: "Ctrl + T (Word)", desc: "Creates a hanging indent in Microsoft Word." },
-      { title: "Ctrl + ; (Excel)", desc: "Inserts the current system date in the active cell." },
-      { title: "Ctrl + Shift + ; (Excel)", desc: "Inserts the current system time in the active cell." },
-      { title: "Windows Key + L", desc: "Immediately locks the active Windows workstation screen." },
-    ]
-  },
-  {
-    category: "Networking Ports",
-    items: [
-      { title: "HTTP (80) & HTTPS (443)", desc: "Standard and SSL/TLS encrypted web communication protocols." },
-      { title: "SSH (22) & Telnet (23)", desc: "Encrypted remote terminal shell and legacy unencrypted terminal." },
-      { title: "DNS (53) & DHCP (67/68)", desc: "Domain Name System resolution and Dynamic Host Configuration Protocol." },
-      { title: "SMTP (25) & POP3 (110)", desc: "Simple Mail Transfer (send) and Post Office Protocol (receive)." },
-    ]
-  },
-  {
-    category: "Nepal IT Legislation",
-    items: [
-      { title: "Electronic Transaction Act, 2063 BS", desc: "Legal validity of digital signatures, certifying authorities, and cyber penalties." },
-      { title: "National ICT Policy, 2072 BS", desc: "Broadband expansion, e-Governance, and Digital Nepal Framework initiatives." },
-      { title: "Public Procurement Act, 2063 BS", desc: "Government electronic bidding (e-GP) and public procurement transparency rules." },
-      { title: "Right to Information Act, 2064 BS", desc: "Citizens' constitutional right to demand and receive public government records." },
-    ]
-  }
-];
-
 const importantLinks = [
   { name: "PSC Nepal", desc: "psc.gov.np — Official Public Service Commission", url: "https://psc.gov.np", icon: "🏛️" },
   { name: "MoCIT Nepal", desc: "Ministry of Communications & Information Technology", url: "https://mocit.gov.np", icon: "🏢" },
@@ -180,20 +114,8 @@ const importantLinks = [
 ];
 
 const Index = () => {
-  const { timeStr, dateStr } = useNepalTime();
-  const countdown = useCountdown(EXAM_DATE);
   const { user } = useAuth();
-  const navigate = useNavigate();
   const quote = useMemo(() => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)], []);
-  const [activeCapsuleTab, setActiveCapsuleTab] = useState(0);
-  const [copiedText, setCopiedText] = useState<string | null>(null);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedText(text);
-    toast.success("Copied to clipboard!");
-    setTimeout(() => setCopiedText(null), 2000);
-  };
 
   return (
     <PageTransition>
@@ -365,176 +287,11 @@ const Index = () => {
           </div>
         </section>
 
-        {/* ── 4. Interactive Supplementary Sections ─────────────────── */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+        {/* ── 4. Retained Clean Sections ─────────────────────────────── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
 
           {/* Personalized Dashboard (When user is logged in) */}
           {user && <PersonalizedDashboard />}
-
-          {/* Daily MCQ Challenge */}
-          <DailyMCQCard />
-
-          {/* Target Exam Countdown & Nepal Time Widget */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            {/* NST Live Time */}
-            <div className="bg-[#0c2854] text-white rounded-3xl p-6 shadow-sm border border-blue-900/40 relative overflow-hidden flex flex-col justify-between">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-sky-300 uppercase tracking-widest">
-                  <Clock className="w-4 h-4 text-sky-400" />
-                  <span>Nepal Standard Time (NST)</span>
-                </div>
-                <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  LIVE
-                </span>
-              </div>
-              <div className="text-4xl sm:text-5xl font-black tracking-wider text-white py-2">
-                {timeStr}
-              </div>
-              <div className="text-sky-200 text-xs font-bold tracking-wide">
-                {dateStr}
-              </div>
-            </div>
-
-            {/* Exam Countdown */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                  <Trophy className="w-4 h-4 text-amber-500" />
-                  <span>Target Exam: Ashad 7, 2082 (Computer Operator)</span>
-                </div>
-                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-red-100 text-red-600">
-                  Countdown
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-4 gap-2 text-center py-2">
-                {[
-                  { val: countdown.days, label: "DAYS" },
-                  { val: countdown.hours, label: "HRS" },
-                  { val: countdown.minutes, label: "MIN" },
-                  { val: countdown.seconds, label: "SEC" },
-                ].map((t) => (
-                  <div key={t.label} className="bg-slate-50 border border-slate-200 rounded-2xl py-2">
-                    <div className="text-xl sm:text-2xl font-black text-slate-900">
-                      {t.val.toString().padStart(2, "0")}
-                    </div>
-                    <div className="text-[9px] font-extrabold text-slate-500 tracking-wider">{t.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="text-xs text-slate-500 font-medium">
-                Keep up the daily practice and mock revisions!
-              </div>
-            </div>
-
-          </div>
-
-          {/* Question of the Day */}
-          <QuestionOfTheDay />
-
-          {/* Provincial & Special Examination Gateway */}
-          <section>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="p-2.5 bg-blue-50 text-blue-600 rounded-2xl">
-                <Building2 size={22} />
-              </div>
-              <div>
-                <h2 className="text-2xl font-black text-[#0c2854] tracking-tight">
-                  🏛️ Provincial PSC & Public Enterprise Portals
-                </h2>
-                <p className="text-xs text-slate-500">Dedicated mock tests and syllabus for all 7 provinces & public enterprises</p>
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {PROVINCIAL_EXAMS.map((exam, i) => (
-                <Link to="/online-exam" key={i} className="group">
-                  <div className="h-full bg-white border border-slate-200 hover:border-blue-500/50 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-blue-50 text-blue-600">
-                          {exam.badge}
-                        </span>
-                        <ChevronRight size={16} className="text-slate-400 group-hover:text-blue-600 transform group-hover:translate-x-1 transition" />
-                      </div>
-                      <h3 className="font-extrabold text-sm text-slate-900 mb-1.5 group-hover:text-blue-600 transition">
-                        {exam.name}
-                      </h3>
-                      <p className="text-xs text-slate-500 line-clamp-2">
-                        {exam.desc}
-                      </p>
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600">
-                      <span>Start Mock Exam</span>
-                      <span>→</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* Quick Revision Capsule & Cheat Sheets */}
-          <section className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-2xl">
-                <Layers size={22} />
-              </div>
-              <div>
-                <h2 className="text-2xl font-black text-[#0c2854] tracking-tight">
-                  ⚡ Quick Revision Capsule & Formula Lookup
-                </h2>
-                <p className="text-xs text-slate-500">Essential Excel formulas, shortcuts, network ports, and Nepal IT acts</p>
-              </div>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-none">
-              {QUICK_CAPSULES.map((cap, idx) => (
-                <button
-                  key={cap.category}
-                  onClick={() => setActiveCapsuleTab(idx)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                    activeCapsuleTab === idx
-                      ? "bg-[#0284c7] text-white shadow-sm"
-                      : "bg-slate-100 text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {cap.category}
-                </button>
-              ))}
-            </div>
-
-            {/* Active Tab Items */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              {QUICK_CAPSULES[activeCapsuleTab].items.map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:bg-slate-100/70 transition"
-                >
-                  <div>
-                    <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <span className="font-mono text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
-                        {item.title}
-                      </span>
-                      <button
-                        onClick={() => copyToClipboard(item.title)}
-                        title="Copy formula/command"
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition"
-                      >
-                        {copiedText === item.title ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
-                      </button>
-                    </div>
-                    <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
 
           {/* Developer Spotlight (Amrita Gupta) */}
           <section className="rounded-3xl bg-[#0c2854] border border-blue-900/60 p-6 sm:p-8 lg:p-10 text-white shadow-sm relative overflow-hidden">

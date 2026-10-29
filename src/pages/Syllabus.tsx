@@ -161,45 +161,49 @@ const syllabusData = [
 import SEO from "@/components/SEO";
 
 const Syllabus = () => (
-  <div className="container mx-auto px-4 py-8 animate-fade-in">
-    <SEO
-      title="Official PSC Loksewa Computer Operator Syllabus"
-      description="Full curriculum and syllabus breakdown for Loksewa Computer Operator & Data Entry Supervisor: General Knowledge, Public Management & Technical ICT Modules."
-      canonical="https://amritagupta.com.np/syllabus"
-    />
-    <h1 className="text-2xl font-heading font-bold mb-2">📋 Full PSC Syllabus</h1>
-    <p className="text-muted-foreground mb-6">Computer Operator / Data Entry Supervisor — लोक सेवा आयोग</p>
+  <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
+    <div className="container mx-auto px-4 max-w-5xl animate-fade-in">
+      <SEO
+        title="Official PSC Loksewa Computer Operator Syllabus"
+        description="Full curriculum and syllabus breakdown for Loksewa Computer Operator & Data Entry Supervisor: General Knowledge, Public Management & Technical ICT Modules."
+        canonical="https://amritagupta.com.np/syllabus"
+      />
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-heading font-black text-[#0c2854] mb-2 tracking-tight">📋 Full PSC Syllabus</h1>
+        <p className="text-slate-500 font-medium">Computer Operator / Data Entry Supervisor — लोक सेवा आयोग</p>
+      </div>
 
-    <div className="space-y-6">
-      {syllabusData.map((part, pi) => (
-        <div key={pi} className="bg-card rounded-2xl shadow-md p-6">
-          <h2 className="text-lg font-heading font-bold mb-4 text-primary">{part.title}</h2>
-          {part.topics && (
-            <ul className="space-y-1 text-sm">
-              {part.topics.map((t, i) => (
-                <li key={i} className="flex items-start gap-2 py-1">
-                  <span className="text-primary">•</span>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          {part.sections && (
-            <div className="space-y-4">
-              {part.sections.map((sec, si) => (
-                <div key={si} className="border-l-2 border-primary/30 pl-4">
-                  <h3 className="font-semibold text-sm mb-2">{sec.title}</h3>
-                  <ul className="space-y-0.5 text-sm text-muted-foreground">
-                    {sec.topics.map((t, i) => (
-                      <li key={i}>• {t}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+      <div className="space-y-6">
+        {syllabusData.map((part, pi) => (
+          <div key={pi} className="bg-white border border-slate-200/80 rounded-2xl shadow-sm p-6">
+            <h2 className="text-lg font-heading font-bold mb-4 text-[#0284c7]">{part.title}</h2>
+            {part.topics && (
+              <ul className="space-y-1 text-sm text-slate-700">
+                {part.topics.map((t, i) => (
+                  <li key={i} className="flex items-start gap-2 py-1 font-medium">
+                    <span className="text-[#0284c7] font-bold">•</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {part.sections && (
+              <div className="space-y-4">
+                {part.sections.map((sec, si) => (
+                  <div key={si} className="border-l-2 border-[#0284c7]/40 pl-4">
+                    <h3 className="font-bold text-sm mb-2 text-slate-900">{sec.title}</h3>
+                    <ul className="space-y-0.5 text-sm text-slate-600 font-medium">
+                      {sec.topics.map((t, i) => (
+                        <li key={i}>• {t}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 );

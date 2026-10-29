@@ -5,7 +5,7 @@ import SEO from "@/components/SEO";
 
 const DailyMCQPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-pink-50">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800">
       <SEO
         title="Daily MCQ Question Challenge & Solutions"
         description="Daily fresh Loksewa Computer Operator MCQ challenge with instant explanation, correct answer key, and daily streak rewards."
@@ -13,11 +13,11 @@ const DailyMCQPage = () => {
       />
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl mb-3">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#0284c7] shadow-md mb-3 text-white">
             <Calendar className="text-white" size={32} />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Daily MCQ</h1>
-          <p className="text-muted-foreground mt-2 flex items-center justify-center gap-1.5 text-sm">
+          <h1 className="text-3xl md:text-4xl font-black text-[#0c2854] tracking-tight">Daily MCQ</h1>
+          <p className="text-slate-500 font-medium mt-2 flex items-center justify-center gap-1.5 text-sm">
             <Sparkles size={14} className="text-amber-500" /> A fresh question every day — answer fast, climb the daily list!
           </p>
         </div>

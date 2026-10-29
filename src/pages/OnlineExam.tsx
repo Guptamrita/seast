@@ -33,7 +33,7 @@ const OnlineExam = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
       <SEO
         title="18+ Real Online Mock Exams (2081/2082 Edition)"
         description="Take real-time timed Loksewa Computer Operator online mock exams with 50 questions, instant scoring, negative marking calculation, and performance analytics."
@@ -43,20 +43,20 @@ const OnlineExam = () => {
         
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0284c7] rounded-2xl shadow-md mb-4 text-white">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">📝 Online Mock Exams 2081/2082</h1>
-          <p className="text-gray-500">Real exam simulations with 20% negative marking and instant rank assessment.</p>
+          <h1 className="text-3xl md:text-4xl font-black text-[#0c2854] mb-2 tracking-tight">📝 Online Mock Exams 2081/2082</h1>
+          <p className="text-slate-500 font-medium">Real exam simulations with 20% negative marking and instant rank assessment.</p>
         </div>
 
         {/* Operator Sample Exam Section */}
         <div className="mb-12">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 mb-6 shadow-lg flex items-center justify-between">
-            <h2 className="text-xl md:text-2xl font-bold text-white">📋 Operator Full Mock Exams ({exams.length} Sets)</h2>
-            <span className="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full">50 Qs / 45 Mins</span>
+          <div className="bg-[#0c2854] text-white rounded-2xl p-4 mb-6 shadow-md flex items-center justify-between border border-blue-900/40">
+            <h2 className="text-xl md:text-2xl font-black text-white">📋 Operator Full Mock Exams ({exams.length} Sets)</h2>
+            <span className="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">50 Qs / 45 Mins</span>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

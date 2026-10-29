@@ -120,25 +120,26 @@ const Notes = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl animate-fade-in">
-      <SEO
-        title="Loksewa Computer Operator Study Notes & Revision Capsules"
-        description="High-yield study notes, cyber security laws, OS architectures, DBMS normalization rules, networking models, and shortcut capsules for Loksewa Computer Operator exams."
-        canonical="https://amritagupta.com.np/notes"
-      />
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold mb-2">
-            <BookOpen size={14} /> Comprehensive Loksewa Study Materials
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
+      <div className="container mx-auto px-4 max-w-6xl animate-fade-in">
+        <SEO
+          title="Loksewa Computer Operator Study Notes & Revision Capsules"
+          description="High-yield study notes, cyber security laws, OS architectures, DBMS normalization rules, networking models, and shortcut capsules for Loksewa Computer Operator exams."
+          canonical="https://amritagupta.com.np/notes"
+        />
+        {/* Header */}
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#0284c7] border border-blue-100 text-xs font-bold mb-2">
+              <BookOpen size={14} /> Comprehensive Loksewa Study Materials
+            </div>
+            <h1 className="text-3xl font-heading font-black text-[#0c2854] tracking-tight">
+              📒 Computer Operator Notes & Revision Capsules
+            </h1>
+            <p className="text-slate-500 text-sm mt-1 font-medium">
+              Subject-wise high-yield exam notes, shortcuts, acts, algorithms, and technical summaries.
+            </p>
           </div>
-          <h1 className="text-3xl font-heading font-extrabold text-slate-900 dark:text-white">
-            📒 Computer Operator Notes & Revision Capsules
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Subject-wise high-yield exam notes, shortcuts, acts, algorithms, and technical summaries.
-          </p>
-        </div>
 
         {isAdmin && (
           <span className="text-xs bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-300/40 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5">
@@ -283,11 +284,12 @@ const Notes = () => {
         ))}
       </div>
 
-      {filtered.length === 0 && (
-        <div className="text-center py-16 bg-card rounded-3xl border border-border">
-          <p className="text-slate-400 text-sm">No notes found matching your search.</p>
-        </div>
-      )}
+        {filtered.length === 0 && (
+          <div className="text-center py-16 bg-card rounded-3xl border border-border">
+            <p className="text-slate-400 text-sm">No notes found matching your search.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

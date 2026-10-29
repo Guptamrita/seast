@@ -164,16 +164,16 @@ const THEME_STYLES: Record<
   }
 > = {
   pearl: {
-    name: "🌸 Pearl Light",
-    bg: "bg-gradient-to-br from-slate-50 via-indigo-50/50 to-blue-50/60",
+    name: "🌸 Samrita Clean",
+    bg: "bg-[#f8fafc]",
     text: "text-slate-800",
-    card: "bg-white/85 backdrop-blur-xl shadow-xl shadow-indigo-100/50",
+    card: "bg-white shadow-sm border border-slate-200/80",
     cardBorder: "border border-slate-200/80",
-    canvasBg: "bg-white/95 border border-slate-200 shadow-inner",
+    canvasBg: "bg-slate-50 border border-slate-200 shadow-inner",
     inputBg: "bg-white border-2 border-slate-200 shadow-sm",
     inputText: "text-slate-900",
     charUnreached: "text-slate-400/60",
-    keyBg: "bg-slate-100/90 border border-slate-200/90 text-slate-700 shadow-sm",
+    keyBg: "bg-slate-100 border border-slate-200 text-slate-700 shadow-sm",
     keyText: "text-slate-700",
   },
   mint: {

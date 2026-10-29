@@ -129,16 +129,16 @@ const Practice = () => {
         description="Comprehensive Loksewa Computer Operator MCQs by topic: Fundamentals, OS, Word, Excel, DBMS, Web Design, Cyber Security, Networking & General Knowledge."
         canonical="https://amritagupta.com.np/practice"
       />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
+      <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
         <div className="container mx-auto px-4 max-w-7xl">
           
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0284c7] rounded-2xl shadow-md mb-4 text-white">
               <Shield size={32} className="text-white" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Practice — Subject-wise MCQs</h1>
-            <p className="text-gray-500">विषय अनुसार अभ्यास गर्नुहोस्</p>
+            <h1 className="text-3xl md:text-4xl font-black text-[#0c2854] mb-2 tracking-tight">Practice — Subject-wise MCQs</h1>
+            <p className="text-slate-500 font-medium">विषय अनुसार अभ्यास गर्नुहोस्</p>
           </div>
 
           {/* Search Bar */}
@@ -149,7 +149,7 @@ const Practice = () => {
                 placeholder="🔍 विषय खोज्नुहोस्..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-5 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-white shadow-sm transition-all"
+                className="w-full pl-5 pr-4 py-3 rounded-full border border-slate-200 focus:border-[#0284c7] focus:outline-none focus:ring-2 focus:ring-[#0284c7]/20 bg-white shadow-sm transition-all text-sm font-medium text-slate-800"
               />
             </div>
           </div>

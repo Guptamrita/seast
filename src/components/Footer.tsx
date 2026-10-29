@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
-import { VisitorCounter } from "@/components/VisitorCounter";
 
 const learningLinks = [
   { label: "MCQ Subject Practice", path: "/practice" },
@@ -203,9 +202,6 @@ const Footer = () => {
           </div>
 
         </div>
-
-        {/* Live Visitor & Platform Analytics Tracker Counter */}
-        <VisitorCounter />
 
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">

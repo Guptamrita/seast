@@ -138,7 +138,7 @@ const Downloads = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
       <SEO
         title="Free Loksewa Software, Fonts, PDF Papers & Tools Downloads"
         description="Download Nepali Preeti and Kalimati fonts, Typeshala, MS Office, typing test tools, PDF question papers, and essential utilities for Computer Operator exams."
@@ -147,22 +147,22 @@ const Downloads = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <Download size={32} className="text-blue-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0284c7] rounded-2xl mb-4 text-white shadow-md">
+            <Download size={32} className="text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">सफ्टवेर डाउनलोड</h1>
-          <p className="text-gray-600">लोकसेवा परीक्षाको लागि आवश्यक सफ्टवेरहरू</p>
+          <h1 className="text-3xl font-black text-[#0c2854] mb-2 tracking-tight">सफ्टवेर डाउनलोड</h1>
+          <p className="text-slate-500 font-medium">लोकसेवा परीक्षाको लागि आवश्यक सफ्टवेरहरू</p>
         </div>
 
         {/* Search Bar */}
-        <div className="relative mb-8">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+        <div className="relative mb-8 max-w-xl mx-auto">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
           <input
             type="text"
             placeholder="सफ्टवेर खोज्नुहोस्..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
+            className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#0284c7] bg-white shadow-sm text-sm font-medium text-slate-800"
           />
         </div>
 

@@ -90,11 +90,12 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl animate-fade-in">
-      <div className="mb-8">
-        <h1 className="text-3xl font-heading font-bold">👋 Welcome, {fullName}</h1>
-        <p className="text-muted-foreground">Your performance overview</p>
-      </div>
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8">
+      <div className="container mx-auto px-4 max-w-6xl animate-fade-in">
+        <div className="mb-8">
+          <h1 className="text-3xl font-heading font-black text-[#0c2854] tracking-tight">👋 Welcome, {fullName}</h1>
+          <p className="text-slate-500 font-medium">Your performance overview</p>
+        </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard icon={BookOpen} label="Exams Taken" value={total.toString()} color="blue" />
@@ -190,6 +191,7 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

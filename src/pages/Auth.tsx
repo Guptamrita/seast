@@ -1,18 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import {
-  BookOpen, Lock, Mail, User as UserIcon, Eye, EyeOff,
-  ShieldCheck, Trophy, BarChart3, Sparkles, CheckCircle2,
-  Zap, ArrowRight
+  BookOpen,
+  Mail,
+  Lock,
+  User as UserIcon,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  Trophy,
+  BarChart3,
+  ShieldCheck,
+  Eye,
+  EyeOff,
+  Zap,
 } from "lucide-react";
 import SEO from "@/components/SEO";
+import samritaIcon from "@/assets/samrita-icon-transparent.png";
 
 const Auth = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { user, loading: authLoading, signIn, signUp, signInDemo, isLocalMode } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,56 +28,40 @@ const Auth = () => {
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const from = (location.state as { from?: string } | null)?.from || "/";
+  const { signIn, signUp, signInDemo } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    if (!authLoading && user) {
-      navigate(from, { replace: true });
-    }
-  }, [user, authLoading, navigate, from]);
+  const from = (location.state as any)?.from?.pathname || "/dashboard";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      toast.error("Please fill in all required fields.");
-      return;
-    }
-    if (mode === "signup" && !fullName) {
-      toast.error("Please enter your full name.");
-      return;
-    }
-
     setLoading(true);
+
     try {
-      if (mode === "signup") {
-        const { error } = await signUp(email, password, fullName);
-        if (error) {
-          toast.error(error.message || "Failed to create account");
-        } else {
-          toast.success("Account created successfully! Welcome to Samrita Collection 🎉");
-          navigate(from, { replace: true });
-        }
-      } else {
+      if (mode === "signin") {
         const { error } = await signIn(email, password);
-        if (error) {
-          toast.error(error.message || "Failed to sign in. Please check your credentials.");
-        } else {
-          toast.success("Welcome back! 🎉");
-          navigate(from, { replace: true });
-        }
+        if (error) throw error;
+        toast.success("Welcome back!");
+        navigate(from, { replace: true });
+      } else {
+        const { error } = await signUp(email, password, fullName);
+        if (error) throw error;
+        toast.success("Account created successfully!");
+        navigate(from, { replace: true });
       }
     } catch (err: any) {
-      toast.error(err?.message || "An unexpected error occurred. Please try again.");
+      toast.error(err.message || "Authentication failed");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDemoLogin = async (asAdmin = false) => {
+  const handleDemoLogin = async () => {
     setLoading(true);
     try {
-      await signInDemo(asAdmin);
-      toast.success(asAdmin ? "Logged in as Demo Admin!" : "Logged in with Demo Account!");
+      await signInDemo(false);
+      toast.success("Welcome to Demo Account!");
       navigate(from, { replace: true });
     } catch (err: any) {
       toast.error("Failed to start demo session");
@@ -79,46 +71,41 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-slate-100 selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen flex bg-[#f8fafc] text-slate-800">
       <SEO
-        title="Student Portal Login & Register | Samrita Collection"
-        description="Sign in or register for your Samrita Collection student account to track mock exam scores, save progress, and view national ranking."
+        title="Student Portal Login & Register | Samrita Collections"
+        description="Sign in or register for your Samrita Collections student account to track mock exam scores, save progress, and view national ranking."
         canonical="https://amritagupta.com.np/auth"
         noindex={true}
       />
       {/* Left: hero/brand panel */}
-      <div className="hidden lg:flex flex-col justify-between flex-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-950 p-12 text-white relative overflow-hidden border-r border-slate-800/80">
-        {/* Decorative background effects */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-purple-500/10 rounded-full blur-2xl pointer-events-none" />
-
+      <div className="hidden lg:flex flex-col justify-between flex-1 bg-[#0c2854] p-12 text-white relative overflow-hidden border-r border-blue-900/40">
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-xl font-bold mb-12 hover:opacity-90 transition">
-            <div className="bg-gradient-to-tr from-blue-600 to-indigo-600 p-2.5 rounded-2xl shadow-lg shadow-blue-500/30">
-              <BookOpen size={22} className="text-white" />
-            </div>
+            <img src={samritaIcon} alt="Samrita Collections Logo" className="w-10 h-10 object-contain drop-shadow" />
             <div>
-              <span className="font-heading font-bold text-white text-lg">Computer Operator Pro</span>
-              <span className="block text-[10px] uppercase tracking-widest text-blue-400 font-semibold">Nepal Loksewa Aayog</span>
+              <span className="font-heading font-bold text-white text-lg">
+                Samrita <span className="text-[#facc15]">Collections</span>
+              </span>
+              <span className="block text-[11px] italic text-sky-200">Learn • Practice • Grow</span>
             </div>
           </Link>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold mb-6">
-            <Sparkles size={14} /> Ready for 2081/2082 Exam Preparation
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-sky-200 text-xs font-semibold mb-6">
+            <Sparkles size={14} className="text-[#facc15]" /> Ready for 2081/2082 Exam Preparation
           </div>
 
-          <h2 className="text-4xl font-heading font-extrabold leading-tight mb-4 tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-200 bg-clip-text text-transparent">
-            Master the Loksewa<br />Computer Operator Exam.
+          <h2 className="text-4xl font-black leading-tight mb-4 tracking-tight text-white">
+            Your Success in PSC<br />Starts Here!
           </h2>
-          <p className="text-slate-300 text-base max-w-md leading-relaxed mb-8">
-            Access 15,000+ practice questions, 19 full mock exams, real-time leaderboards, subjective questions, and Nepali typing practice.
+          <p className="text-slate-200 text-base max-w-md leading-relaxed mb-8 font-medium">
+            Access 15,000+ practice questions, 74+ old question sets, mock exam simulations, and Nepali typing tests.
           </p>
 
           <div className="space-y-3 max-w-md">
-            <FeatureItem title="Instant Evaluation & Analytics" desc="Detailed marks calculation with 20% negative marking simulation" />
+            <FeatureItem title="Instant Evaluation & Scoring" desc="Realistic exam simulator with score card and performance metrics" />
             <FeatureItem title="Subject-wise Practice" desc="Operating System, MS Word, Excel, DBMS, Hardware & Legislation" />
-            <FeatureItem title="Offline & Cloud Sync" desc="Seamless progress saving with instant local access anytime" />
+            <FeatureItem title="Study Notes & Old Question Papers" desc="Quality notes and past papers from 2064 to 2082 BS" />
           </div>
         </div>
 
@@ -128,37 +115,37 @@ const Auth = () => {
             <FeatureBadge icon={<BarChart3 size={18} />} label="Analytics" />
             <FeatureBadge icon={<ShieldCheck size={18} />} label="Instant Login" />
           </div>
-          <p className="text-slate-400 text-xs">
-            © {new Date().getFullYear()} Loksewa Computer Operator Pro · Built for अग्रिम तयारी
+          <p className="text-slate-300 text-xs">
+            © 2026 Samrita Collections · Designed & Developed by Amrita Gupta
           </p>
         </div>
       </div>
 
       {/* Right: form panel */}
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative">
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative bg-[#f8fafc]">
         <div className="w-full max-w-md">
           {/* Mobile brand header */}
           <div className="lg:hidden text-center mb-8">
             <Link to="/" className="inline-flex flex-col items-center">
-              <div className="w-14 h-14 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/30">
-                <BookOpen size={28} className="text-white" />
-              </div>
-              <p className="font-bold text-white text-lg">Computer Operator Pro</p>
-              <p className="text-xs text-blue-400">Loksewa Nepal</p>
+              <img src={samritaIcon} alt="Logo" className="w-12 h-12 mb-2 object-contain" />
+              <p className="font-bold text-[#0c2854] text-lg">
+                Samrita <span className="text-[#0284c7]">Collections</span>
+              </p>
+              <p className="text-xs text-slate-500 font-medium">Learn • Practice • Grow</p>
             </Link>
           </div>
 
           {/* Card container */}
-          <div className="bg-slate-800/90 backdrop-blur-xl border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/40">
+          <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
             {/* Tab switcher */}
-            <div className="bg-slate-900/80 rounded-2xl p-1 flex mb-6 border border-slate-700/60">
+            <div className="bg-slate-100 rounded-full p-1 flex mb-6">
               <button
                 type="button"
                 onClick={() => setMode("signin")}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                className={`flex-1 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
                   mode === "signin"
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#0284c7] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Sign In
@@ -166,10 +153,10 @@ const Auth = () => {
               <button
                 type="button"
                 onClick={() => setMode("signup")}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                className={`flex-1 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 ${
                   mode === "signup"
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#0284c7] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Create Account
@@ -177,10 +164,10 @@ const Auth = () => {
             </div>
 
             <div className="mb-6">
-              <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white mb-1.5">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#0c2854] mb-1.5">
                 {mode === "signin" ? "Welcome back 👋" : "Create your account 🚀"}
               </h1>
-              <p className="text-slate-400 text-sm">
+              <p className="text-slate-500 text-xs sm:text-sm font-medium">
                 {mode === "signin"
                   ? "Sign in to continue your preparation & track scores."
                   : "Join thousands of aspirants preparing for Loksewa."}
@@ -196,8 +183,8 @@ const Auth = () => {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Ram Bahadur"
-                    className="w-full bg-transparent outline-none text-sm text-white placeholder:text-slate-500"
+                    placeholder="Amrita Gupta"
+                    className="w-full bg-transparent outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium"
                   />
                 </Field>
               )}
@@ -208,8 +195,8 @@ const Auth = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="student@loksewa.pro"
-                  className="w-full bg-transparent outline-none text-sm text-white placeholder:text-slate-500"
+                  placeholder="student@example.com"
+                  className="w-full bg-transparent outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium"
                 />
               </Field>
 
@@ -221,12 +208,12 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-transparent outline-none text-sm text-white placeholder:text-slate-500"
+                  className="w-full bg-transparent outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPwd((s) => !s)}
-                  className="text-slate-400 hover:text-white transition-colors ml-2"
+                  className="text-slate-400 hover:text-slate-700 transition-colors ml-2"
                 >
                   {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -235,7 +222,7 @@ const Auth = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white py-3.5 rounded-2xl font-semibold shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white py-3 rounded-full font-bold shadow-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2 text-sm mt-2"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -254,10 +241,10 @@ const Auth = () => {
             {/* Quick 1-Click Demo Login */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-700/80"></div>
+                <div className="w-full border-t border-slate-200"></div>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-slate-800 px-3 text-slate-400 font-medium tracking-wider">
+                <span className="bg-white px-3 text-slate-400 font-semibold tracking-wider text-[10px]">
                   Or Instant Access
                 </span>
               </div>
@@ -266,22 +253,22 @@ const Auth = () => {
             <div className="grid grid-cols-1 gap-2">
               <button
                 type="button"
-                onClick={() => handleDemoLogin(false)}
+                onClick={handleDemoLogin}
                 disabled={loading}
-                className="w-full py-3 px-4 rounded-2xl text-xs font-semibold text-slate-200 bg-slate-700/60 hover:bg-slate-700 border border-slate-600/60 hover:border-slate-500 flex items-center justify-center gap-2 transition-all duration-200"
+                className="w-full py-2.5 px-4 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center gap-2 transition"
               >
-                <Zap size={15} className="text-amber-400" />
+                <Zap size={14} className="text-amber-500 fill-amber-500" />
                 <span>1-Click Quick Demo Login</span>
               </button>
             </div>
 
             {/* Bottom switcher */}
-            <p className="text-center text-xs sm:text-sm text-slate-400 mt-6">
+            <p className="text-center text-xs sm:text-sm text-slate-500 mt-6 font-medium">
               {mode === "signin" ? "Don't have an account yet?" : "Already registered?"}{" "}
               <button
                 type="button"
                 onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                className="text-blue-400 font-semibold hover:text-blue-300 hover:underline transition"
+                className="text-[#0284c7] font-bold hover:underline transition"
               >
                 {mode === "signin" ? "Create an account" : "Sign in here"}
               </button>
@@ -289,7 +276,7 @@ const Auth = () => {
           </div>
 
           <div className="text-center mt-6">
-            <Link to="/" className="text-xs text-slate-400 hover:text-white transition inline-flex items-center gap-1">
+            <Link to="/" className="text-xs text-slate-500 hover:text-[#0284c7] transition inline-flex items-center gap-1 font-semibold">
               ← Back to Home
             </Link>
           </div>
@@ -301,20 +288,20 @@ const Auth = () => {
 
 const FeatureItem = ({ title, desc }: { title: string; desc: string }) => (
   <div className="flex items-start gap-3">
-    <div className="mt-1 bg-emerald-500/20 text-emerald-400 p-1 rounded-lg">
+    <div className="mt-1 bg-emerald-500/20 text-emerald-300 p-1 rounded-lg">
       <CheckCircle2 size={16} />
     </div>
     <div>
-      <p className="text-sm font-semibold text-white">{title}</p>
-      <p className="text-xs text-slate-400 leading-relaxed">{desc}</p>
+      <p className="text-sm font-bold text-white">{title}</p>
+      <p className="text-xs text-slate-300 leading-relaxed font-medium">{desc}</p>
     </div>
   </div>
 );
 
 const FeatureBadge = ({ icon, label }: { icon: React.ReactNode; label: string }) => (
-  <div className="bg-white/5 border border-white/10 backdrop-blur rounded-2xl p-3 text-center">
-    <div className="flex justify-center mb-1 text-blue-400">{icon}</div>
-    <p className="text-xs text-slate-300 font-medium">{label}</p>
+  <div className="bg-white/10 border border-white/20 rounded-2xl p-3 text-center">
+    <div className="flex justify-center mb-1 text-sky-300">{icon}</div>
+    <p className="text-xs text-slate-200 font-semibold">{label}</p>
   </div>
 );
 
@@ -328,10 +315,10 @@ const Field = ({
   children: React.ReactNode;
 }) => (
   <div>
-    <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wide">
+    <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
       {label}
     </label>
-    <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700 rounded-2xl px-4 py-3 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition duration-200">
+    <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2.5 focus-within:border-[#0284c7] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0284c7]/20 transition">
       <span className="text-slate-400 flex-shrink-0">{icon}</span>
       {children}
     </div>
