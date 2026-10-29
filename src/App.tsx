@@ -27,6 +27,7 @@ import NepalLoadingScreen from "./components/NepalLoadingScreen";
 import DailyMCQPage from "./pages/DailyMCQPage";
 import Portfolio from "./pages/Portfolio";
 import Sahil from "./pages/Sahil";
+import Notices from "./pages/Notices";
 import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -131,6 +132,8 @@ const AppContent = () => {
               <Route path="/notes" element={<Notes />} />
               <Route path="/downloads" element={<Downloads />} />
               <Route path="/daily-mcq" element={<DailyMCQPage />} />
+              <Route path="/notices" element={<Notices />} />
+              <Route path="/tu-notices" element={<Navigate to="/notices" replace />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

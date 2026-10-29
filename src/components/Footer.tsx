@@ -21,6 +21,7 @@ import logoImg from "@/assets/logo.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 
 const learningLinks = [
+  { label: "TU Notices & Vacancies", path: "/notices" },
   { label: "MCQ Subject Practice", path: "/practice" },
   { label: "74+ Old Question Sets", path: "/old-is-gold" },
   { label: "18+ Real Mock Exams", path: "/online-exam" },
@@ -32,6 +33,7 @@ const learningLinks = [
 ];
 
 const officialGovLinks = [
+  { name: "TU Service Commission", url: "https://tusc.tu.edu.np/notices" },
   { name: "Public Service Commission (PSC)", url: "https://psc.gov.np" },
   { name: "Ministry of Comm. & IT (MoCIT)", url: "https://mocit.gov.np" },
   { name: "National IT Center (NITC)", url: "https://nitc.gov.np" },

@@ -16,6 +16,7 @@ import {
   Monitor,
   BookOpen,
   ArrowRight,
+  Bell,
 } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
 import SEO from "@/components/SEO";
@@ -23,6 +24,7 @@ import { motion } from "framer-motion";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 import pscHeroBanner from "@/assets/psc-hero-banner.jpg";
 import studentIllustration from "@/assets/student-study-illustration.png";
+import { useTuNotices } from "@/hooks/useTuNotices";
 
 // 9 Feature Cards matching the layout design
 const quickCardsRow1 = [
@@ -104,6 +106,7 @@ const quickCardsRow2 = [
 ];
 
 const importantLinks = [
+  { name: "TU Service Commission", desc: "tusc.tu.edu.np — Tribhuvan University Notices & Vacancies", url: "https://tusc.tu.edu.np/notices", icon: "🎓" },
   { name: "PSC Nepal", desc: "psc.gov.np — Official Public Service Commission", url: "https://psc.gov.np", icon: "🏛️" },
   { name: "MoCIT Nepal", desc: "Ministry of Communications & Information Technology", url: "https://mocit.gov.np", icon: "🏢" },
   { name: "NITC Nepal", desc: "National Information Technology Center", url: "https://nitc.gov.np", icon: "🖥️" },
@@ -113,6 +116,8 @@ const importantLinks = [
 
 const Index = () => {
   const quote = useMemo(() => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)], []);
+  const { notices, hasNew } = useTuNotices();
+  const latestNotice = notices[0];
 
   return (
     <PageTransition>
@@ -189,6 +194,27 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* ── Live TU Notices Alert Ticker ─────────────────────────── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 relative z-20">
+          <div className="bg-white rounded-2xl p-3 sm:px-5 border border-slate-200/80 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3 overflow-hidden w-full sm:w-auto">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#072147] text-[#facc15] text-[11px] font-extrabold uppercase tracking-wider flex-shrink-0">
+                <Bell size={12} className="text-[#facc15] animate-bounce" /> TU Notice
+              </span>
+              <p className="text-xs sm:text-sm font-semibold text-slate-800 truncate">
+                {latestNotice ? latestNotice.title : "नतिजा प्रकाशन सम्बन्धी सूचना (सहप्राध्यापक संस्कृति)"}
+              </p>
+            </div>
+            <Link
+              to="/notices"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex-shrink-0 group whitespace-nowrap self-end sm:self-auto"
+            >
+              <span>View All Notices</span>
+              <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
+        </div>
 
         {/* ── 2. Feature / Quick Access Cards Grid (9 Cards) ────────── */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-4">

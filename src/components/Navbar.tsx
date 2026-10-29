@@ -6,9 +6,10 @@ import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
   Search, ChevronDown, Trophy, FileText,
   BookMarked, Medal, BookCheck, Download, Monitor,
-  HelpCircle, Calendar, Shield, User
+  HelpCircle, Calendar, Shield, User, Bell
 } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { useTuNotices } from "@/hooks/useTuNotices";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +26,7 @@ const courseItems = [
 ];
 
 const moreItems = [
+  { label: "TU Notices & Vacancies", path: "/notices", icon: <Bell className="w-4 h-4 text-amber-500" /> },
   { label: "Old Is Gold (Past Papers)", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
   { label: "Daily MCQ Challenge", path: "/daily-mcq", icon: <Calendar className="w-4 h-4 text-blue-500" /> },
   { label: "PSC Leaderboard", path: "/leaderboard", icon: <Medal className="w-4 h-4 text-emerald-500" /> },
@@ -39,6 +41,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isAdmin = useIsAdmin();
+  const { hasNew, newCount } = useTuNotices();
 
   // Route change auto-close
   useEffect(() => {
@@ -64,8 +67,9 @@ const Navbar = () => {
   const isHomeActive = location.pathname === "/";
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
+  const isNoticesActive = location.pathname === "/notices" || location.pathname === "/tu-notices";
   const isCoursesActive = ["/practice", "/online-exam", "/subjective", "/syllabus"].includes(location.pathname);
-  const isMoreActive = ["/old-is-gold", "/daily-mcq", "/leaderboard", "/downloads", "/portfolio", "/sahil"].includes(location.pathname);
+  const isMoreActive = ["/notices", "/old-is-gold", "/daily-mcq", "/leaderboard", "/downloads", "/portfolio", "/sahil"].includes(location.pathname);
 
   return (
     <>
@@ -167,6 +171,27 @@ const Navbar = () => {
                 >
                   <Keyboard className="w-4 h-4 text-slate-300" />
                   <span>Typing</span>
+                </Link>
+
+                {/* TU Notices with New Indicator */}
+                <Link
+                  to="/notices"
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isNoticesActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Bell className={`w-4 h-4 ${isNoticesActive ? "text-[#facc15]" : hasNew ? "text-amber-400" : "text-slate-300"}`} />
+                  <span>Notices</span>
+                  {hasNew && (
+                    <span className="relative flex items-center ml-0.5">
+                      <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-rose-400 opacity-75"></span>
+                      <span className="relative inline-flex items-center px-1.5 py-0.2 text-[9px] font-extrabold bg-rose-600 text-white rounded-full leading-tight shadow">
+                        NEW
+                      </span>
+                    </span>
+                  )}
                 </Link>
 
                 {/* More Dropdown */}
@@ -343,6 +368,22 @@ const Navbar = () => {
                     >
                       <Keyboard className="w-4 h-4 text-purple-400" />
                       <span>Typing</span>
+                    </Link>
+                    <Link
+                      to="/notices"
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isNoticesActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Bell className="w-4 h-4 text-amber-400" />
+                        <span>TU Notices (सूचना)</span>
+                      </div>
+                      {hasNew && (
+                        <span className="px-2 py-0.5 text-[10px] font-extrabold bg-rose-600 text-white rounded-full animate-pulse shadow">
+                          {newCount > 0 ? `${newCount} NEW` : "NEW"}
+                        </span>
+                      )}
                     </Link>
                   </div>
                 </div>
