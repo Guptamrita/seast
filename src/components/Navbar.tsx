@@ -17,13 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const courseItems = [
-  { label: "Computer Operator MCQs", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" />, desc: "15,000+ Subject-wise MCQs" },
-  { label: "Real Mock Exam Simulator", path: "/online-exam", icon: <FileText className="w-4 h-4 text-emerald-500" />, desc: "50 Qs / 45 Min with Negative Marking" },
-  { label: "Subjective Questions", path: "/subjective", icon: <BookMarked className="w-4 h-4 text-purple-500" />, desc: "Theory, Practical & Viva Questions" },
-  { label: "PSC Exam Syllabus", path: "/syllabus", icon: <BookCheck className="w-4 h-4 text-amber-500" />, desc: "Federal & Provincial Curriculums" },
-];
-
 const moreItems = [
   { label: "Old questions practice", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
   { label: "Mcq practice", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" /> },
@@ -59,11 +52,11 @@ const Navbar = () => {
   };
 
   const isHomeActive = location.pathname === "/";
-  const isCoursesActive = location.pathname === "/practice";
+  const isCoursesActive = location.pathname === "/courses";
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
   const isDownloadsActive = location.pathname === "/downloads";
-  const isMoreActive = ["/old-is-gold", "/online-exam"].includes(location.pathname);
+  const isMoreActive = ["/old-is-gold", "/practice", "/online-exam"].includes(location.pathname);
 
   return (
     <>
@@ -111,7 +104,7 @@ const Navbar = () => {
 
                 {/* Courses Button */}
                 <Link
-                  to="/practice"
+                  to="/courses"
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
                     isCoursesActive
                       ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
@@ -319,6 +312,15 @@ const Navbar = () => {
                       <span>Home</span>
                     </Link>
                     <Link
+                      to="/courses"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isCoursesActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <GraduationCap className="w-4 h-4 text-blue-400" />
+                      <span>Courses</span>
+                    </Link>
+                    <Link
                       to="/notes"
                       className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
                         isNotesActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
@@ -350,25 +352,7 @@ const Navbar = () => {
 
                 <div>
                   <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    Courses & Preparation
-                  </div>
-                  <div className="space-y-1">
-                    {courseItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 transition"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    More Resources
+                    More
                   </div>
                   <div className="space-y-1">
                     {moreItems.map((item) => (
@@ -381,6 +365,15 @@ const Navbar = () => {
                         <span>{item.label}</span>
                       </Link>
                     ))}
+                    {isAdmin && (
+                      <Link
+                        to="/admin-panel"
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition"
+                      >
+                        <Shield className="w-4 h-4" />
+                        <span>Admin Panel</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

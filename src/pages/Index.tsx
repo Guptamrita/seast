@@ -29,7 +29,7 @@ const quickCardsRow1 = [
   {
     title: "Courses",
     desc: "Learn from expert resources",
-    path: "/practice",
+    path: "/courses",
     icon: <GraduationCap className="w-5 h-5 text-white" />,
     iconBg: "bg-[#0284c7]",
     cardBg: "bg-[#f0f7ff] hover:bg-[#e0f2fe] border-[#bae6fd]/60 text-slate-900",
@@ -104,7 +104,6 @@ const quickCardsRow2 = [
 ];
 
 const importantLinks = [
-  { name: "TU Service Commission", desc: "tusc.tu.edu.np — Tribhuvan University Notices & Vacancies", url: "https://tusc.tu.edu.np/notices", icon: "🎓" },
   { name: "PSC Nepal", desc: "psc.gov.np — Official Public Service Commission", url: "https://psc.gov.np", icon: "🏛️" },
   { name: "MoCIT Nepal", desc: "Ministry of Communications & Information Technology", url: "https://mocit.gov.np", icon: "🏢" },
   { name: "NITC Nepal", desc: "National Information Technology Center", url: "https://nitc.gov.np", icon: "🖥️" },

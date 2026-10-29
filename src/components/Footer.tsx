@@ -33,7 +33,6 @@ const learningLinks = [
 ];
 
 const officialGovLinks = [
-  { name: "TU Service Commission", url: "https://tusc.tu.edu.np/notices" },
   { name: "Public Service Commission (PSC)", url: "https://psc.gov.np" },
   { name: "Ministry of Comm. & IT (MoCIT)", url: "https://mocit.gov.np" },
   { name: "National IT Center (NITC)", url: "https://nitc.gov.np" },
@@ -106,13 +105,6 @@ const Footer = () => {
                   >
                     Amrita Portfolio <Sparkles size={11} className="text-amber-400" />
                   </Link>
-                  <span className="text-slate-600">•</span>
-                  <Link
-                    to="/sahil"
-                    className="text-xs font-extrabold text-orange-400 hover:text-orange-300 inline-flex items-center gap-1 transition-colors"
-                  >
-                    Sahil's Ubuntu OS <Monitor size={11} className="text-orange-400" />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -159,14 +151,6 @@ const Footer = () => {
                   className="text-amber-400 hover:text-amber-300 transition-colors inline-block py-0.5 font-bold"
                 >
                   🏆 National Leaderboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/sahil"
-                  className="text-orange-400 hover:text-orange-300 transition-colors inline-block py-0.5 font-bold"
-                >
-                  💻 Sahil's Ubuntu OS
                 </Link>
               </li>
             </ul>

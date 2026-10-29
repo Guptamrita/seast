@@ -9,6 +9,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
+import Courses from "./pages/Courses";
 import Practice from "./pages/Practice";
 import QuizPage from "./pages/QuizPage";
 import OldIsGold from "./pages/OldIsGold";
@@ -117,10 +118,11 @@ const AppContent = () => {
               }
             />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/sahil" element={<Sahil />} />
-            <Route path="/sahil-portfolio" element={<Navigate to="/sahil" replace />} />
+            <Route path="/sahil" element={<Navigate to="/" replace />} />
+            <Route path="/sahil-portfolio" element={<Navigate to="/" replace />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
+              <Route path="/courses" element={<Courses />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/practice" element={<Practice />} />
               <Route path="/quiz/:category/:setId?" element={<QuizPage />} />
@@ -134,8 +136,8 @@ const AppContent = () => {
               <Route path="/notes" element={<Notes />} />
               <Route path="/downloads" element={<Downloads />} />
               <Route path="/daily-mcq" element={<DailyMCQPage />} />
-              <Route path="/notices" element={<Notices />} />
-              <Route path="/tu-notices" element={<Navigate to="/notices" replace />} />
+              <Route path="/notices" element={<Navigate to="/" replace />} />
+              <Route path="/tu-notices" element={<Navigate to="/" replace />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -13,10 +13,10 @@ export interface SEOProps {
 }
 
 const BASE_URL = "https://amritagupta.com.np";
-const DEFAULT_TITLE = "Samrita Collection — Loksewa Computer Operator & IT Preparation Portal";
+const DEFAULT_TITLE = "Samrita Collections — Learn • Practice • Grow";
 const DEFAULT_DESCRIPTION = "Nepal's premier open-access Loksewa Computer Operator, IT Officer & Corporate Exam Suite. 15,000+ MCQs, 74+ Old Question Papers, Mock Exams & Typing Practice.";
-const DEFAULT_KEYWORDS = "Loksewa Nepal, Computer Operator Preparation, IT Officer Exam, Loksewa MCQ, Preeti Typing Test, Past Papers 2082, Amrita Gupta, Samrita Collection";
-const DEFAULT_OG_IMAGE = "https://amritagupta.com.np/logo.png";
+const DEFAULT_KEYWORDS = "Loksewa Nepal, Computer Operator Preparation, IT Officer Exam, Loksewa MCQ, Preeti Typing Test, Past Papers 2082, Amrita Gupta, Samrita Collections";
+const DEFAULT_OG_IMAGE = "https://amritagupta.com.np/samrita-icon-transparent.png";
 
 export const SEO: React.FC<SEOProps> = ({
   title,
@@ -32,7 +32,7 @@ export const SEO: React.FC<SEOProps> = ({
   useEffect(() => {
     // 1. Page Title
     const fullTitle = title 
-      ? `${title} | Samrita Collection`
+      ? `${title} | Samrita Collections`
       : DEFAULT_TITLE;
     document.title = fullTitle;
 
