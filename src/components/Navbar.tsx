@@ -1,56 +1,59 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import logoImg from "@/assets/logo.png";
+import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import {
-  Menu, X, BookOpen, LogIn, LogOut, Shield,
-  Home, Calendar, HelpCircle, Trophy, FileText,
-  BookMarked, Medal, BookCheck, Keyboard, StickyNote,
-  Download, ChevronRight, User, Sparkles, Zap,
-  ExternalLink, Compass, ShieldAlert, Monitor
+  Menu, X, Home, GraduationCap, StickyNote, Keyboard,
+  Search, User, ChevronDown, Trophy, FileText,
+  BookMarked, Medal, BookCheck, Download, Monitor,
+  HelpCircle, Calendar, LogIn, LogOut, Shield, ArrowRight
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const navItems = [
-  { label: "Home",        path: "/",            icon: <Home size={15} /> },
-  { label: "Portfolio",   path: "/portfolio",   icon: <User size={15} /> },
-  { label: "Sahil OS",    path: "/sahil",       icon: <Monitor size={15} /> },
-  { label: "Daily MCQ",   path: "/daily-mcq",   icon: <Calendar size={15} /> },
-  { label: "MCQ Practice",path: "/practice",    icon: <HelpCircle size={15} /> },
-  { label: "Old Sets",    path: "/old-is-gold", icon: <Trophy size={15} /> },
-  { label: "Mock Exam",   path: "/online-exam", icon: <FileText size={15} /> },
-  { label: "Typing Test", path: "/typing",      icon: <Keyboard size={15} /> },
-  { label: "Study Notes", path: "/notes",       icon: <StickyNote size={15} /> },
-  { label: "Subjective",  path: "/subjective",  icon: <BookMarked size={15} /> },
-  { label: "Leaderboard", path: "/leaderboard", icon: <Medal size={15} /> },
-  { label: "Syllabus",    path: "/syllabus",    icon: <BookCheck size={15} /> },
-  { label: "Downloads",   path: "/downloads",   icon: <Download size={15} /> },
+const courseItems = [
+  { label: "Computer Operator MCQs", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" />, desc: "15,000+ Subject-wise MCQs" },
+  { label: "Real Mock Exam Simulator", path: "/online-exam", icon: <FileText className="w-4 h-4 text-emerald-500" />, desc: "50 Qs / 45 Min with Negative Marking" },
+  { label: "Subjective Questions", path: "/subjective", icon: <BookMarked className="w-4 h-4 text-purple-500" />, desc: "Theory, Practical & Viva Questions" },
+  { label: "PSC Exam Syllabus", path: "/syllabus", icon: <BookCheck className="w-4 h-4 text-amber-500" />, desc: "Federal & Provincial Curriculums" },
+];
+
+const moreItems = [
+  { label: "Old Is Gold (Past Papers)", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
+  { label: "Daily MCQ Challenge", path: "/daily-mcq", icon: <Calendar className="w-4 h-4 text-blue-500" /> },
+  { label: "PSC Leaderboard", path: "/leaderboard", icon: <Medal className="w-4 h-4 text-emerald-500" /> },
+  { label: "Downloads & PDFs", path: "/downloads", icon: <Download className="w-4 h-4 text-cyan-500" /> },
+  { label: "Portfolio (Amrita Gupta)", path: "/portfolio", icon: <User className="w-4 h-4 text-pink-500" /> },
+  { label: "Sahil OS Simulator", path: "/sahil", icon: <Monitor className="w-4 h-4 text-indigo-500" /> },
 ];
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const isAdmin = useIsAdmin();
 
-  // Scroll listener for sticky dynamics
+  // Route change auto-close
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 15);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Route change auto close
-  useEffect(() => { setDrawerOpen(false); }, [location.pathname]);
+    setDrawerOpen(false);
+  }, [location.pathname]);
 
   // Lock body scroll during drawer open
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [drawerOpen]);
 
   const handleSignOut = async () => {
@@ -59,287 +62,417 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/practice?search=${encodeURIComponent(searchQuery.trim())}`);
+      setDrawerOpen(false);
+    }
+  };
+
+  const isHomeActive = location.pathname === "/";
+  const isNotesActive = location.pathname === "/notes";
+  const isTypingActive = location.pathname === "/typing";
+  const isCoursesActive = ["/practice", "/online-exam", "/subjective", "/syllabus"].includes(location.pathname);
+  const isMoreActive = ["/old-is-gold", "/daily-mcq", "/leaderboard", "/downloads", "/portfolio", "/sahil"].includes(location.pathname);
+
   return (
     <>
-      {/* ── Floating Island Header ─────────────────────────── */}
-      <header className="sticky top-0 z-50 pt-2.5 px-3 sm:px-6 transition-all duration-300 pointer-events-none">
-        <motion.nav
-          initial={{ y: -60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 350, damping: 28 }}
-          className={`
-            pointer-events-auto max-w-7xl mx-auto
-            rounded-2xl sm:rounded-full
-            transition-all duration-300
-            ${scrolled
-              ? "bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-indigo-950/40 py-2 px-3 sm:px-5"
-              : "bg-slate-900/80 dark:bg-slate-950/80 backdrop-blur-xl border border-white/10 shadow-xl shadow-black/20 py-2.5 px-3.5 sm:px-6"
-            }
-          `}
-        >
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
-
-            {/* 1. Brand Logo & Name */}
-            <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
-              <div className="relative">
-                <motion.img
-                  whileHover={{ rotate: [0, -8, 8, -4, 0], scale: 1.12 }}
-                  transition={{ duration: 0.5 }}
-                  src={logoImg}
-                  alt="Samrita Collection Logo"
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl object-cover shadow-lg shadow-blue-500/25 ring-2 ring-blue-400/40 group-hover:ring-blue-400 transition-all"
+      {/* ── Main Top Navigation Bar ─────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-[#072147] text-white border-b border-[#0f3469] shadow-md transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-18 gap-3">
+            
+            {/* 1. Left: Brand Logo & Title */}
+            <div className="flex items-center gap-4 flex-shrink-0">
+              <Link to="/" className="flex items-center gap-2.5 group">
+                <img
+                  src={samritaIcon}
+                  alt="Samrita Collections Logo"
+                  className="w-9 h-9 sm:w-10 sm:h-10 object-contain drop-shadow"
                 />
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900 animate-pulse" />
-              </div>
-
-              <div className="leading-tight">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-white text-base sm:text-lg tracking-tight group-hover:text-blue-300 transition-colors" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                    Samrita Collection
+                <div className="flex flex-col leading-tight">
+                  <span className="text-base sm:text-lg font-bold tracking-tight text-white">
+                    Samrita <span className="text-[#facc15]">Collections</span>
+                  </span>
+                  <span className="text-[11px] italic font-normal text-slate-200 tracking-wider">
+                    Learn • Practice • Grow
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-[10px] font-extrabold tracking-wider bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent uppercase">
-                    Dev By Amrita Gupta 🇳🇵
-                  </span>
-                </div>
-              </div>
-            </Link>
-
-            {/* 2. Scrollable Center Nav Pills (Desktop) */}
-            <div className="hidden lg:flex flex-1 items-center justify-center overflow-hidden mx-2">
-              <div
-                className="flex items-center gap-1 overflow-x-auto py-1 px-1 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
-                {navItems.map((item) => {
-                  const active = location.pathname === item.path;
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`
-                        relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold
-                        whitespace-nowrap transition-all duration-200 z-10
-                        ${active
-                          ? "text-white shadow-md"
-                          : "text-slate-300 hover:text-white hover:bg-white/10"
-                        }
-                      `}
-                    >
-                      {active && (
-                        <motion.div
-                          layoutId="active-pill"
-                          className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 rounded-full shadow-lg shadow-blue-500/30 -z-10"
-                          transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                        />
-                      )}
-                      <span className={active ? "text-white drop-shadow" : "text-blue-400/80"}>
-                        {item.icon}
-                      </span>
-                      <span>{item.label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 3. Right Action Cluster */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-
-              {/* Practice CTA (Desktop) */}
-              <Link to="/practice" className="hidden sm:inline-flex">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white text-xs font-black px-4 py-2 rounded-full shadow-lg shadow-blue-500/25 border border-white/20 hover:opacity-95 transition"
-                >
-                  <Zap size={13} className="text-amber-300 fill-amber-300" /> Start Practice
-                </motion.button>
               </Link>
 
-              {/* Admin Button */}
-              {isAdmin && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate("/admin-panel")}
-                  className="hidden md:flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/30 px-3.5 py-1.5 rounded-full transition"
-                >
-                  <Shield size={13} /> Admin
-                </motion.button>
-              )}
+              {/* Vertical divider */}
+              <div className="hidden lg:block h-7 w-px bg-white/20 mx-1" />
 
-              {/* User Account / Auth */}
-              {user ? (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSignOut}
-                  title={`Signed in as ${user.email}`}
-                  className="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/10 px-3.5 py-1.5 rounded-full transition"
+              {/* Nav Menu Links (Desktop) */}
+              <nav className="hidden lg:flex items-center gap-1 sm:gap-2">
+                
+                {/* Home */}
+                <Link
+                  to="/"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isHomeActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
                 >
-                  <LogOut size={13} /> Logout
-                </motion.button>
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate("/auth")}
-                  className="hidden md:flex items-center gap-1.5 text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3.5 py-1.5 rounded-full transition"
+                  <Home className={`w-4 h-4 ${isHomeActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                  <span>Home</span>
+                </Link>
+
+                {/* Courses Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors outline-none ${
+                        isCoursesActive
+                          ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                          : "text-slate-200 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <GraduationCap className="w-4 h-4 text-slate-300" />
+                      <span>Courses</span>
+                      <ChevronDown className="w-3.5 h-3.5 opacity-75" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-64 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
+                    {courseItems.map((item) => (
+                      <DropdownMenuItem
+                        key={item.path}
+                        onClick={() => navigate(item.path)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition"
+                      >
+                        <div className="p-1.5 bg-white/5 rounded-lg mt-0.5">{item.icon}</div>
+                        <div>
+                          <div className="text-xs font-bold text-white">{item.label}</div>
+                          <div className="text-[10px] text-slate-400 font-medium">{item.desc}</div>
+                        </div>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* Notes */}
+                <Link
+                  to="/notes"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isNotesActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
                 >
-                  <LogIn size={13} /> Login
-                </motion.button>
-              )}
+                  <StickyNote className="w-4 h-4 text-slate-300" />
+                  <span>Notes</span>
+                </Link>
+
+                {/* Typing */}
+                <Link
+                  to="/typing"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isTypingActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Keyboard className="w-4 h-4 text-slate-300" />
+                  <span>Typing</span>
+                </Link>
+
+                {/* More Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors outline-none ${
+                        isMoreActive
+                          ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                          : "text-slate-200 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <span className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5 opacity-80">
+                        <span className="bg-current rounded-[1px]" />
+                        <span className="bg-current rounded-[1px]" />
+                        <span className="bg-current rounded-[1px]" />
+                        <span className="bg-current rounded-[1px]" />
+                      </span>
+                      <span>More</span>
+                      <ChevronDown className="w-3.5 h-3.5 opacity-75" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-56 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
+                    {moreItems.map((item) => (
+                      <DropdownMenuItem
+                        key={item.path}
+                        onClick={() => navigate(item.path)}
+                        className="flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition text-xs font-semibold text-white"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </DropdownMenuItem>
+                    ))}
+                    {isAdmin && (
+                      <>
+                        <DropdownMenuSeparator className="bg-white/10 my-1" />
+                        <DropdownMenuItem
+                          onClick={() => navigate("/admin-panel")}
+                          className="flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-amber-500/20 text-amber-300 text-xs font-bold"
+                        >
+                          <Shield className="w-4 h-4" />
+                          <span>Admin Panel</span>
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+              </nav>
+            </div>
+
+            {/* 2. Right: Search Bar, Profile Avatar & Mobile Toggle */}
+            <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+              
+              {/* Pill Search Input */}
+              <form onSubmit={handleSearchSubmit} className="relative hidden sm:block">
+                <div className="flex items-center bg-white rounded-full px-3.5 py-1.5 shadow-inner w-44 md:w-56 focus-within:w-64 focus-within:ring-2 focus-within:ring-[#0284c7] transition-all">
+                  <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="w-full bg-transparent border-none outline-none text-xs text-slate-800 placeholder-slate-400 font-medium"
+                  />
+                </div>
+              </form>
+
+              {/* Profile Avatar Icon */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    aria-label="User profile"
+                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border-2 border-white/40 flex items-center justify-center text-white transition shadow-sm outline-none"
+                  >
+                    <User className="w-4 h-4" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-52 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
+                  {user ? (
+                    <>
+                      <div className="px-2 py-1.5 border-b border-white/10 mb-1">
+                        <p className="text-xs font-bold text-white truncate">{user.email}</p>
+                        <p className="text-[10px] text-emerald-400 font-semibold">Logged in</p>
+                      </div>
+                      <DropdownMenuItem
+                        onClick={() => navigate("/dashboard")}
+                        className="text-xs font-semibold hover:bg-white/10 cursor-pointer rounded-lg p-2"
+                      >
+                        My Dashboard
+                      </DropdownMenuItem>
+                      {isAdmin && (
+                        <DropdownMenuItem
+                          onClick={() => navigate("/admin-panel")}
+                          className="text-xs font-bold text-amber-300 hover:bg-white/10 cursor-pointer rounded-lg p-2"
+                        >
+                          Admin Console
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuSeparator className="bg-white/10 my-1" />
+                      <DropdownMenuItem
+                        onClick={handleSignOut}
+                        className="text-xs font-semibold text-red-300 hover:bg-red-500/20 cursor-pointer rounded-lg p-2 flex items-center gap-2"
+                      >
+                        <LogOut className="w-3.5 h-3.5" />
+                        <span>Sign Out</span>
+                      </DropdownMenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <DropdownMenuItem
+                        onClick={() => navigate("/auth")}
+                        className="text-xs font-bold hover:bg-white/10 cursor-pointer rounded-lg p-2 flex items-center gap-2 text-white"
+                      >
+                        <LogIn className="w-4 h-4 text-blue-400" />
+                        <span>Login / Register</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => navigate("/portfolio")}
+                        className="text-xs font-semibold hover:bg-white/10 cursor-pointer rounded-lg p-2 text-slate-300"
+                      >
+                        About Developer
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {/* Mobile Hamburger Button */}
-              <motion.button
-                whileTap={{ scale: 0.9 }}
+              <button
                 onClick={() => setDrawerOpen(true)}
-                className="flex items-center justify-center p-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/10 transition lg:hidden"
+                className="lg:hidden p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition"
                 aria-label="Open menu"
               >
-                <Menu className="w-5 h-5 text-blue-400" />
-              </motion.button>
+                <Menu className="w-5 h-5" />
+              </button>
 
             </div>
 
           </div>
-        </motion.nav>
+        </div>
       </header>
 
-      {/* ── Ultra-Modern Slide-Over Mobile Drawer ────────────── */}
+      {/* ── Responsive Mobile Drawer ────────────────────────── */}
       <AnimatePresence>
         {drawerOpen && (
           <>
-            {/* Backdrop Blur Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-md lg:hidden pointer-events-auto"
+              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm lg:hidden"
               onClick={() => setDrawerOpen(false)}
             />
 
-            {/* Slide Drawer Panel */}
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              className="fixed top-0 right-0 z-[70] h-full w-[310px] sm:w-[360px] flex flex-col bg-slate-950/95 backdrop-blur-2xl border-l border-white/15 shadow-2xl text-white overflow-hidden lg:hidden"
+              className="fixed top-0 right-0 z-[70] h-full w-[300px] sm:w-[340px] flex flex-col bg-[#072147] border-l border-white/15 shadow-2xl text-white overflow-hidden lg:hidden"
             >
               {/* Drawer Header */}
-              <div className="flex items-center justify-between p-5 border-b border-white/10 bg-slate-900/60">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#061a38]">
+                <div className="flex items-center gap-2">
                   <img
-                    src={logoImg}
-                    alt="Samrita Collection Logo"
-                    className="w-10 h-10 rounded-xl object-cover shadow-md ring-2 ring-blue-500/30"
+                    src={samritaIcon}
+                    alt="Samrita Logo"
+                    className="w-8 h-8 object-contain"
                   />
                   <div>
-                    <h3 className="font-extrabold text-white text-base" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Samrita Collection
-                    </h3>
-                    <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                      Dev By Amrita Gupta
-                    </p>
+                    <div className="font-bold text-sm text-white">
+                      Samrita <span className="text-[#facc15]">Collections</span>
+                    </div>
+                    <div className="text-[10px] italic text-slate-300">
+                      Learn • Practice • Grow
+                    </div>
                   </div>
                 </div>
-
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="p-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 hover:text-white transition"
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white"
                 >
-                  <X size={18} />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Quick Action Button */}
+              {/* Mobile Search */}
               <div className="p-4 border-b border-white/10">
-                <Link
-                  to="/practice"
-                  onClick={() => setDrawerOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white font-extrabold text-xs py-3 rounded-xl shadow-lg shadow-blue-600/30"
-                >
-                  <Zap size={14} className="text-amber-300 fill-amber-300" /> Start MCQ Practice Now
-                </Link>
+                <form onSubmit={handleSearchSubmit}>
+                  <div className="flex items-center bg-white rounded-full px-3.5 py-2 shadow-inner">
+                    <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search topics, questions..."
+                      className="w-full bg-transparent border-none outline-none text-xs text-slate-800 placeholder-slate-400 font-medium"
+                    />
+                  </div>
+                </form>
               </div>
 
-              {/* Scrollable Navigation List */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-1.5 scrollbar-none">
-                <p className="text-[11px] font-extrabold text-slate-400 tracking-wider uppercase px-3 py-1">
-                  Preparation Portal
-                </p>
-
-                {navItems.map((item) => {
-                  const active = location.pathname === item.path;
-                  return (
+              {/* Drawer Navigation Links */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div>
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    Main Navigation
+                  </div>
+                  <div className="space-y-1">
                     <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setDrawerOpen(false)}
-                      className={`
-                        flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all
-                        ${active
-                          ? "bg-gradient-to-r from-blue-600/25 to-indigo-600/25 text-white border border-blue-500/40 shadow-inner"
-                          : "text-slate-300 hover:text-white hover:bg-white/10 border border-transparent"
-                        }
-                      `}
+                      to="/"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isHomeActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className={active ? "text-blue-400" : "text-slate-400"}>
-                          {item.icon}
-                        </span>
-                        <span>{item.label}</span>
-                      </div>
-                      {active ? (
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                      ) : (
-                        <ChevronRight size={14} className="text-slate-500" />
-                      )}
+                      <Home className="w-4 h-4 text-[#facc15]" />
+                      <span>Home</span>
                     </Link>
-                  );
-                })}
-              </div>
+                    <Link
+                      to="/notes"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isNotesActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <StickyNote className="w-4 h-4 text-emerald-400" />
+                      <span>Notes</span>
+                    </Link>
+                    <Link
+                      to="/typing"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isTypingActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <Keyboard className="w-4 h-4 text-purple-400" />
+                      <span>Typing</span>
+                    </Link>
+                  </div>
+                </div>
 
-              {/* Drawer Bottom Controls */}
-              <div className="p-4 border-t border-white/10 bg-slate-900/80 space-y-2.5">
-                {isAdmin && (
-                  <button
-                    onClick={() => { setDrawerOpen(false); navigate("/admin-panel"); }}
-                    className="w-full flex items-center justify-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 font-bold text-xs py-2.5 rounded-xl transition"
-                  >
-                    <Shield size={14} /> Admin Portal
-                  </button>
-                )}
+                <div>
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    Courses & Preparation
+                  </div>
+                  <div className="space-y-1">
+                    {courseItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 transition"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
 
-                {user ? (
-                  <button
-                    onClick={() => { setDrawerOpen(false); handleSignOut(); }}
-                    className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition"
-                  >
-                    <div className="flex items-center gap-2">
-                      <LogOut size={14} />
-                      <span>Sign Out</span>
-                    </div>
-                    <span className="text-[10px] text-slate-400 truncate max-w-[120px]">{user.email}</span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => { setDrawerOpen(false); navigate("/auth"); }}
-                    className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2.5 rounded-xl shadow-md transition"
-                  >
-                    <LogIn size={14} /> Sign In
-                  </button>
-                )}
-
-                {/* Developer Footer */}
-                <div className="pt-2 text-center text-[11px] text-slate-400 font-medium">
-                  Designed & Developed by <strong className="text-white">Amrita Gupta</strong> 🇳🇵
+                <div>
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    More Resources
+                  </div>
+                  <div className="space-y-1">
+                    {moreItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 transition"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
 
+              {/* Drawer Footer Auth */}
+              <div className="p-4 border-t border-white/10 bg-[#061a38]">
+                {user ? (
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold transition"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out ({user.email?.split("@")[0]})</span>
+                  </button>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold transition shadow"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span>Sign In to Your Account</span>
+                  </Link>
+                )}
+              </div>
             </motion.aside>
           </>
         )}
