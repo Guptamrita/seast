@@ -313,16 +313,16 @@ export default function Courses() {
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-600 transition">
-                  Old Questions (Past Papers)
+                  Practice Old Questions
                 </h4>
-                <p className="text-[11px] text-slate-400">74+ solved PSC sets</p>
+                <p className="text-[11px] text-slate-400">74+ solved PSC past papers</p>
               </div>
             </div>
             <ArrowRight size={15} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
           </Link>
 
           <Link
-            to="/online-exam"
+            to="/practice"
             className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 shadow-sm hover:shadow transition flex items-center justify-between group"
           >
             <div className="flex items-center gap-3.5">
@@ -331,9 +331,9 @@ export default function Courses() {
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#0284c7] transition">
-                  Mock Exam Simulator
+                  Practice MCQ
                 </h4>
-                <p className="text-[11px] text-slate-400">50 questions with negative marking</p>
+                <p className="text-[11px] text-slate-400">15,000+ Subject-wise MCQs</p>
               </div>
             </div>
             <ArrowRight size={15} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
@@ -349,9 +349,9 @@ export default function Courses() {
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition">
-                  Study Notes & Formulas
+                  Read Notes
                 </h4>
-                <p className="text-[11px] text-slate-400">Quick revision capsules & GK</p>
+                <p className="text-[11px] text-slate-400">Quick revision capsules & formulas</p>
               </div>
             </div>
             <ArrowRight size={15} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
