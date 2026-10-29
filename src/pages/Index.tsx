@@ -28,7 +28,7 @@ import studentIllustration from "@/assets/student-study-illustration.png";
 const quickCardsRow1 = [
   {
     title: "Courses",
-    desc: "Learn from expert resources",
+    desc: "Explore courses",
     path: "/courses",
     icon: <GraduationCap className="w-5 h-5 text-white" />,
     iconBg: "bg-[#0284c7]",
@@ -36,7 +36,7 @@ const quickCardsRow1 = [
   },
   {
     title: "Notes",
-    desc: "Download quality study notes",
+    desc: "Read notes",
     path: "/notes",
     icon: <FileText className="w-5 h-5 text-white" />,
     iconBg: "bg-[#10b981]",
