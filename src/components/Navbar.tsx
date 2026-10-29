@@ -6,10 +6,12 @@ import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
   Search, ChevronDown, Trophy, FileText,
   BookMarked, Medal, BookCheck, Download, Monitor,
-  HelpCircle, Calendar, Shield, User, Bell
+  HelpCircle, Calendar, Shield, User, Bell, LogIn, LogOut
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useTuNotices } from "@/hooks/useTuNotices";
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,7 +43,14 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isAdmin = useIsAdmin();
+  const { user, signOut } = useAuth();
   const { hasNew, newCount } = useTuNotices();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Signed out successfully");
+    navigate("/");
+  };
 
   // Route change auto-close
   useEffect(() => {
@@ -115,37 +124,18 @@ const Navbar = () => {
                   <span>Home</span>
                 </Link>
 
-                {/* Courses Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors outline-none ${
-                        isCoursesActive
-                          ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
-                          : "text-slate-200 hover:text-white hover:bg-white/10"
-                      }`}
-                    >
-                      <GraduationCap className="w-4 h-4 text-slate-300" />
-                      <span>Courses</span>
-                      <ChevronDown className="w-3.5 h-3.5 opacity-75" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-64 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
-                    {courseItems.map((item) => (
-                      <DropdownMenuItem
-                        key={item.path}
-                        onClick={() => navigate(item.path)}
-                        className="flex items-start gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition"
-                      >
-                        <div className="p-1.5 bg-white/5 rounded-lg mt-0.5">{item.icon}</div>
-                        <div>
-                          <div className="text-xs font-bold text-white">{item.label}</div>
-                          <div className="text-[10px] text-slate-400 font-medium">{item.desc}</div>
-                        </div>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {/* Courses Button */}
+                <Link
+                  to="/practice"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isCoursesActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <GraduationCap className={`w-4 h-4 ${isCoursesActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                  <span>Courses</span>
+                </Link>
 
                 {/* Notes */}
                 <Link
@@ -259,6 +249,65 @@ const Navbar = () => {
                   />
                 </div>
               </form>
+
+              {/* User Login Option to the Right of Search Bar */}
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      aria-label="User profile"
+                      className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition shadow-sm outline-none cursor-pointer"
+                    >
+                      <div className="w-7 h-7 rounded-full bg-[#0284c7] flex items-center justify-center text-white font-bold text-xs uppercase shadow">
+                        {user.email ? user.email.charAt(0) : <User className="w-3.5 h-3.5" />}
+                      </div>
+                      <span className="hidden xl:inline text-xs font-semibold text-slate-200 max-w-[100px] truncate">
+                        {user.email?.split("@")[0]}
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-slate-300 opacity-75" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
+                    <div className="px-2.5 py-2 border-b border-white/10 mb-1">
+                      <p className="text-xs font-bold text-white truncate">{user.email}</p>
+                      <p className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Logged in
+                      </p>
+                    </div>
+                    <DropdownMenuItem
+                      onClick={() => navigate("/dashboard")}
+                      className="text-xs font-semibold hover:bg-white/10 cursor-pointer rounded-lg p-2 text-white"
+                    >
+                      My Dashboard
+                    </DropdownMenuItem>
+                    {isAdmin && (
+                      <DropdownMenuItem
+                        onClick={() => navigate("/admin-panel")}
+                        className="text-xs font-bold text-amber-300 hover:bg-white/10 cursor-pointer rounded-lg p-2"
+                      >
+                        Admin Console
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator className="bg-white/10 my-1" />
+                    <DropdownMenuItem
+                      onClick={handleSignOut}
+                      className="text-xs font-semibold text-red-300 hover:bg-red-500/20 cursor-pointer rounded-lg p-2 flex items-center gap-2"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold transition shadow-sm hover:shadow active:scale-95 cursor-pointer"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Login</span>
+                </Link>
+              )}
 
               {/* Mobile Hamburger Button */}
               <button
@@ -423,6 +472,28 @@ const Navbar = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Drawer Footer Auth */}
+              <div className="p-4 border-t border-white/10 bg-[#061a38]">
+                {user ? (
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold transition"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out ({user.email?.split("@")[0]})</span>
+                  </button>
+                ) : (
+                  <Link
+                    to="/auth"
+                    onClick={() => setDrawerOpen(false)}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold transition shadow"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span>Sign In / Login</span>
+                  </Link>
+                )}
               </div>
             </motion.aside>
           </>

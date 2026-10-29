@@ -28,6 +28,8 @@ import DailyMCQPage from "./pages/DailyMCQPage";
 import Portfolio from "./pages/Portfolio";
 import Sahil from "./pages/Sahil";
 import Notices from "./pages/Notices";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -114,7 +116,7 @@ const AppContent = () => {
                 </CloudAdminGuard>
               }
             />
-            <Route path="/auth" element={<Navigate to="/" replace />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/sahil" element={<Sahil />} />
             <Route path="/sahil-portfolio" element={<Navigate to="/sahil" replace />} />
             <Route element={<Layout />}>
@@ -125,7 +127,7 @@ const AppContent = () => {
               <Route path="/old-is-gold" element={<OldIsGold />} />
               <Route path="/online-exam" element={<OnlineExam />} />
               <Route path="/subjective" element={<SubjectiveQuestions />} />
-              <Route path="/dashboard" element={<Navigate to="/" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/syllabus" element={<Syllabus />} />
               <Route path="/typing" element={<TypingPractice />} />
