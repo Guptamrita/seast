@@ -199,17 +199,14 @@ const Index = () => {
               <Link key={i} to={card.path} className="group">
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className={`${card.cardBg} border rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all h-full justify-start`}
+                  className={`${card.cardBg} border rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-all h-full min-h-[110px] sm:min-h-[120px]`}
                 >
-                  <div className={`w-11 h-11 rounded-full ${card.iconBg} flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform`}>
+                  <div className={`w-11 h-11 rounded-full ${card.iconBg} flex items-center justify-center shadow-sm mb-2.5 group-hover:scale-110 transition-transform`}>
                     {card.icon}
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-tight">
                     {card.title}
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 leading-snug">
-                    {card.desc}
-                  </p>
                 </motion.div>
               </Link>
             ))}
@@ -221,17 +218,14 @@ const Index = () => {
               <Link key={i} to={card.path} className="group">
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className={`${card.cardBg} border rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all h-full justify-start`}
+                  className={`${card.cardBg} border rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-all h-full min-h-[110px] sm:min-h-[120px]`}
                 >
-                  <div className={`w-11 h-11 rounded-full ${card.iconBg} flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform`}>
+                  <div className={`w-11 h-11 rounded-full ${card.iconBg} flex items-center justify-center shadow-sm mb-2.5 group-hover:scale-110 transition-transform`}>
                     {card.icon}
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-tight">
                     {card.title}
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 leading-snug">
-                    {card.desc}
-                  </p>
                 </motion.div>
               </Link>
             ))}
