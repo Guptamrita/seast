@@ -28,13 +28,9 @@ const courseItems = [
 ];
 
 const moreItems = [
-  { label: "TU Notices & Vacancies", path: "/notices", icon: <Bell className="w-4 h-4 text-amber-500" /> },
-  { label: "Old Is Gold (Past Papers)", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
-  { label: "Daily MCQ Challenge", path: "/daily-mcq", icon: <Calendar className="w-4 h-4 text-blue-500" /> },
-  { label: "PSC Leaderboard", path: "/leaderboard", icon: <Medal className="w-4 h-4 text-emerald-500" /> },
-  { label: "Downloads & PDFs", path: "/downloads", icon: <Download className="w-4 h-4 text-cyan-500" /> },
-  { label: "Portfolio (Amrita Gupta)", path: "/portfolio", icon: <User className="w-4 h-4 text-pink-500" /> },
-  { label: "Sahil OS Simulator", path: "/sahil", icon: <Monitor className="w-4 h-4 text-indigo-500" /> },
+  { label: "Old questions practice", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
+  { label: "Mcq practice", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" /> },
+  { label: "Practical set practice", path: "/online-exam", icon: <Monitor className="w-4 h-4 text-emerald-500" /> },
 ];
 
 const Navbar = () => {
@@ -74,11 +70,12 @@ const Navbar = () => {
   };
 
   const isHomeActive = location.pathname === "/";
+  const isCoursesActive = location.pathname === "/practice";
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
   const isNoticesActive = location.pathname === "/notices" || location.pathname === "/tu-notices";
-  const isCoursesActive = ["/practice", "/online-exam", "/subjective", "/syllabus"].includes(location.pathname);
-  const isMoreActive = ["/notices", "/old-is-gold", "/daily-mcq", "/leaderboard", "/downloads", "/portfolio", "/sahil"].includes(location.pathname);
+  const isDownloadsActive = location.pathname === "/downloads";
+  const isMoreActive = ["/old-is-gold", "/online-exam"].includes(location.pathname);
 
   return (
     <>
@@ -182,6 +179,19 @@ const Navbar = () => {
                       </span>
                     </span>
                   )}
+                </Link>
+
+                {/* Downloads Button (Just before More) */}
+                <Link
+                  to="/downloads"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isDownloadsActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Download className={`w-4 h-4 ${isDownloadsActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                  <span>Downloads</span>
                 </Link>
 
                 {/* More Dropdown */}
@@ -433,6 +443,15 @@ const Navbar = () => {
                           {newCount > 0 ? `${newCount} NEW` : "NEW"}
                         </span>
                       )}
+                    </Link>
+                    <Link
+                      to="/downloads"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isDownloadsActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <Download className="w-4 h-4 text-cyan-400" />
+                      <span>Downloads</span>
                     </Link>
                   </div>
                 </div>
