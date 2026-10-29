@@ -23,7 +23,6 @@ import {
   CheckCircle2,
   Terminal,
 } from "lucide-react";
-import QuestionSelector from "@/components/QuestionSelector";
 import SEO from "@/components/SEO";
 
 interface CourseCard {
@@ -43,8 +42,6 @@ interface CourseCard {
 export default function Courses() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSelector, setShowSelector] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<{ id: string; name: string; total: number } | null>(null);
 
   // 12 Courses requested by the user, matching the exact homepage boxes design
   const courses: CourseCard[] = [
@@ -207,26 +204,7 @@ export default function Courses() {
   }, [searchTerm, courses]);
 
   const handleCardClick = (course: CourseCard) => {
-    if (course.isProject) {
-      navigate("/portfolio");
-      return;
-    }
-    setSelectedCourse({
-      id: course.subjectId,
-      name: course.title,
-      total: course.totalQuestions,
-    });
-    setShowSelector(true);
-  };
-
-  const handleQuestionSelect = (count: number) => {
-    if (selectedCourse) {
-      navigate(
-        `/quiz/practice/${selectedCourse.id}?count=${count}&title=${encodeURIComponent(
-          selectedCourse.name
-        )}`
-      );
-    }
+    navigate(`/courses/${course.id}`);
   };
 
   return (
@@ -240,18 +218,13 @@ export default function Courses() {
       {/* ── Top Header Banner ────────────────────────────────────────── */}
       <section className="bg-gradient-to-b from-[#072147] to-[#0c2854] text-white pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-[#0f3469]">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-bold">
-            <GraduationCap size={15} className="text-[#facc15]" />
-            <span>Official Syllabus Aligned • 12 Core Courses</span>
-          </div>
-
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
                 All Courses & Modules <span className="text-[#facc15]">(पाठ्यक्रमहरू)</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-200 mt-2 max-w-2xl font-normal leading-relaxed">
-                Click on any course box below to practice high-yield MCQs, review concepts, and test your knowledge with real exam timers.
+                Click on any course box below to open complete PDF notes and study materials.
               </p>
             </div>
 
@@ -286,9 +259,6 @@ export default function Courses() {
               <h2 className="text-base sm:text-lg font-bold text-slate-900">
                 Core Curriculum Subjects
               </h2>
-              <p className="text-xs text-slate-500">
-                12 specialized subjects structured according to Public Service Commission norms
-              </p>
             </div>
             <span className="text-xs font-bold text-[#0284c7] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
               {filteredCourses.length} Courses Available
@@ -388,16 +358,6 @@ export default function Courses() {
           </Link>
         </section>
       </main>
-
-      {/* ── Question Selector Modal ─────────────────────────────────── */}
-      {showSelector && selectedCourse && (
-        <QuestionSelector
-          totalQuestions={selectedCourse.total}
-          subjectName={selectedCourse.name}
-          onSelect={handleQuestionSelect}
-          onClose={() => setShowSelector(false)}
-        />
-      )}
     </div>
   );
 }

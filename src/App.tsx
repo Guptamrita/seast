@@ -10,6 +10,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
+import CourseDetail from "./pages/CourseDetail";
 import Practice from "./pages/Practice";
 import QuizPage from "./pages/QuizPage";
 import OldIsGold from "./pages/OldIsGold";
@@ -123,6 +124,7 @@ const AppContent = () => {
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/courses" element={<Courses />} />
+              <Route path="/courses/:courseId" element={<CourseDetail />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/practice" element={<Practice />} />
               <Route path="/quiz/:category/:setId?" element={<QuizPage />} />

@@ -52,7 +52,7 @@ const Navbar = () => {
   };
 
   const isHomeActive = location.pathname === "/";
-  const isCoursesActive = location.pathname === "/courses";
+  const isCoursesActive = location.pathname.startsWith("/courses");
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
   const isDownloadsActive = location.pathname === "/downloads";
