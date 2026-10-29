@@ -326,14 +326,6 @@ export default function Courses() {
                 <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 leading-snug line-clamp-2">
                   {course.desc}
                 </p>
-
-                {/* Badge at Bottom */}
-                <div className="mt-auto pt-3 flex items-center gap-1.5 text-[10px] font-bold text-slate-600">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span>
-                    {course.isProject ? "View Portfolio & Projects" : `${course.totalQuestions}+ Questions`}
-                  </span>
-                </div>
               </motion.div>
             ))}
           </div>
