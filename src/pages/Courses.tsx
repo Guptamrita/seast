@@ -224,7 +224,7 @@ export default function Courses() {
                 All Courses & Modules <span className="text-[#facc15]">(पाठ्यक्रमहरू)</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-200 mt-2 max-w-2xl font-normal leading-relaxed">
-                Click on any course box below to open complete PDF notes and study materials.
+                Click on any course box below to open study materials.
               </p>
             </div>
 
@@ -302,7 +302,7 @@ export default function Courses() {
         </div>
 
         {/* ── Quick Practice Navigation Cards ───────────────────────── */}
-        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             to="/old-is-gold"
             className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-amber-300 shadow-sm hover:shadow transition flex items-center justify-between group"
@@ -334,24 +334,6 @@ export default function Courses() {
                   Practice MCQ
                 </h4>
                 <p className="text-[11px] text-slate-400">15,000+ Subject-wise MCQs</p>
-              </div>
-            </div>
-            <ArrowRight size={15} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
-          </Link>
-
-          <Link
-            to="/notes"
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 shadow-sm hover:shadow transition flex items-center justify-between group"
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                <BookOpen size={20} />
-              </div>
-              <div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition">
-                  Read Notes
-                </h4>
-                <p className="text-[11px] text-slate-400">Quick revision capsules & formulas</p>
               </div>
             </div>
             <ArrowRight size={15} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
