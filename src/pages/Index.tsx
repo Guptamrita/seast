@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motivationalQuotes } from "@/data/questions";
-import PersonalizedDashboard from "@/components/PersonalizedDashboard";
-import { useAuth } from "@/hooks/useAuth";
 import {
   ExternalLink,
   Code2,
@@ -114,7 +112,6 @@ const importantLinks = [
 ];
 
 const Index = () => {
-  const { user } = useAuth();
   const quote = useMemo(() => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)], []);
 
   return (
@@ -289,9 +286,6 @@ const Index = () => {
 
         {/* ── 4. Retained Clean Sections ─────────────────────────────── */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
-
-          {/* Personalized Dashboard (When user is logged in) */}
-          {user && <PersonalizedDashboard />}
 
           {/* Developer Spotlight (Amrita Gupta) */}
           <section className="rounded-3xl bg-[#0c2854] border border-blue-900/60 p-6 sm:p-8 lg:p-10 text-white shadow-sm relative overflow-hidden">

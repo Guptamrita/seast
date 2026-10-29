@@ -4,13 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
-  Search, User, ChevronDown, Trophy, FileText,
+  Search, ChevronDown, Trophy, FileText,
   BookMarked, Medal, BookCheck, Download, Monitor,
-  HelpCircle, Calendar, LogIn, LogOut, Shield, ArrowRight
+  HelpCircle, Calendar, Shield, User
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,7 +38,6 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
   const isAdmin = useIsAdmin();
 
   // Route change auto-close
@@ -55,12 +52,6 @@ const Navbar = () => {
       document.body.style.overflow = "";
     };
   }, [drawerOpen]);
-
-  const handleSignOut = async () => {
-    await signOut();
-    toast.success("Signed out successfully");
-    navigate("/");
-  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -227,82 +218,22 @@ const Navbar = () => {
               </nav>
             </div>
 
-            {/* 2. Right: Search Bar, Profile Avatar & Mobile Toggle */}
+            {/* 2. Right: Search Bar & Mobile Toggle */}
             <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
               
               {/* Pill Search Input */}
               <form onSubmit={handleSearchSubmit} className="relative hidden sm:block">
-                <div className="flex items-center bg-white rounded-full px-3.5 py-1.5 shadow-inner w-44 md:w-56 focus-within:w-64 focus-within:ring-2 focus-within:ring-[#0284c7] transition-all">
+                <div className="flex items-center bg-white rounded-full px-3.5 py-1.5 shadow-inner w-48 md:w-60 focus-within:w-64 focus-within:ring-2 focus-within:ring-[#0284c7] transition-all">
                   <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search..."
+                    placeholder="Search topics, MCQs..."
                     className="w-full bg-transparent border-none outline-none text-xs text-slate-800 placeholder-slate-400 font-medium"
                   />
                 </div>
               </form>
-
-              {/* Profile Avatar Icon */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    aria-label="User profile"
-                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border-2 border-white/40 flex items-center justify-center text-white transition shadow-sm outline-none"
-                  >
-                    <User className="w-4 h-4" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-52 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
-                  {user ? (
-                    <>
-                      <div className="px-2 py-1.5 border-b border-white/10 mb-1">
-                        <p className="text-xs font-bold text-white truncate">{user.email}</p>
-                        <p className="text-[10px] text-emerald-400 font-semibold">Logged in</p>
-                      </div>
-                      <DropdownMenuItem
-                        onClick={() => navigate("/dashboard")}
-                        className="text-xs font-semibold hover:bg-white/10 cursor-pointer rounded-lg p-2"
-                      >
-                        My Dashboard
-                      </DropdownMenuItem>
-                      {isAdmin && (
-                        <DropdownMenuItem
-                          onClick={() => navigate("/admin-panel")}
-                          className="text-xs font-bold text-amber-300 hover:bg-white/10 cursor-pointer rounded-lg p-2"
-                        >
-                          Admin Console
-                        </DropdownMenuItem>
-                      )}
-                      <DropdownMenuSeparator className="bg-white/10 my-1" />
-                      <DropdownMenuItem
-                        onClick={handleSignOut}
-                        className="text-xs font-semibold text-red-300 hover:bg-red-500/20 cursor-pointer rounded-lg p-2 flex items-center gap-2"
-                      >
-                        <LogOut className="w-3.5 h-3.5" />
-                        <span>Sign Out</span>
-                      </DropdownMenuItem>
-                    </>
-                  ) : (
-                    <>
-                      <DropdownMenuItem
-                        onClick={() => navigate("/auth")}
-                        className="text-xs font-bold hover:bg-white/10 cursor-pointer rounded-lg p-2 flex items-center gap-2 text-white"
-                      >
-                        <LogIn className="w-4 h-4 text-blue-400" />
-                        <span>Login / Register</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => navigate("/portfolio")}
-                        className="text-xs font-semibold hover:bg-white/10 cursor-pointer rounded-lg p-2 text-slate-300"
-                      >
-                        About Developer
-                      </DropdownMenuItem>
-                    </>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
 
               {/* Mobile Hamburger Button */}
               <button
@@ -451,27 +382,6 @@ const Navbar = () => {
                     ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Drawer Footer Auth */}
-              <div className="p-4 border-t border-white/10 bg-[#061a38]">
-                {user ? (
-                  <button
-                    onClick={handleSignOut}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold transition"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out ({user.email?.split("@")[0]})</span>
-                  </button>
-                ) : (
-                  <Link
-                    to="/auth"
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold transition shadow"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    <span>Sign In to Your Account</span>
-                  </Link>
-                )}
               </div>
             </motion.aside>
           </>

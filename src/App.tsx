@@ -19,7 +19,6 @@ import TypingPractice from "./pages/TypingPractice";
 import Notes from "./pages/Notes";
 import Downloads from "./pages/Downloads";
 import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
 import { Navigate } from "react-router-dom";
 import Leaderboard from "./pages/Leaderboard";
 import AdminPanel from "./pages/AdminPanel";
@@ -29,7 +28,6 @@ import DailyMCQPage from "./pages/DailyMCQPage";
 import Portfolio from "./pages/Portfolio";
 import Sahil from "./pages/Sahil";
 import { AuthProvider } from "./hooks/useAuth";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -115,19 +113,19 @@ const AppContent = () => {
                 </CloudAdminGuard>
               }
             />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/auth" element={<Navigate to="/" replace />} />
             <Route path="/sahil" element={<Sahil />} />
             <Route path="/sahil-portfolio" element={<Navigate to="/sahil" replace />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
-              <Route path="/quiz/:category/:setId?" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
-              <Route path="/old-is-gold" element={<ProtectedRoute><OldIsGold /></ProtectedRoute>} />
-              <Route path="/online-exam" element={<ProtectedRoute><OnlineExam /></ProtectedRoute>} />
-              <Route path="/subjective" element={<ProtectedRoute><SubjectiveQuestions /></ProtectedRoute>} />
+              <Route path="/practice" element={<Practice />} />
+              <Route path="/quiz/:category/:setId?" element={<QuizPage />} />
+              <Route path="/old-is-gold" element={<OldIsGold />} />
+              <Route path="/online-exam" element={<OnlineExam />} />
+              <Route path="/subjective" element={<SubjectiveQuestions />} />
               <Route path="/dashboard" element={<Navigate to="/" replace />} />
-              <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/syllabus" element={<Syllabus />} />
               <Route path="/typing" element={<TypingPractice />} />
               <Route path="/notes" element={<Notes />} />
