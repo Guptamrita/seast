@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
-  Search, ChevronDown, Trophy, FileText,
+  Search, ChevronDown, Trophy, FileText, BookOpen,
   BookMarked, Medal, BookCheck, Download, Monitor,
   HelpCircle, Calendar, Shield, User
 } from "lucide-react";
@@ -53,6 +53,7 @@ const Navbar = () => {
 
   const isHomeActive = location.pathname === "/";
   const isCoursesActive = location.pathname.startsWith("/courses");
+  const isSyllabusActive = location.pathname === "/syllabus";
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
   const isDownloadsActive = location.pathname === "/downloads";
@@ -113,6 +114,19 @@ const Navbar = () => {
                 >
                   <GraduationCap className={`w-4 h-4 ${isCoursesActive ? "text-[#facc15]" : "text-slate-300"}`} />
                   <span>Courses</span>
+                </Link>
+
+                {/* Syllabus */}
+                <Link
+                  to="/syllabus"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isSyllabusActive
+                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <BookOpen className={`w-4 h-4 ${isSyllabusActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                  <span>Syllabus</span>
                 </Link>
 
                 {/* Notes */}
@@ -319,6 +333,15 @@ const Navbar = () => {
                     >
                       <GraduationCap className="w-4 h-4 text-blue-400" />
                       <span>Courses</span>
+                    </Link>
+                    <Link
+                      to="/syllabus"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isSyllabusActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <BookOpen className="w-4 h-4 text-amber-400" />
+                      <span>Syllabus</span>
                     </Link>
                     <Link
                       to="/notes"

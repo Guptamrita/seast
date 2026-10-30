@@ -394,17 +394,6 @@ const SubjectiveQuestions = () => {
           </div>
         )}
 
-        {/* Print Button */}
-        <div className="mt-10 text-center">
-          <button
-            onClick={() => window.print()}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-900 text-white rounded-xl font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-md"
-          >
-            <Printer size={18} />
-            Print All Questions
-          </button>
-        </div>
-
         {/* Footer */}
         <div className="mt-8 pt-6 border-t border-gray-200 text-center">
           <p className="text-xs text-gray-400">

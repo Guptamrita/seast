@@ -17,7 +17,7 @@ import {
   GraduationCap,
   Monitor
 } from "lucide-react";
-import logoImg from "@/assets/logo.png";
+import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 
 const learningLinks = [
@@ -60,26 +60,21 @@ const Footer = () => {
           
           {/* Column 1 & 2: Brand & Developer Spotlight (Spans 2 cols on desktop) */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center gap-3.5">
+            <Link to="/" className="flex items-center gap-3 group">
               <img
-                src={logoImg}
-                alt="Samrita Collection Logo"
-                className="w-12 h-12 rounded-2xl object-cover shadow-xl shadow-blue-500/25 ring-2 ring-blue-400/40"
+                src={samritaIcon}
+                alt="Samrita Collections Logo"
+                className="w-11 h-11 object-contain drop-shadow"
               />
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-extrabold text-white text-lg tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                    Samrita Collection
-                  </h3>
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                    PORTAL
-                  </span>
-                </div>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Loksewa Computer Operator, IT Officer & Corporate Exam Suite
-                </p>
+              <div className="flex flex-col leading-tight">
+                <span className="text-lg font-bold tracking-tight text-white group-hover:text-blue-300 transition-colors">
+                  Samrita <span className="text-[#facc15]">Collections</span>
+                </span>
+                <span className="text-xs italic font-normal text-slate-300 tracking-wider">
+                  Learn • Practice • Grow
+                </span>
               </div>
-            </div>
+            </Link>
 
             <p className="text-xs text-slate-300 leading-relaxed max-w-md">
               Nepal's premier open-access IT and Loksewa exam preparation ecosystem. Featuring 15,000+ interactive MCQs, official past papers from 2064 to 2082, and real-time dual-language typing assessment.

@@ -96,6 +96,76 @@ const AppContent = () => {
     };
   }, [showLoading]);
 
+  // Site content protection: disable right-click, copy, cut, print shortcuts & drag
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const handleCopyCut = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) {
+        return;
+      }
+      e.preventDefault();
+      return false;
+    };
+
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+      const target = e.target as HTMLElement;
+      const isInput = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
+
+      // Prevent copy / cut shortcut outside form inputs
+      if (isCtrlOrCmd && (e.key === "c" || e.key === "C" || e.key === "x" || e.key === "X") && !isInput) {
+        e.preventDefault();
+      }
+
+      // Prevent print shortcut (Ctrl+P / Cmd+P)
+      if (isCtrlOrCmd && (e.key === "p" || e.key === "P")) {
+        e.preventDefault();
+      }
+
+      // Prevent save shortcut (Ctrl+S / Cmd+S)
+      if (isCtrlOrCmd && (e.key === "s" || e.key === "S")) {
+        e.preventDefault();
+      }
+
+      // Prevent view source shortcut (Ctrl+U / Cmd+U)
+      if (isCtrlOrCmd && (e.key === "u" || e.key === "U")) {
+        e.preventDefault();
+      }
+
+      // Prevent inspect / DevTools (F12, Ctrl+Shift+I/J/C)
+      if (
+        e.key === "F12" ||
+        (isCtrlOrCmd && e.shiftKey && ["I", "i", "J", "j", "C", "c"].includes(e.key))
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("copy", handleCopyCut);
+    document.addEventListener("cut", handleCopyCut);
+    document.addEventListener("dragstart", handleDragStart);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("copy", handleCopyCut);
+      document.removeEventListener("cut", handleCopyCut);
+      document.removeEventListener("dragstart", handleDragStart);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       {showLoading && <NepalLoadingScreen onComplete={() => setShowLoading(false)} />}

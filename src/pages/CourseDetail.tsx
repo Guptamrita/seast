@@ -148,7 +148,7 @@ export default function CourseDetail() {
                   <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
                 </h3>
                 <p className="text-[11px] text-slate-400">
-                  Interactive document viewer with zoom, print & download controls
+                  Protected secure document reader
                 </p>
               </div>
             </div>
@@ -164,19 +164,6 @@ export default function CourseDetail() {
                 <span className="hidden sm:inline">Reload</span>
               </button>
 
-              {course.driveViewUrl && (
-                <a
-                  href={course.driveViewUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open full document in Google Drive"
-                  className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition text-xs font-semibold flex items-center gap-1"
-                >
-                  <ExternalLink size={14} />
-                  <span className="hidden sm:inline">Drive View</span>
-                </a>
-              )}
-
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
                 title={isFullscreen ? "Exit Fullscreen" : "Fullscreen View"}
@@ -188,8 +175,14 @@ export default function CourseDetail() {
             </div>
           </div>
 
-          {/* Embedded Google Drive PDF Iframe */}
+          {/* Embedded Google Drive PDF Iframe with protected overlay */}
           <div className="relative w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+            {/* Top-right click blocker to prevent Google Drive pop-out / download menu */}
+            <div
+              className="absolute top-0 right-0 w-20 h-16 z-20 pointer-events-auto bg-transparent select-none cursor-default"
+              title="Protected Document"
+              onClick={(e) => e.stopPropagation()}
+            />
             <iframe
               key={reloadKey}
               src={embedUrl}

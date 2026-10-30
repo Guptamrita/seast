@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Copy, Check, Printer, ArrowLeft, Keyboard } from "lucide-react";
+import { ArrowLeft, Keyboard } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PracticalSetData } from "@/data/allPracticalSets";
 
@@ -9,34 +8,6 @@ interface PracticalSetPaperProps {
 }
 
 export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleCopyAll = () => {
-    let fullText = `${data.title}\n\n`;
-    fullText += `${data.nepaliTyping.title}\n\n${data.nepaliTyping.paragraphs.join("\n\n")}\n\n`;
-    fullText += `${data.englishTyping.title}\n\n${data.englishTyping.paragraphs.join("\n\n")}\n\n`;
-    fullText += `${data.wordTasks.title}\n` + data.wordTasks.tasks.map((t, i) => `${i + 1}. ${t}`).join("\n") + "\n\n";
-    fullText += `${data.excelTasks.title}\n` + data.excelTasks.instructions.join("\n") + "\n\n";
-    fullText += `${data.powerPointTasks.title}\n` + data.powerPointTasks.tasks.map((t, i) => `${i + 1}. ${t}`).join("\n") + "\n\n";
-    fullText += `${data.accessTasks.title}\n` + data.accessTasks.tasks.map((t, i) => `${i + 1}. ${t}`).join("\n");
-    if (data.htmlTasks) {
-      fullText += `\n\n${data.htmlTasks.title}\n`;
-      if (data.htmlTasks.tasks) {
-        fullText += data.htmlTasks.tasks.join("\n") + "\n";
-      }
-      if (data.htmlTasks.formFields) {
-        fullText += "Form fields: " + data.htmlTasks.formFields.join(", ") + "\n";
-      }
-    }
-
-    navigator.clipboard.writeText(fullText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="space-y-6">
@@ -56,30 +27,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
           >
             <Keyboard size={14} /> Practice on Typing Master
           </Link>
-
-          <button
-            onClick={handleCopyAll}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-200"
-          >
-            {copied ? (
-              <>
-                <Check size={14} className="text-emerald-600" />
-                <span className="text-emerald-600">Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy size={14} />
-                <span>Copy Questions</span>
-              </>
-            )}
-          </button>
-
-          <button
-            onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[#0284c7] hover:bg-[#0369a1] px-3.5 py-2 rounded-xl transition shadow-xs"
-          >
-            <Printer size={14} /> Print PDF View
-          </button>
         </div>
       </div>
 
