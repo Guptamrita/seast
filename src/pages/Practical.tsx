@@ -145,7 +145,7 @@ export default function Practical() {
     },
   ];
 
-  // 5th Level Practical Sets: Sets 1 to 5 are active!
+  // 5th Level Practical Sets: All 10 sets (Set 1 to Set 10) are active!
   const level5Sets = [
     {
       id: "1",
@@ -182,6 +182,46 @@ export default function Practical() {
     {
       id: "5",
       title: "Set 5",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "6",
+      title: "Set 6",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "7",
+      title: "Set 7",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "8",
+      title: "Set 8",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "9",
+      title: "Set 9",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "10",
+      title: "Set 10",
       available: true,
       cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
       iconBg: "bg-[#10b981]",
