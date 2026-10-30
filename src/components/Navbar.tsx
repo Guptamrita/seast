@@ -4,24 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
-  Search, ChevronDown, Trophy, FileText, BookOpen,
-  BookMarked, Medal, BookCheck, Download, Monitor,
-  HelpCircle, Calendar, Shield, User
+  Search, BookOpen, Shield
 } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-const moreItems = [
-  { label: "Old questions practice", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
-  { label: "Mcq practice", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" /> },
-  { label: "Practical set practice", path: "/practical", icon: <Monitor className="w-4 h-4 text-emerald-500" /> },
-];
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -53,11 +38,9 @@ const Navbar = () => {
 
   const isHomeActive = location.pathname === "/";
   const isCoursesActive = location.pathname.startsWith("/courses");
-  const isSyllabusActive = location.pathname === "/syllabus";
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
-  const isDownloadsActive = location.pathname === "/downloads";
-  const isMoreActive = ["/old-is-gold", "/practice", "/practical", "/online-exam"].includes(location.pathname);
+  const isSyllabusActive = location.pathname === "/syllabus";
 
   return (
     <>
@@ -116,19 +99,6 @@ const Navbar = () => {
                   <span>Courses</span>
                 </Link>
 
-                {/* Syllabus */}
-                <Link
-                  to="/syllabus"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isSyllabusActive
-                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
-                      : "text-slate-200 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  <BookOpen className={`w-4 h-4 ${isSyllabusActive ? "text-[#facc15]" : "text-slate-300"}`} />
-                  <span>Syllabus</span>
-                </Link>
-
                 {/* Notes */}
                 <Link
                   to="/notes"
@@ -155,64 +125,29 @@ const Navbar = () => {
                   <span>Typing</span>
                 </Link>
 
-                {/* Downloads Button (Just before More) */}
+                {/* Syllabus (Added in place of Downloads) */}
                 <Link
-                  to="/downloads"
+                  to="/syllabus"
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isDownloadsActive
+                    isSyllabusActive
                       ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
                       : "text-slate-200 hover:text-white hover:bg-white/10"
                   }`}
                 >
-                  <Download className={`w-4 h-4 ${isDownloadsActive ? "text-[#facc15]" : "text-slate-300"}`} />
-                  <span>Downloads</span>
+                  <BookOpen className={`w-4 h-4 ${isSyllabusActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                  <span>Syllabus</span>
                 </Link>
 
-                {/* More Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors outline-none ${
-                        isMoreActive
-                          ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
-                          : "text-slate-200 hover:text-white hover:bg-white/10"
-                      }`}
-                    >
-                      <span className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5 opacity-80">
-                        <span className="bg-current rounded-[1px]" />
-                        <span className="bg-current rounded-[1px]" />
-                        <span className="bg-current rounded-[1px]" />
-                        <span className="bg-current rounded-[1px]" />
-                      </span>
-                      <span>More</span>
-                      <ChevronDown className="w-3.5 h-3.5 opacity-75" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-56 bg-slate-900 border-slate-800 text-white p-2 shadow-2xl">
-                    {moreItems.map((item) => (
-                      <DropdownMenuItem
-                        key={item.path}
-                        onClick={() => navigate(item.path)}
-                        className="flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition text-xs font-semibold text-white"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </DropdownMenuItem>
-                    ))}
-                    {isAdmin && (
-                      <>
-                        <DropdownMenuSeparator className="bg-white/10 my-1" />
-                        <DropdownMenuItem
-                          onClick={() => navigate("/admin-panel")}
-                          className="flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-amber-500/20 text-amber-300 text-xs font-bold"
-                        >
-                          <Shield className="w-4 h-4" />
-                          <span>Admin Panel</span>
-                        </DropdownMenuItem>
-                      </>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {/* Admin button if admin */}
+                {isAdmin && (
+                  <Link
+                    to="/admin-panel"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition ml-1"
+                  >
+                    <Shield className="w-3.5 h-3.5" />
+                    <span>Admin</span>
+                  </Link>
+                )}
 
               </nav>
             </div>
@@ -335,15 +270,6 @@ const Navbar = () => {
                       <span>Courses</span>
                     </Link>
                     <Link
-                      to="/syllabus"
-                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
-                        isSyllabusActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
-                      }`}
-                    >
-                      <BookOpen className="w-4 h-4 text-amber-400" />
-                      <span>Syllabus</span>
-                    </Link>
-                    <Link
                       to="/notes"
                       className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
                         isNotesActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
@@ -362,36 +288,18 @@ const Navbar = () => {
                       <span>Typing</span>
                     </Link>
                     <Link
-                      to="/downloads"
+                      to="/syllabus"
                       className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
-                        isDownloadsActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                        isSyllabusActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
                       }`}
                     >
-                      <Download className="w-4 h-4 text-cyan-400" />
-                      <span>Downloads</span>
+                      <BookOpen className="w-4 h-4 text-amber-400" />
+                      <span>Syllabus</span>
                     </Link>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    More
-                  </div>
-                  <div className="space-y-1">
-                    {moreItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 transition"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </Link>
-                    ))}
                     {isAdmin && (
                       <Link
                         to="/admin-panel"
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition"
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition mt-2"
                       >
                         <Shield className="w-4 h-4" />
                         <span>Admin Panel</span>

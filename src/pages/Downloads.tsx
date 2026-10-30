@@ -39,6 +39,16 @@ const Downloads = () => {
 
   const downloadCategories = [
     {
+      id: "syllabus",
+      title: "📋 Official Loksewa Syllabus (पाठ्यक्रम)",
+      items: [
+        { name: "Loksewa 4th Level Assistant Computer Operator Syllabus", description: "Official PSC curriculum breakdown" },
+        { name: "Loksewa 5th Level Computer Operator Syllabus", description: "Official PSC curriculum breakdown" },
+        { name: "Nepal Telecom / NEA / Corporation IT Syllabus", description: "Official corporate enterprise syllabi" },
+        { name: "Tribhuvan University IT Assistant Syllabus", description: "Official TU Service Commission curriculum" },
+      ]
+    },
+    {
       id: "essentials",
       title: "📌 Essential Tools & Utilities",
       items: [
@@ -118,6 +128,10 @@ const Downloads = () => {
   };
 
   const handleDownload = (itemName: string) => {
+    if (itemName.toLowerCase().includes("syllabus")) {
+      window.location.href = "/syllabus";
+      return;
+    }
     const link = getDownloadLink(itemName);
     if (link && link !== "#") {
       window.open(link, "_blank");
@@ -127,6 +141,7 @@ const Downloads = () => {
   };
 
   const getIcon = (title: string) => {
+    if (title.includes("Syllabus")) return "📋";
     if (title.includes("Essential")) return "🛠️";
     if (title.includes("Office")) return "📊";
     if (title.includes("Graphics")) return "🎨";
