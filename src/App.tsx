@@ -15,6 +15,7 @@ import Practice from "./pages/Practice";
 import QuizPage from "./pages/QuizPage";
 import OldIsGold from "./pages/OldIsGold";
 import OnlineExam from "./pages/OnlineExam";
+import Practical from "./pages/Practical";
 import SubjectiveQuestions from "./pages/SubjectiveQuestions";
 import Syllabus from "./pages/Syllabus";
 import TypingPractice from "./pages/TypingPractice";
@@ -130,6 +131,7 @@ const AppContent = () => {
               <Route path="/quiz/:category/:setId?" element={<QuizPage />} />
               <Route path="/old-is-gold" element={<OldIsGold />} />
               <Route path="/online-exam" element={<OnlineExam />} />
+              <Route path="/practical" element={<Practical />} />
               <Route path="/subjective" element={<SubjectiveQuestions />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/leaderboard" element={<Leaderboard />} />

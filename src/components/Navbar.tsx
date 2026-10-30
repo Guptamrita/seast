@@ -20,7 +20,7 @@ import {
 const moreItems = [
   { label: "Old questions practice", path: "/old-is-gold", icon: <Trophy className="w-4 h-4 text-amber-500" /> },
   { label: "Mcq practice", path: "/practice", icon: <HelpCircle className="w-4 h-4 text-blue-500" /> },
-  { label: "Practical set practice", path: "/online-exam", icon: <Monitor className="w-4 h-4 text-emerald-500" /> },
+  { label: "Practical set practice", path: "/practical", icon: <Monitor className="w-4 h-4 text-emerald-500" /> },
 ];
 
 const Navbar = () => {
@@ -56,7 +56,7 @@ const Navbar = () => {
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
   const isDownloadsActive = location.pathname === "/downloads";
-  const isMoreActive = ["/old-is-gold", "/practice", "/online-exam"].includes(location.pathname);
+  const isMoreActive = ["/old-is-gold", "/practice", "/practical", "/online-exam"].includes(location.pathname);
 
   return (
     <>

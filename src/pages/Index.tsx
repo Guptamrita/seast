@@ -45,7 +45,7 @@ const quickCardsRow1 = [
   {
     title: "Practical Set Practice",
     desc: "Practice practical sets",
-    path: "/online-exam",
+    path: "/practical",
     icon: <Monitor className="w-5 h-5 text-white" />,
     iconBg: "bg-[#2563eb]",
     cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
