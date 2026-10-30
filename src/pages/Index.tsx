@@ -43,12 +43,12 @@ const quickCardsRow1 = [
     cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
   },
   {
-    title: "MCQ Practice",
-    desc: "Test your knowledge",
-    path: "/practice",
-    icon: <CheckCircle2 className="w-5 h-5 text-white" />,
-    iconBg: "bg-[#f59e0b]",
-    cardBg: "bg-[#fffbeb] hover:bg-[#fef3c7] border-[#fde68a]/60 text-slate-900",
+    title: "Practical Set Practice",
+    desc: "Practice practical sets",
+    path: "/online-exam",
+    icon: <Monitor className="w-5 h-5 text-white" />,
+    iconBg: "bg-[#2563eb]",
+    cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
   },
   {
     title: "Typing",
@@ -94,12 +94,12 @@ const quickCardsRow2 = [
     cardBg: "bg-[#fffbeb] hover:bg-[#fef3c7] border-[#fde68a]/60 text-slate-900",
   },
   {
-    title: "Practical Set Practice",
-    desc: "Practice practical sets",
-    path: "/online-exam",
-    icon: <Monitor className="w-5 h-5 text-white" />,
-    iconBg: "bg-[#2563eb]",
-    cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+    title: "MCQ Practice",
+    desc: "Test your knowledge",
+    path: "/practice",
+    icon: <CheckCircle2 className="w-5 h-5 text-white" />,
+    iconBg: "bg-[#f59e0b]",
+    cardBg: "bg-[#fffbeb] hover:bg-[#fef3c7] border-[#fde68a]/60 text-slate-900",
   },
 ];
 
