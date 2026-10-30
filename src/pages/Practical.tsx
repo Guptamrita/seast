@@ -1,17 +1,32 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Monitor, Laptop, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Monitor, Laptop, Sparkles, FileText, CheckCircle2, Clock, ArrowLeft } from "lucide-react";
 import SEO from "@/components/SEO";
+import PracticalSet1 from "@/components/practical/PracticalSet1";
 
 export default function Practical() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialLevel = (searchParams.get("level") === "5th" ? "5th" : "4th") as "4th" | "5th";
+  const initialSet = searchParams.get("set");
+
   const [selectedLevel, setSelectedLevel] = useState<"4th" | "5th">(initialLevel);
+  const [activeSet, setActiveSet] = useState<string | null>(initialSet);
 
   const handleLevelChange = (level: "4th" | "5th") => {
     setSelectedLevel(level);
+    setActiveSet(null);
     setSearchParams({ level });
+  };
+
+  const handleOpenSet = (setId: string) => {
+    setActiveSet(setId);
+    setSearchParams({ level: selectedLevel, set: setId });
+  };
+
+  const handleBackToSets = () => {
+    setActiveSet(null);
+    setSearchParams({ level: selectedLevel });
   };
 
   // Two main level cards matching the homepage card design
@@ -37,6 +52,97 @@ export default function Practical() {
       activeRing: "ring-2 ring-[#10b981] shadow-md",
     },
   ];
+
+  // 4th Level Practical Sets matching homepage card style
+  const level4Sets = [
+    {
+      id: "1",
+      title: "Set 1",
+      desc: "Nepali & English Typing, Word, Excel, PowerPoint, Access",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
+    },
+    {
+      id: "2",
+      title: "Set 2",
+      desc: "Computer Operator Practical Question Set 2",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "3",
+      title: "Set 3",
+      desc: "Computer Operator Practical Question Set 3",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "4",
+      title: "Set 4",
+      desc: "Computer Operator Practical Question Set 4",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "5",
+      title: "Set 5",
+      desc: "Computer Operator Practical Question Set 5",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "6",
+      title: "Set 6",
+      desc: "Computer Operator Practical Question Set 6",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+  ];
+
+  // 5th Level Practical Sets
+  const level5Sets = [
+    {
+      id: "1",
+      title: "Set 1",
+      desc: "5th Level Practical Question Set 1",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#10b981]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "2",
+      title: "Set 2",
+      desc: "5th Level Practical Question Set 2",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+    {
+      id: "3",
+      title: "Set 3",
+      desc: "5th Level Practical Question Set 3",
+      available: false,
+      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      iconBg: "bg-[#64748b]",
+      badge: "Coming Soon",
+    },
+  ];
+
+  const currentSets = selectedLevel === "4th" ? level4Sets : level5Sets;
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 pb-20">
@@ -72,7 +178,7 @@ export default function Practical() {
       </section>
 
       {/* ── Main Container ───────────────────────────────────────────── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-8">
         
         {/* ── Level Selector Cards (Exact Homepage Card Style) ────────── */}
         <section className="bg-white rounded-3xl p-5 sm:p-7 shadow-sm border border-slate-200/80">
@@ -126,6 +232,85 @@ export default function Practical() {
             })}
           </div>
         </section>
+
+        {/* ── Set Viewer or Set Cards ─────────────────────────────────── */}
+        <AnimatePresence mode="wait">
+          {activeSet === "1" && selectedLevel === "4th" ? (
+            <motion.div
+              key="set-1-detail"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
+            >
+              <PracticalSet1 onBack={handleBackToSets} />
+            </motion.div>
+          ) : (
+            <motion.section
+              key="sets-list"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
+              className="bg-white rounded-3xl p-5 sm:p-7 shadow-sm border border-slate-200/80 space-y-5"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-6 bg-[#0284c7] rounded-full inline-block" />
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    {selectedLevel} Level Practical Sets (अभ्यास सेटहरू)
+                  </h3>
+                </div>
+                <span className="text-xs font-semibold text-slate-500">
+                  Click any set to open question paper
+                </span>
+              </div>
+
+              {/* Set Cards Grid (Matching Homepage Card Design) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
+                {currentSets.map((set) => {
+                  return (
+                    <motion.div
+                      key={set.id}
+                      whileHover={set.available ? { y: -3 } : {}}
+                      whileTap={set.available ? { scale: 0.97 } : {}}
+                      onClick={() => {
+                        if (set.available) {
+                          handleOpenSet(set.id);
+                        }
+                      }}
+                      className={`${set.cardBg} border rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-all h-full min-h-[120px] sm:min-h-[135px] relative ${
+                        set.available ? "cursor-pointer group" : "opacity-70 cursor-not-allowed"
+                      }`}
+                    >
+                      <div
+                        className={`w-11 h-11 rounded-full ${set.iconBg} flex items-center justify-center shadow-sm mb-2.5 ${
+                          set.available ? "group-hover:scale-110" : ""
+                        } transition-transform`}
+                      >
+                        <FileText className="w-5 h-5 text-white" />
+                      </div>
+
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-tight">
+                        {set.title}
+                      </h4>
+
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full mt-2 border ${
+                          set.available
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : "bg-slate-100 text-slate-500 border-slate-200"
+                        }`}
+                      >
+                        {set.badge}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
 
       </main>
     </div>
