@@ -23,6 +23,15 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
     fullText += `${data.excelTasks.title}\n` + data.excelTasks.instructions.join("\n") + "\n\n";
     fullText += `${data.powerPointTasks.title}\n` + data.powerPointTasks.tasks.map((t, i) => `${i + 1}. ${t}`).join("\n") + "\n\n";
     fullText += `${data.accessTasks.title}\n` + data.accessTasks.tasks.map((t, i) => `${i + 1}. ${t}`).join("\n");
+    if (data.htmlTasks) {
+      fullText += `\n\n${data.htmlTasks.title}\n`;
+      if (data.htmlTasks.tasks) {
+        fullText += data.htmlTasks.tasks.join("\n") + "\n";
+      }
+      if (data.htmlTasks.formFields) {
+        fullText += "Form fields: " + data.htmlTasks.formFields.join(", ") + "\n";
+      }
+    }
 
     navigator.clipboard.writeText(fullText);
     setCopied(true);
@@ -440,6 +449,82 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
               ))}
             </div>
           </section>
+
+          {/* ── 7. HTML Tasks (5th Level) ─────────────────────────────────── */}
+          {data.htmlTasks && (
+            <section className="space-y-4">
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                {data.htmlTasks.title}
+              </h2>
+
+              {/* Tasks list */}
+              {data.htmlTasks.tasks && data.htmlTasks.tasks.length > 0 && (
+                <div className="space-y-1.5 text-base text-slate-800 font-medium">
+                  {data.htmlTasks.tasks.map((task, i) => (
+                    <p key={i}>{task}</p>
+                  ))}
+                </div>
+              )}
+
+              {/* Table (e.g. Set 1) */}
+              {data.htmlTasks.table && (
+                <div className="overflow-x-auto my-3 max-w-md">
+                  <table className="w-full border-collapse border border-slate-400 text-sm text-center">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-slate-400 font-bold">
+                        {data.htmlTasks.table.headers.map((h, i) => (
+                          <th key={i} className="border border-slate-400 px-4 py-2">
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.htmlTasks.table.rows.map((row, ri) => (
+                        <tr key={ri} className="hover:bg-slate-50/60">
+                          {row.map((cell, ci) => (
+                            <td key={ci} className="border border-slate-400 px-4 py-1.5 font-medium">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* Nested list (e.g. Set 2) */}
+              {data.htmlTasks.nestedList && (
+                <div className="my-3 space-y-2 text-base font-medium text-slate-800 pl-2">
+                  <ul className="space-y-2">
+                    {data.htmlTasks.nestedList.map((nl, idx) => (
+                      <li key={idx}>
+                        <span className="font-bold">{nl.category}</span>
+                        <ul className="list-disc pl-6 space-y-1 mt-1">
+                          {nl.items.map((it, itIdx) => (
+                            <li key={itIdx}>{it}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Form fields (e.g. Set 4) */}
+              {data.htmlTasks.formFields && (
+                <div className="my-3 p-4 bg-slate-50 border border-slate-300 rounded-xl max-w-md space-y-2 text-sm text-slate-800">
+                  <p className="font-bold text-slate-900">Fields to create in Form:</p>
+                  <ul className="list-disc pl-5 space-y-1 font-medium">
+                    {data.htmlTasks.formFields.map((f, fi) => (
+                      <li key={fi}>{f}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
 
         </div>
       </div>

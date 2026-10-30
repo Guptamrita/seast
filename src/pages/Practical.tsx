@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Monitor, Laptop, Sparkles, FileText } from "lucide-react";
 import SEO from "@/components/SEO";
 import PracticalSetPaper from "@/components/practical/PracticalSetPaper";
-import { practicalSetsCatalog } from "@/data/allPracticalSets";
+import { level4PracticalSets, level5PracticalSets } from "@/data/allPracticalSets";
 
 export default function Practical() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,8 +32,10 @@ export default function Practical() {
 
   const currentSetData = useMemo(() => {
     if (!activeSetId) return null;
-    return practicalSetsCatalog.find((s) => s.id === activeSetId) || null;
-  }, [activeSetId]);
+    const targetCatalog = selectedLevel === "4th" ? level4PracticalSets : level5PracticalSets;
+    const num = parseInt(activeSetId.replace(/\D/g, ""), 10);
+    return targetCatalog.find((s) => s.id === activeSetId || s.setNumber === num) || null;
+  }, [activeSetId, selectedLevel]);
 
   // Two main level cards matching the homepage card design
   const levelCards = [
@@ -143,31 +145,47 @@ export default function Practical() {
     },
   ];
 
-  // 5th Level Practical Sets
+  // 5th Level Practical Sets: Sets 1 to 5 are active!
   const level5Sets = [
     {
       id: "1",
       title: "Set 1",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
       iconBg: "bg-[#10b981]",
-      badge: "Coming Soon",
+      badge: "Available Now",
     },
     {
       id: "2",
       title: "Set 2",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
     },
     {
       id: "3",
       title: "Set 3",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "4",
+      title: "Set 4",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
+    },
+    {
+      id: "5",
+      title: "Set 5",
+      available: true,
+      cardBg: "bg-[#f0fdf4] hover:bg-[#dcfce7] border-[#bbf7d0]/60 text-slate-900",
+      iconBg: "bg-[#10b981]",
+      badge: "Available Now",
     },
   ];
 
@@ -264,9 +282,9 @@ export default function Practical() {
 
         {/* ── Set Viewer or Set Cards ─────────────────────────────────── */}
         <AnimatePresence mode="wait">
-          {currentSetData && selectedLevel === "4th" ? (
+          {currentSetData ? (
             <motion.div
-              key={`set-${currentSetData.id}-detail`}
+              key={`set-${selectedLevel}-${currentSetData.id}-detail`}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
