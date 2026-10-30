@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Monitor, Laptop, Sparkles, FileText, CheckCircle2, Clock, ArrowLeft } from "lucide-react";
+import { Monitor, Laptop, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import SEO from "@/components/SEO";
-import PracticalSet1 from "@/components/practical/PracticalSet1";
+import PracticalSetPaper from "@/components/practical/PracticalSetPaper";
+import { practicalSetsCatalog, PracticalSetData } from "@/data/allPracticalSets";
 
 export default function Practical() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,23 +12,28 @@ export default function Practical() {
   const initialSet = searchParams.get("set");
 
   const [selectedLevel, setSelectedLevel] = useState<"4th" | "5th">(initialLevel);
-  const [activeSet, setActiveSet] = useState<string | null>(initialSet);
+  const [activeSetId, setActiveSetId] = useState<string | null>(initialSet);
 
   const handleLevelChange = (level: "4th" | "5th") => {
     setSelectedLevel(level);
-    setActiveSet(null);
+    setActiveSetId(null);
     setSearchParams({ level });
   };
 
   const handleOpenSet = (setId: string) => {
-    setActiveSet(setId);
+    setActiveSetId(setId);
     setSearchParams({ level: selectedLevel, set: setId });
   };
 
   const handleBackToSets = () => {
-    setActiveSet(null);
+    setActiveSetId(null);
     setSearchParams({ level: selectedLevel });
   };
+
+  const currentSetData = useMemo(() => {
+    if (!activeSetId) return null;
+    return practicalSetsCatalog.find((s) => s.id === activeSetId) || null;
+  }, [activeSetId]);
 
   // Two main level cards matching the homepage card design
   const levelCards = [
@@ -53,12 +59,12 @@ export default function Practical() {
     },
   ];
 
-  // 4th Level Practical Sets matching homepage card style
+  // 4th Level Practical Sets: Set 1 to 6 are all active and ready!
   const level4Sets = [
     {
       id: "1",
       title: "Set 1",
-      desc: "Nepali & English Typing, Word, Excel, PowerPoint, Access",
+      desc: "गाउँको बिहान · Everyone has dreams · VLOOKUP",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -67,47 +73,47 @@ export default function Practical() {
     {
       id: "2",
       title: "Set 2",
-      desc: "Computer Operator Practical Question Set 2",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      desc: "रमेशको कथा · Dark clouds · Goal Seek",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
     },
     {
       id: "3",
       title: "Set 3",
-      desc: "Computer Operator Practical Question Set 3",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      desc: "शिक्षाको महत्त्व · Examination Day · Discount Formula",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
     },
     {
       id: "4",
       title: "Set 4",
-      desc: "Computer Operator Practical Question Set 4",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      desc: "प्रविधि र आधुनिक जीवन · Suman Shop · Cycle Diagram",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
     },
     {
       id: "5",
       title: "Set 5",
-      desc: "Computer Operator Practical Question Set 5",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      desc: "नेपालको सुन्दरता · Technology · Pyramid Chart & Equation",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
     },
     {
       id: "6",
       title: "Set 6",
-      desc: "Computer Operator Practical Question Set 6",
-      available: false,
-      cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
-      iconBg: "bg-[#64748b]",
-      badge: "Coming Soon",
+      desc: "समय व्यवस्थापन · Honesty Gold · Excel Subtotal",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
     },
   ];
 
@@ -235,15 +241,15 @@ export default function Practical() {
 
         {/* ── Set Viewer or Set Cards ─────────────────────────────────── */}
         <AnimatePresence mode="wait">
-          {activeSet === "1" && selectedLevel === "4th" ? (
+          {currentSetData && selectedLevel === "4th" ? (
             <motion.div
-              key="set-1-detail"
+              key={`set-${currentSetData.id}-detail`}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25 }}
             >
-              <PracticalSet1 onBack={handleBackToSets} />
+              <PracticalSetPaper data={currentSetData} onBack={handleBackToSets} />
             </motion.div>
           ) : (
             <motion.section
