@@ -123,11 +123,46 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
               {data.wordTasks.title}
             </h2>
 
+            {/* Table if present in Word (Set 9) */}
+            {data.wordTasks.table && (
+              <div className="overflow-x-auto my-3">
+                <table className="w-full border-collapse border border-slate-400 text-sm text-left">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-400 font-bold">
+                      {data.wordTasks.table.headers.map((h, i) => (
+                        <th key={i} className="border border-slate-400 px-3 py-2">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.wordTasks.table.rows.map((row, ri) => (
+                      <tr key={ri} className="hover:bg-slate-50/60">
+                        {row.map((cell, ci) => (
+                          <td key={ci} className="border border-slate-400 px-3 py-1.5 font-medium">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             <ol className="list-decimal list-outside pl-6 space-y-2 text-base text-slate-800 font-medium">
               {data.wordTasks.tasks.map((task, i) => (
                 <li key={i}>{task}</li>
               ))}
             </ol>
+
+            {/* Special Letter Snippet (Set 9) */}
+            {data.wordTasks.specialLetterSnippet && (
+              <div className="my-3 p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-serif text-slate-800 space-y-2 whitespace-pre-line">
+                {data.wordTasks.specialLetterSnippet}
+              </div>
+            )}
 
             {/* Special Diagram for Set 4 (Cycle Diagram: frog -> insects -> plants -> animal -> human) */}
             {data.wordTasks.specialElement === "cycle-diagram" && (
@@ -136,29 +171,22 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
                   Cycle Diagram
                 </span>
                 <div className="relative w-72 h-72 flex items-center justify-center">
-                  {/* Circular Node Placement */}
-                  {/* Top: frog */}
                   <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-[#3b82f6] text-white px-4 py-3 rounded-full text-xs font-bold shadow-sm">
                     frog
                   </div>
-                  {/* Right: insects */}
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#3b82f6] text-white px-3.5 py-3 rounded-full text-xs font-bold shadow-sm">
                     insects
                   </div>
-                  {/* Bottom Right: plants */}
                   <div className="absolute bottom-4 right-10 bg-[#3b82f6] text-white px-3.5 py-3 rounded-full text-xs font-bold shadow-sm">
                     plants
                   </div>
-                  {/* Bottom Left: animal */}
                   <div className="absolute bottom-4 left-10 bg-[#3b82f6] text-white px-3.5 py-3 rounded-full text-xs font-bold shadow-sm">
                     animal
                   </div>
-                  {/* Left: human */}
                   <div className="absolute left-2 top-1/2 -translate-y-1/2 bg-[#3b82f6] text-white px-3.5 py-3 rounded-full text-xs font-bold shadow-sm">
                     human
                   </div>
 
-                  {/* Flow Arrow Indicators */}
                   <div className="absolute top-12 right-12 text-[#93c5fd] font-black text-xl rotate-45">➔</div>
                   <div className="absolute bottom-16 right-4 text-[#93c5fd] font-black text-xl rotate-[135deg]">➔</div>
                   <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[#93c5fd] font-black text-xl rotate-180">➔</div>
@@ -171,7 +199,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
             {/* Special Diagram for Set 5 (Pyramid, Equation, Symbols, Bullets) */}
             {data.wordTasks.specialElement === "pyramid-equation" && (
               <div className="my-6 space-y-6">
-                {/* Pyramid Chart */}
                 <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 max-w-md mx-auto">
                   <span className="text-xs uppercase font-bold text-slate-400 mb-3 block text-center tracking-wider">
                     Pyramid Structure Chart
@@ -192,7 +219,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
                   </div>
                 </div>
 
-                {/* Quadratic Equation */}
                 <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200/60 max-w-md mx-auto text-center space-y-2">
                   <span className="text-xs uppercase font-bold text-blue-600 block tracking-wider">
                     Equation
@@ -208,7 +234,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
                   </div>
                 </div>
 
-                {/* Symbols & Date */}
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 max-w-md mx-auto text-center">
                   <span className="text-xs uppercase font-bold text-slate-400 block mb-1">
                     Symbols & Date/Time
@@ -218,7 +243,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
                   </p>
                 </div>
 
-                {/* Custom Bullets */}
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 max-w-md mx-auto">
                   <span className="text-xs uppercase font-bold text-slate-400 block mb-2">
                     Custom Bullet Points
@@ -244,7 +268,6 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
               {data.excelTasks.title}
             </h2>
 
-            {/* Table if present */}
             {data.excelTasks.table && (
               <div className="overflow-x-auto my-3">
                 <table className="w-full border-collapse border border-slate-400 text-sm text-left">
@@ -282,11 +305,23 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
               </div>
             )}
 
-            {/* Instructions */}
             {data.excelTasks.instructions && data.excelTasks.instructions.length > 0 && (
               <div className="space-y-1.5 pt-1 text-sm sm:text-base text-slate-800 font-medium">
                 {data.excelTasks.instructions.map((ins, i) => (
                   <p key={i}>{ins}</p>
+                ))}
+              </div>
+            )}
+
+            {/* Rules box if present (Set 10) */}
+            {data.excelTasks.rules && (
+              <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-300 text-xs sm:text-sm font-medium space-y-1.5">
+                <p className="font-bold text-slate-900 underline mb-2">Rules:</p>
+                {data.excelTasks.rules.map((rule, ri) => (
+                  <p key={ri} className="flex items-start gap-2">
+                    <span className="text-[#0284c7] font-bold">•</span>
+                    <span>{rule}</span>
+                  </p>
                 ))}
               </div>
             )}
@@ -338,6 +373,7 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
               {data.accessTasks.title}
             </h2>
 
+            {/* Primary Access Table */}
             {data.accessTasks.table && (
               <div className="overflow-x-auto my-3 max-w-md">
                 <table className="w-full border-collapse border border-slate-400 text-sm text-left">
@@ -352,6 +388,39 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
                   </thead>
                   <tbody>
                     {data.accessTasks.table.rows.map((row, ri) => (
+                      <tr key={ri} className="hover:bg-slate-50/60">
+                        {row.map((cell, ci) => (
+                          <td key={ci} className="border border-slate-400 px-4 py-1.5 font-medium">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Second Access Table (Set 7 Employee table) */}
+            {data.accessTasks.secondTable && (
+              <div className="overflow-x-auto my-3 max-w-md">
+                {data.accessTasks.secondTableTitle && (
+                  <p className="font-bold text-sm text-slate-800 mb-1.5">
+                    {data.accessTasks.secondTableTitle}
+                  </p>
+                )}
+                <table className="w-full border-collapse border border-slate-400 text-sm text-left">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-400 font-bold">
+                      {data.accessTasks.secondTable.headers.map((h, i) => (
+                        <th key={i} className="border border-slate-400 px-4 py-2">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.accessTasks.secondTable.rows.map((row, ri) => (
                       <tr key={ri} className="hover:bg-slate-50/60">
                         {row.map((cell, ci) => (
                           <td key={ci} className="border border-slate-400 px-4 py-1.5 font-medium">

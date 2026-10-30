@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Monitor, Laptop, Sparkles, FileText, CheckCircle2 } from "lucide-react";
+import { Monitor, Laptop, Sparkles, FileText } from "lucide-react";
 import SEO from "@/components/SEO";
 import PracticalSetPaper from "@/components/practical/PracticalSetPaper";
-import { practicalSetsCatalog, PracticalSetData } from "@/data/allPracticalSets";
+import { practicalSetsCatalog } from "@/data/allPracticalSets";
 
 export default function Practical() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,12 +59,11 @@ export default function Practical() {
     },
   ];
 
-  // 4th Level Practical Sets: Set 1 to 6 are all active and ready!
+  // 4th Level Practical Sets: All 10 sets (Set 1 to Set 10) are active!
   const level4Sets = [
     {
       id: "1",
       title: "Set 1",
-      desc: "गाउँको बिहान · Everyone has dreams · VLOOKUP",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -73,7 +72,6 @@ export default function Practical() {
     {
       id: "2",
       title: "Set 2",
-      desc: "रमेशको कथा · Dark clouds · Goal Seek",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -82,7 +80,6 @@ export default function Practical() {
     {
       id: "3",
       title: "Set 3",
-      desc: "शिक्षाको महत्त्व · Examination Day · Discount Formula",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -91,7 +88,6 @@ export default function Practical() {
     {
       id: "4",
       title: "Set 4",
-      desc: "प्रविधि र आधुनिक जीवन · Suman Shop · Cycle Diagram",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -100,7 +96,6 @@ export default function Practical() {
     {
       id: "5",
       title: "Set 5",
-      desc: "नेपालको सुन्दरता · Technology · Pyramid Chart & Equation",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -109,7 +104,38 @@ export default function Practical() {
     {
       id: "6",
       title: "Set 6",
-      desc: "समय व्यवस्थापन · Honesty Gold · Excel Subtotal",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
+    },
+    {
+      id: "7",
+      title: "Set 7",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
+    },
+    {
+      id: "8",
+      title: "Set 8",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
+    },
+    {
+      id: "9",
+      title: "Set 9",
+      available: true,
+      cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
+      iconBg: "bg-[#0284c7]",
+      badge: "Available Now",
+    },
+    {
+      id: "10",
+      title: "Set 10",
       available: true,
       cardBg: "bg-[#eff6ff] hover:bg-[#dbeafe] border-[#bfdbfe]/60 text-slate-900",
       iconBg: "bg-[#0284c7]",
@@ -122,7 +148,6 @@ export default function Practical() {
     {
       id: "1",
       title: "Set 1",
-      desc: "5th Level Practical Question Set 1",
       available: false,
       cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
       iconBg: "bg-[#10b981]",
@@ -131,7 +156,6 @@ export default function Practical() {
     {
       id: "2",
       title: "Set 2",
-      desc: "5th Level Practical Question Set 2",
       available: false,
       cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
       iconBg: "bg-[#64748b]",
@@ -140,7 +164,6 @@ export default function Practical() {
     {
       id: "3",
       title: "Set 3",
-      desc: "5th Level Practical Question Set 3",
       available: false,
       cardBg: "bg-[#f8fafc] hover:bg-[#f1f5f9] border-slate-200 text-slate-700",
       iconBg: "bg-[#64748b]",
@@ -268,12 +291,12 @@ export default function Practical() {
                   </h3>
                 </div>
                 <span className="text-xs font-semibold text-slate-500">
-                  Click any set to open question paper
+                  {currentSets.filter((s) => s.available).length} Sets Available
                 </span>
               </div>
 
-              {/* Set Cards Grid (Matching Homepage Card Design) */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
+              {/* Set Cards Grid (Matching Homepage Card Design: 10 sets in clean responsive grid) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
                 {currentSets.map((set) => {
                   return (
                     <motion.div

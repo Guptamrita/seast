@@ -13,6 +13,11 @@ export interface PracticalSetData {
   wordTasks: {
     title: string;
     tasks: string[];
+    table?: {
+      headers: string[];
+      rows: (string | number)[][];
+    };
+    specialLetterSnippet?: string;
     specialElement?: "cycle-diagram" | "pyramid-equation" | null;
   };
   excelTasks: {
@@ -22,6 +27,7 @@ export interface PracticalSetData {
       rows: (string | number)[][];
     };
     instructions: string[];
+    rules?: string[];
   };
   powerPointTasks: {
     title: string;
@@ -34,6 +40,11 @@ export interface PracticalSetData {
   accessTasks: {
     title: string;
     table?: {
+      headers: string[];
+      rows: (string | number)[][];
+    };
+    secondTableTitle?: string;
+    secondTable?: {
       headers: string[];
       rows: (string | number)[][];
     };
@@ -116,10 +127,10 @@ export const practicalSetsCatalog: PracticalSetData[] = [
         ],
       },
       tasks: [
-        "Create a table named Student.",
-        "Enter records of 5 students.",
-        "Create a query to display students who scored more than 60 marks.",
-        "Create a form to enter student records.",
+        "1. Create a table named Student.",
+        "2. Enter records of 5 students.",
+        "3. Create a query to display students who scored more than 60 marks.",
+        "4. Create a form to enter student records.",
       ],
     },
   },
@@ -201,10 +212,10 @@ export const practicalSetsCatalog: PracticalSetData[] = [
         ],
       },
       tasks: [
-        "Create a table named Employee with these fields:",
-        "Enter details of 5 employees.",
-        "Create a query to display employees whose salary is greater than Rs.30,000.",
-        "Create a report showing all employee records.",
+        "1. Create a table named Employee with these fields:",
+        "2. Enter details of 5 employees.",
+        "3. Create a query to display employees whose salary is greater than Rs.30,000.",
+        "4. Create a report showing all employee records.",
       ],
     },
   },
@@ -498,6 +509,341 @@ export const practicalSetsCatalog: PracticalSetData[] = [
         "1. Create a table named Staff with fields StaffID, StaffName, Department, and Salary.",
         "2. Enter 5 staff records.",
         "3. Create a query to display only staff members working in the \"HR\" department.",
+      ],
+    },
+  },
+
+  // ── SET 7 ────────────────────────────────────────────────────────────
+  {
+    id: "7",
+    setNumber: 7,
+    title: "Practical-set 7",
+    nepaliTyping: {
+      title: "1. नेपाली टाइपिंग",
+      paragraphs: [
+        "मानिस सामाजिक प्राणी हो र उसलाई जीवनमा साथ दिने साथीहरूको आवश्यकता पर्छ। असल साथीले सुखमा खुसी बाँड्छ र दुःखमा साथ दिन्छ। साथीहरूसँग बिताएको समयले जीवनलाई रमाइलो बनाउनुका साथै नयाँ कुरा सिक्ने अवसर पनि प्रदान गर्छ। विद्यालय, कलेज, कार्यालय र समुदायमा मानिसहरूले विभिन्न व्यक्तिसँग मित्रता गाँस्छन्। तर असल मित्रता बनाउन विश्वास, इमानदारी र आपसी सम्मान आवश्यक हुन्छ।",
+        "एउटा असल साथीले गल्ती गर्दा सही सुझाव दिन्छ। उसले साथीको कमजोरीको मजाक उडाउनुभन्दा सुधार गर्न प्रोत्साहन गर्छ। पढाइमा समस्या पर्दा साथीहरूले एकअर्कालाई विषय बुझाउन र अभ्यास गर्न सहयोग गर्न सक्छन्। खेलकुद, सिर्जनात्मक काम र समूह परियोजनामा पनि साथीहरूको सहकार्य महत्त्वपूर्ण हुन्छ। मिलेर काम गर्दा नयाँ विचारहरू जन्मिन्छन् र कठिन काम पनि सजिलो हुन्छ।",
+        "तर सबै मित्रता सधैँ लाभदायक हुँदैनन्। गलत संगतले नराम्रो बानी सिकाउन सक्छ। अरूलाई धोका दिने, झूट बोल्ने वा अनुचित काम गर्न दबाब दिने व्यक्तिबाट सावधान रहनुपर्छ। राम्रो साथी छान्दा उसको व्यवहार, सोचाइ र अरूप्रतिको सम्मानलाई ध्यान दिनुपर्छ। मित्रतामा आफ्नो विचार व्यक्त गर्ने स्वतन्त्रता पनि हुनुपर्छ।",
+        "साथीबीच कहिलेकाहीँ असमझदारी उत्पन्न हुन सक्छ। यस्तो अवस्थामा रिसाएर सम्बन्ध तोड्नुभन्दा शान्त भएर कुरा गर्नु राम्रो हुन्छ। साँचो मित्रता उमेर, दूरी वा आर्थिक अवस्थाले मात्र निर्धारण गर्दैन। एकअर्काको भावना बुझ्ने र कठिन समयमा सहयोग गर्ने मानिस नै असल साथी हुन्। त्यसैले हामीले साथीहरूको सम्मान गर्नुपर्छ र उनीहरूसँग इमानदार व्यवहार गर्नुपर्छ। असल मित्रता जीवनको सुन्दर उपहार हो।",
+      ],
+    },
+    englishTyping: {
+      title: "2. English typing",
+      paragraphs: [
+        `Maya planned a short trip to visit her aunt, who lived in a peaceful village near the mountains. She packed her clothes, a notebook, some snacks, and a water bottle the previous evening. Her bus was scheduled to leave at 7:30 a.m., so she woke up early and reached the station on time. Unfortunately, the bus arrived almost forty minutes late. "Oh no! Will I reach the village before sunset?" she wondered. Finally, the passengers boarded the bus, and the journey began. Outside the window, green fields, small houses, flowing rivers, and distant hills created a beautiful scene.`,
+        `Maya enjoyed watching farmers working in their fields and children playing beside the road. Suddenly, the driver stopped the bus and announced, "There is a fallen tree ahead; we must wait until the road is cleared." Some passengers became impatient, while others stepped outside to enjoy the fresh air. Maya took out her notebook and began writing about the journey. She described the weather, the landscape, and the conversations she had heard inside the bus. After approximately an hour, workers cleared the road, and the journey continued.`,
+        `Although Maya arrived later than expected, her aunt welcomed her with a warm smile and a delicious meal. During dinner, Maya shared the story of her unusual journey. Everyone laughed when she described the impatient passengers and the enormous tree blocking the road. She realized that travel was not only about reaching a destination; it was also about discovering new places and creating unforgettable memories. Sometimes, unexpected delays make the best stories!`,
+      ],
+    },
+    wordTasks: {
+      title: "3. Perform the following tasks in MS Word.",
+      tasks: [
+        "Apply a page border using a box style and choose a suitable border color.",
+        "Apply a bottom border to the first paragraph and light-blue shading to the second paragraph.",
+        "Turn on Track Changes, delete the word “landscape” wherever it appears, and display the deletion in balloons.",
+        "Insert a page break before the third paragraph and add a footer containing the text Environmental Awareness.",
+        "Insert a suitable picture and add the caption Figure 1.",
+        "Change the document's page orientation to Landscape.",
+      ],
+    },
+    excelTasks: {
+      title: "4. Perform the following tasks in Excel:",
+      table: {
+        headers: ["Roll No.", "Student Name", "English", "Maths", "Science", "Computer"],
+        rows: [
+          [1, "Ram", 76, 85, 68, 90],
+          [2, "Sita", 88, 92, 79, 95],
+          [3, "Hari", 45, 38, 56, 62],
+          [4, "Gita", 65, 72, 81, 75],
+          [5, "Rohan", 32, 41, 29, 55],
+        ],
+      },
+      instructions: [
+        "1. Calculate the total marks obtained by each student.",
+        "2. Calculate the percentage, assuming each subject carries 100 marks.",
+        "3. Display PASS if every subject mark is at least 40; otherwise display fail.",
+        "4. Calculate the division using these rules:",
+        "   • 80% and above: Distinction",
+        "   • 60% and above: First Division",
+        "   • 45% and above: Second Division",
+        "   • 40% and above: Third Division",
+        "   • Below 40%: Fail",
+        "5. Apply conditional formatting to highlight failed students in red.",
+        "6. Sort students by percentage in descending order.",
+      ],
+    },
+    powerPointTasks: {
+      title: "5. Perform the following tasks in PowerPoint",
+      tasks: [
+        "Create a presentation of 3 slides on “Computer Fundamentals.”",
+        "Insert Next Slide, Previous Slide, Home, and End action buttons and configure them to navigate between slides during the slide show.",
+      ],
+    },
+    accessTasks: {
+      title: "6. Perform the following tasks in MS Access.",
+      table: {
+        headers: ["DeptID (Primary Key)", "DeptName"],
+        rows: [
+          [1, "HR"],
+          [2, "IT"],
+          [3, "Accounts"],
+        ],
+      },
+      secondTableTitle: "Employee table",
+      secondTable: {
+        headers: ["EmpID (Primary Key)", "EmpName", "DeptID"],
+        rows: [
+          [101, "Ram", 1],
+          [102, "Sita", 2],
+          [103, "Hari", 1],
+          [104, "Gita", 3],
+        ],
+      },
+      tasks: [
+        "Task 1: Create two tables Department table and Employee table.",
+        "1. Create a one-to-many relationship between the two tables using DeptID.",
+        "2. Enable referential integrity.",
+        "3. Create a query displaying employee names and their department names.",
+      ],
+    },
+  },
+
+  // ── SET 8 ────────────────────────────────────────────────────────────
+  {
+    id: "8",
+    setNumber: 8,
+    title: "Practical-set 8",
+    nepaliTyping: {
+      title: "1. नेपाली टाइपिंग",
+      paragraphs: [
+        "पुस्तक मानिसको ज्ञान र अनुभव बढाउने महत्त्वपूर्ण माध्यम हो। पुस्तक पढेर हामी नयाँ विषयबारे जानकारी प्राप्त गर्न सक्छौँ र संसारलाई फरक दृष्टिकोणबाट बुझ्न सक्छौँ। कथा, उपन्यास, जीवनी, इतिहास, विज्ञान र यात्रा विवरणजस्ता विभिन्न विधाका पुस्तकहरूले फरक किसिमको ज्ञान दिन्छन्। नियमित पढ्ने बानीले भाषिक क्षमता, कल्पनाशक्ति र सोच्ने क्षमताको विकास गर्छ।",
+        "बालबालिकालाई सानै उमेरदेखि पुस्तक पढ्ने वातावरण दिनुपर्छ। अभिभावकले घरमा किताब राख्ने र छोराछोरीसँग कथा पढ्ने बानी बसाल्न सक्छन्। विद्यालयमा पुस्तक पढ्ने बानीले शब्दभण्डार बढाउँछ। नयाँ शब्दको अर्थ खोज्ने र त्यसलाई वाक्यमा प्रयोग गर्ने अभ्यासले लेखन क्षमता सुधार गर्छ। नेपाली भाषामा राम्रोसँग लेख्न चाहने व्यक्तिले विभिन्न लेखकका कथा, निबन्ध र लेख पढ्न सक्छ। त्यसैगरी अंग्रेजी भाषा सिक्ने व्यक्तिले आफ्नो स्तरअनुसारका पुस्तक रोज्न सक्छ। नियमित अभ्यासले भाषाको प्रयोगमा आत्मविश्वास बढाउँछ।",
+        "पुस्तकले हामीलाई अरू मानिसका अनुभवबाट सिक्ने अवसर दिन्छ। सफल व्यक्तिहरूको जीवनी पढ्दा मेहनत र धैर्यको महत्त्व बुझ्न सकिन्छ। इतिहासका पुस्तकले विगतका घटनाबाट शिक्षा दिन्छन् भने विज्ञानका पुस्तकले नयाँ आविष्कारबारे जानकारी गराउँछन्। त्यसैले दैनिक केही समय पुस्तक पढ्न छुट्याउनु जीवनभर लाभदायक हुने बानी हो।",
+      ],
+    },
+    englishTyping: {
+      title: "2. English typing",
+      paragraphs: [
+        `Time is one of the most valuable resources in human life. Money can be earned again, and lost objects can sometimes be recovered; however, a wasted moment never returns. Successful students and professionals understand this simple truth. They prepare daily schedules, set realistic goals, and complete important tasks on time.`,
+        `For example, a student who studies for two hours every day may perform better than someone who studies for ten hours only before an examination. "Do not wait for the perfect moment—start with what you have!" is useful advice for anyone who wants to improve.`,
+        `Good time management begins with identifying priorities. Difficult and important tasks should receive attention before less important activities. It is also necessary to avoid unnecessary distractions, such as excessive social media use, television, and mobile games. Of course, taking breaks is equally important; continuous work can cause tiredness and reduce concentration. A balanced routine should include study, exercise, meals, sleep, and recreation. Students can maintain a notebook or digital calendar to record deadlines, assignments, and examination dates. At the end of each day, they should review their achievements and prepare a plan for tomorrow. Sometimes, unexpected events may interrupt a schedule, but there is no need to panic! A flexible plan is better than a perfect plan that cannot be followed. Remember these three rules: plan carefully, act consistently, and review your progress. Time management is not about being busy every minute—it is about using each minute wisely.`,
+      ],
+    },
+    wordTasks: {
+      title: "3. Perform the following tasks in MS word.",
+      tasks: [
+        "Apply appropriate heading styles and insert an automatic table of contents.",
+        "Insert a bookmark named SecurityTips at the beginning of the third paragraph.",
+        "Insert a hyperlink on the words “excessive” that jumps to the bookmark.",
+        "Insert a page break before the third paragraph and change that page to Landscape using section breaks.",
+        "Insert a picture with the caption Figure 1.",
+        "Add a header and footer, then insert page numbers.",
+      ],
+    },
+    excelTasks: {
+      title: "4. Perform the following tasks in Excel.",
+      table: {
+        headers: ["Emp ID", "Employee Name", "Basic Salary", "Allowance", "Overtime", "Deduction"],
+        rows: [
+          ["E01", "Ram", "25000", "3000", "2000", "1500"],
+          ["E02", "Sita", "30000", "4000", "1500", "2000"],
+          ["E03", "Hari", "22000", "2500", "1000", "1000"],
+          ["E04", "Gita", "35000", "5000", "3000", "2500"],
+          ["E05", "Mina", "28000", "3500", "1800", "1200"],
+        ],
+      },
+      instructions: [
+        "1. Calculate gross salary = Basic Salary + Allowance + Overtime.",
+        "2. Calculate net salary = Gross Salary − Deduction.",
+        "3. Calculate the average net salary.",
+        "4. Find the maximum and minimum net salary.",
+        "5. Calculate total salary paid to all employees.",
+        "6. Use conditional formatting to highlight employees earning more than Rs. 35,000 net.",
+        "7. Sort employees by net salary from highest to lowest.",
+      ],
+    },
+    powerPointTasks: {
+      title: "5. Perform the following tasks in PowerPoint.",
+      tasks: [
+        "Create a presentation of 5 slides on “Tourism in Nepal.”",
+        "Create a Custom Slide Show named Tourism Highlights that displays only slides 1, 3, and 5.",
+      ],
+    },
+    accessTasks: {
+      title: "6. Perform the following tasks in MS Access.",
+      tasks: [
+        "1. Create a table named Customer with fields CustomerID, CustomerName, Address, and Phone.",
+        "2. Enter 5 customer records.",
+        "3. Create a form using the Form Wizard.",
+        "4. Apply a suitable title and formatting to the form.",
+      ],
+    },
+  },
+
+  // ── SET 9 ────────────────────────────────────────────────────────────
+  {
+    id: "9",
+    setNumber: 9,
+    title: "Practical-set 9",
+    nepaliTyping: {
+      title: "1. नेपाली टाइपिंग",
+      paragraphs: [
+        "आत्मनिर्भर हुनु भनेको आफ्नो आवश्यकता पूरा गर्न सक्ने क्षमता विकास गर्नु हो। आत्मनिर्भर व्यक्तिले आफ्नो जिम्मेवारी बुझ्छ र समस्या पर्दा समाधान खोज्ने प्रयास गर्छ। आत्मनिर्भर बन्नका लागि ज्ञान, सीप, मेहनत र आत्मविश्वास आवश्यक हुन्छ। मानिसले आफ्नो रुचि र क्षमताअनुसार नयाँ कुरा सिक्दै गएमा जीवनमा विभिन्न अवसर प्राप्त गर्न सक्छ।",
+        "विद्यार्थी जीवनदेखि नै आत्मनिर्भर बन्ने बानी विकास गर्न सकिन्छ। आफ्नो गृहकार्य आफैँ गर्ने, समयको व्यवस्थापन गर्ने र दैनिक काममा जिम्मेवार बन्ने अभ्यास उपयोगी हुन्छ। कुनै विषय बुझ्न कठिन भएमा पहिले आफैँ प्रयास गर्नुपर्छ र आवश्यक पर्दा शिक्षक वा साथीको सहयोग लिनुपर्छ। यसरी सिक्दा समस्या समाधान गर्ने क्षमता बढ्छ।",
+        "आजको समयमा कम्प्युटर र डिजिटल सीपले आत्मनिर्भर बन्न सहयोग पुर्‍याउँछन्। टाइपिंग, दस्तावेज तयार गर्ने, स्प्रेडसिट प्रयोग गर्ने र वेबसाइट बनाउने जस्ता सीप सिकेर विभिन्न काम गर्न सकिन्छ। आफ्नो ज्ञान र अनुभवका आधारमा व्यक्तिगत परियोजना तयार गर्न पनि सकिन्छ। निरन्तर अभ्यास र नयाँ प्रविधिबारे जानकारी लिने बानीले सीपलाई समयअनुसार उपयोगी बनाइराख्छ।",
+        "आर्थिक आत्मनिर्भरता प्राप्त गर्न आम्दानी र खर्चको हिसाब राख्ने, अनावश्यक खर्च घटाउने र भविष्यका लागि बचत गर्ने बानी उपयोगी हुन्छ। त्यसैगरी इमानदारी र अनुशासनले मानिसको व्यक्तित्व बलियो बनाउँछन्। आत्मनिर्भर व्यक्तिले आफ्नो विकाससँगै परिवार र समाजको हितमा पनि योगदान दिन सक्छ। त्यसैले नयाँ सीप सिक्ने, मेहनत गर्ने र आफ्नो क्षमतामा विश्वास राख्ने बानी बसाल्नुपर्छ।",
+      ],
+    },
+    englishTyping: {
+      title: "2. English typing",
+      paragraphs: [
+        `Last Monday, our teacher took us to the computer lab for practical training. Every student was assigned a computer, a keyboard, a mouse, and a notebook. Before beginning the lesson, our teacher explained the importance of proper sitting posture and correct finger placement. "Today, we will learn how to type accurately and use common keyboard shortcuts," she announced. First, we practised typing a short paragraph without looking at the keyboard. Some students made several mistakes, while others typed surprisingly quickly. Our teacher reminded us, "Do not worry about speed at first; accuracy is more important!" Next, we learned useful shortcuts: Ctrl+C (copy), Ctrl+V (paste), Ctrl+S (save), and Ctrl+P (print). We also practised creating folders, renaming files, and saving documents in the correct location. One student accidentally deleted his entire paragraph—what a disaster! Fortunately, he recovered the text by using the Undo command. After that, we opened a word-processing program and typed a short letter. We used capital letters, commas, quotation marks, brackets, and other punctuation symbols. At the end of the class, everyone saved their work in a folder named "Typing Practice." Our teacher checked each document and suggested ways to improve our performance. Before leaving, she said, "Remember, regular practice creates confidence." The lesson was both interesting and practical; we learned skills that would help us in examinations, office work, and everyday computer use.`,
+      ],
+    },
+    wordTasks: {
+      title: "3. Perform the following task in MS Word.",
+      tasks: [
+        "1. Create a table with the following data and save it as table.docx.",
+        "2. Apply a suitable table style and shade the header row.",
+        "3. Design a result letter using the following template text:",
+        "4. Use Mail Merge to generate a separate result letter for each student.",
+        "5. Add the school name in the header and page number in the footer.",
+        "6. Save the merged letters as ResultLetters.docx.",
+      ],
+      table: {
+        headers: ["Student Name", "Roll No.", "Address", "Result"],
+        rows: [
+          ["Ramesh Yadav", "101", "Birgunj", "Pass"],
+          ["Sushma Thapa", "102", "Kathmandu", "Pass"],
+          ["Bikash Shah", "103", "Janakpur", "Fail"],
+          ["Pooja Karki", "104", "Pokhara", "Pass"],
+        ],
+      },
+      specialLetterSnippet: `Dear [Student Name],\nWe are pleased to inform you that your examination result is [Result]. Your roll number is [Roll No.], and your registered address is [Address].`,
+    },
+    excelTasks: {
+      title: "4. Perform the following tasks in Excel.",
+      table: {
+        headers: ["Emp ID", "Name", "Basic Salary", "Overtime Hours", "Bonus %", "Deduction"],
+        rows: [
+          ["101", "Raj", "25000", "10", "10%", "2000"],
+          ["102", "Sita", "30000", "8", "15%", "2500"],
+          ["103", "Hari", "22000", "12", "8%", "1500"],
+          ["104", "Gita", "28000", "6", "12%", "1800"],
+          ["105", "Mina", "35000", "15", "20%", "3000"],
+        ],
+      },
+      instructions: [
+        "1. Overtime rate = Rs. 200 per hour.",
+        "2. Bonus = Basic Salary × Bonus Percentage.",
+        "3. Gross Earnings = Basic Salary + Overtime Pay + Bonus.",
+        "4. Net Earnings = Gross Earnings − Deduction.",
+      ],
+    },
+    powerPointTasks: {
+      title: "5. Perform the following tasks in PowerPoint",
+      tasks: [
+        "Create a presentation of 3 slides on “Uses of the Internet.”",
+        "Insert a hyperlink on the text “Visit Google” that opens https://www.google.com.",
+      ],
+    },
+    accessTasks: {
+      title: "6. Perform the following tasks in MS Access.",
+      tasks: [
+        "1. Create a table named StudentMarks with fields RollNo, StudentName, English, Maths, and Computer.",
+        "2. Enter records of 5 students.",
+        "3. Create a query with these calculated fields:",
+        "   a. Total: [English]+[Maths]+[Computer]",
+        "   b. Percentage: ([English]+[Maths]+[Computer])/3",
+        "4. Create a form for entering student marks.",
+      ],
+    },
+  },
+
+  // ── SET 10 ───────────────────────────────────────────────────────────
+  {
+    id: "10",
+    setNumber: 10,
+    title: "Practical-set 10",
+    nepaliTyping: {
+      title: "1. नेपाली टाइपिंग",
+      paragraphs: [
+        "वातावरणले पृथ्वीमा रहेका मानिस, जनावर, वनस्पति र अन्य जीवलाई जीवनका लागि आवश्यक आधार प्रदान गर्छ। हामीले सास फेर्ने हावा, पिउने पानी, खानेकुरा र बस्ने ठाउँ सबै वातावरणसँग सम्बन्धित छन्। वातावरण स्वच्छ भएमा मानिसको स्वास्थ्य राम्रो रहन्छ र प्रकृतिको सन्तुलन कायम हुन्छ। तर मानव गतिविधिका कारण आज धेरै स्थानमा प्रदूषण र प्राकृतिक स्रोतको क्षय बढिरहेको छ।",
+        "सवारीसाधनबाट निस्कने धुवाँ, उद्योगबाट आउने फोहोर र प्लास्टिकको जथाभावी प्रयोगले वातावरणमा नकारात्मक असर पार्छ। नदी र खोलामा फोहोर फाल्दा पानी दूषित हुन्छ। वन विनाशका कारण जनावरको बासस्थान नष्ट हुन सक्छ र माटोको क्षय बढ्न सक्छ। यस्ता समस्याले मानव जीवनसँगै प्राकृतिक प्रणालीलाई पनि जोखिममा पार्छन्।",
+        "वातावरण संरक्षणका लागि साना प्रयासहरू पनि महत्त्वपूर्ण हुन्छन्। घर र विद्यालय वरिपरि सफाइ राख्ने, फोहोरलाई छुट्याएर व्यवस्थापन गर्ने र आवश्यक नभएको बत्ती बन्द गर्ने बानी उपयोगी हुन्छ।",
+        "वातावरण संरक्षण कुनै एक दिनको काम होइन। यो निरन्तर गर्नुपर्ने साझा जिम्मेवारी हो। प्रकृतिलाई नोक्सान पुर्‍याउने गतिविधि कम गर्दै स्रोतसाधनको विवेकपूर्ण उपयोग गर्नुपर्छ। हामीले आज वातावरण जोगाउन सकेमा भोलिका पुस्ताले स्वच्छ हावा, सफा पानी र हरियालीले भरिएको पृथ्वी पाउनेछन्। स्वस्थ भविष्य निर्माण गर्न प्रकृतिप्रति जिम्मेवार हुनु आवश्यक छ।",
+      ],
+    },
+    englishTyping: {
+      title: "2. English Typing",
+      paragraphs: [
+        `It was a cold winter morning when Rahul found a small envelope near his front door. The envelope was old, yellow, and slightly damaged. On the front, someone had written, "Open this letter only when you are alone!" Rahul looked around carefully, but nobody was there. He picked up the envelope, entered his room, and slowly opened it. Inside, he discovered a handwritten message that said, "Your grandfather left something valuable beneath the old tree." Rahul was surprised because his grandfather had passed away many years ago. What could the message mean? He remembered that his grandfather had always enjoyed telling mysterious stories about hidden treasures. Without wasting any time, Rahul grabbed a flashlight, put on his shoes, and hurried toward the garden. Beneath a large mango tree, he noticed a small wooden box covered with dry leaves. He carefully removed the leaves and opened the box. Inside, there were several old photographs, a golden watch, and a folded piece of paper. The paper contained another message: "The greatest treasure is not gold, but the memories we share." Rahul smiled as he examined the photographs. They reminded him of the wonderful moments he had spent with his grandfather. Although he had expected to discover something expensive, he realized that family memories were far more valuable.`,
+      ],
+    },
+    wordTasks: {
+      title: "3. Perform the following tasks in MS Word.",
+      tasks: [
+        "1. Copy the above passage into a new Word document.",
+        "2. Give the document a suitable title and apply Bold, 16pt font size, center alignment.",
+        "3. Select the first paragraph and set its character Scale to 150%.",
+        "4. Set the paragraph indentation to 1 inch inside and 1 inch outside using Mirror Indents.",
+        "5. Select the second paragraph and set its character Scale to 200%.",
+      ],
+    },
+    excelTasks: {
+      title: "4. Perform the following tasks in Excel.",
+      table: {
+        headers: ["Employee", "Monthly Salary", "Annual Allowance", "Bonus %", "Tax Rate"],
+        rows: [
+          ["Ram", 25000, 12000, "10%", "5%"],
+          ["Sita", 35000, 18000, "15%", "10%"],
+          ["Hari", 30000, 15000, "8%", "5%"],
+          ["Gita", 40000, 24000, "20%", "10%"],
+          ["Mina", 28000, 12000, "12%", "5%"],
+        ],
+      },
+      instructions: [
+        "Perform the following tasks:",
+        "1. Calculate annual salary.",
+        "2. Calculate annual bonus.",
+        "3. Calculate gross annual income.",
+        "4. Calculate annual tax.",
+        "5. Calculate net annual income.",
+        "6. Calculate the average net annual income.",
+        "7. Use a bar chart to compare employees' net annual income.",
+      ],
+      rules: [
+        "Annual Salary = Monthly Salary × 12.",
+        "Annual Bonus = Annual Salary × Bonus Percentage.",
+        "Gross Annual Income = Annual Salary + Annual Allowance + Annual Bonus.",
+        "Tax = Gross Annual Income × Tax Rate.",
+        "Net Annual Income = Gross Annual Income − Tax.",
+      ],
+    },
+    powerPointTasks: {
+      title: "5. Perform the following tasks in PowerPoint.",
+      tasks: [
+        "1. Make a photo album and give loop effect to the photo album.",
+        "2. Apply suitable animation and transition.",
+      ],
+    },
+    accessTasks: {
+      title: "6. Perform the following tasks in MS Access",
+      table: {
+        headers: ["Field Name", "Data Type"],
+        rows: [
+          ["RollNo", "Number (Primary Key)"],
+          ["StudentName", "Short Text"],
+          ["Address", "Short Text"],
+          ["Gender", "Short Text"],
+          ["Marks", "Number"],
+        ],
+      },
+      tasks: [
+        "1. Create a table named Student.",
+        "2. Enter records of 5 students.",
+        "3. Create a query to display students who scored more than 60 marks.",
+        "4. Create a form to enter student records.",
       ],
     },
   },
