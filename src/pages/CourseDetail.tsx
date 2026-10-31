@@ -17,6 +17,8 @@ import {
   ChevronRight,
   HelpCircle,
   Share2,
+  Shield,
+  Lock,
 } from "lucide-react";
 import { coursesData, formatGoogleDriveEmbedUrl, CourseItem } from "@/data/coursesData";
 import SEO from "@/components/SEO";
@@ -61,7 +63,7 @@ export default function CourseDetail() {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 pb-20">
       <SEO
         title={`${course.title} — Study Notes & PDF`}
-        description={`Read and download ${course.title} complete PDF notes, syllabus topics, and study materials for Loksewa Computer Operator exam.`}
+        description={`Read ${course.title} study notes, syllabus topics, and protected preparation materials on Samrita Collections.`}
         canonical={`https://amritagupta.com.np/courses/${course.id}`}
       />
 
@@ -102,7 +104,7 @@ export default function CourseDetail() {
 
             {/* Quick Action Buttons */}
             <div className="flex items-center gap-2.5 flex-wrap flex-shrink-0">
-              {course.driveViewUrl && (
+              {course.allowDownload && course.driveViewUrl ? (
                 <a
                   href={course.driveViewUrl}
                   target="_blank"
@@ -112,6 +114,11 @@ export default function CourseDetail() {
                   <ExternalLink size={15} />
                   <span>Open in Google Drive</span>
                 </a>
+              ) : (
+                <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold">
+                  <Shield size={14} className="text-emerald-400" />
+                  <span>View Only (Protected)</span>
+                </div>
               )}
 
               <Link
@@ -144,17 +151,22 @@ export default function CourseDetail() {
               </div>
               <div>
                 <h3 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                  <span>Google Drive PDF Viewer</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  <span>{course.title} — Study Notes</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
                 </h3>
-                <p className="text-[11px] text-slate-400">
-                  Protected secure document reader
+                <p className="text-[11px] text-slate-500 flex items-center gap-1">
+                  <Shield size={11} className="text-emerald-600 inline" />
+                  <span>{course.copyrightNotice || "Protected Document • © Samrita Collections"}</span>
                 </p>
               </div>
             </div>
 
             {/* Viewer Controls */}
             <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 hidden sm:inline-flex items-center gap-1">
+                <Lock size={12} className="text-slate-400" /> Protected Document
+              </span>
+
               <button
                 onClick={() => setReloadKey((k) => k + 1)}
                 title="Reload document"
@@ -176,13 +188,29 @@ export default function CourseDetail() {
           </div>
 
           {/* Embedded Google Drive PDF Iframe with protected overlay */}
-          <div className="relative w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+          <div
+            className="relative w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 select-none"
+            onContextMenu={(e) => e.preventDefault()}
+          >
             {/* Top-right click blocker to prevent Google Drive pop-out / download menu */}
             <div
-              className="absolute top-0 right-0 w-20 h-16 z-20 pointer-events-auto bg-transparent select-none cursor-default"
-              title="Protected Document"
-              onClick={(e) => e.stopPropagation()}
+              className="absolute top-0 right-0 w-24 h-16 z-20 pointer-events-auto bg-transparent select-none cursor-default"
+              title="Protected Document — View Only"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+              onContextMenu={(e) => e.preventDefault()}
             />
+
+            {/* Subtle watermark / copyright badge */}
+            <div className="absolute bottom-3 right-4 z-20 pointer-events-none select-none bg-slate-900/80 backdrop-blur-md text-white/95 text-[10px] sm:text-xs font-semibold px-3 py-1.5 rounded-xl border border-white/20 shadow-lg flex items-center gap-1.5">
+              <Shield size={12} className="text-emerald-400" />
+              <span>© Samrita Collections</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-amber-300">Protected Material</span>
+            </div>
+
             <iframe
               key={reloadKey}
               src={embedUrl}
@@ -198,10 +226,10 @@ export default function CourseDetail() {
           <div className="flex items-center justify-between text-[11px] text-slate-500 pt-3 flex-wrap gap-2">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 size={13} className="text-emerald-500" />
-              <span>Document loaded successfully from Google Drive preview</span>
+              <span>Document loaded securely (Protected read-only preview mode)</span>
             </span>
-            <span>
-              Subject: <strong className="text-slate-700">{course.title}</strong>
+            <span className="font-semibold text-slate-700">
+              {course.copyrightNotice || "© 2026 Samrita Collections · All Rights Reserved"}
             </span>
           </div>
         </div>

@@ -11,6 +11,8 @@ export interface CourseItem {
   // Google Drive preview/embed link or standard share link
   driveEmbedUrl?: string;
   driveViewUrl?: string;
+  allowDownload?: boolean;
+  copyrightNotice?: string;
 }
 
 // Helper to convert standard Google Drive share links into embeddable preview URLs
@@ -58,9 +60,10 @@ export const coursesData: CourseItem[] = [
       "Input / Output Peripherals",
       "Number Systems (Binary, Octal, Hex) & Logic Gates",
     ],
-    // Sample Google Drive PDF preview - replace with user's drive link
-    driveEmbedUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview",
-    driveViewUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view",
+    // Google Drive PDF: View only (Download disabled, Protected with Copyright)
+    driveEmbedUrl: "https://drive.google.com/file/d/1t9gvNZ4Q1Qfo4cDMzDYaKvc2VZzvmfhF/preview",
+    allowDownload: false,
+    copyrightNotice: "© Copyright Samrita Collections. All Rights Reserved.",
   },
   {
     id: "networking",
