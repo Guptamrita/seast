@@ -35,7 +35,7 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
         
         {/* Subtle Watermark matching PDF */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.06] rotate-[-35deg] text-slate-900 text-6xl sm:text-8xl font-black uppercase tracking-widest">
-          study hub
+          psc study hub
         </div>
 
         <div className="relative z-10 space-y-10">

@@ -62,12 +62,12 @@ const Navbar = () => {
               <Link to="/" className="flex items-center gap-2.5 group">
                 <img
                   src={samritaIcon}
-                  alt="Study Hub Logo"
+                  alt="PSC Study Hub Logo"
                   className="w-9 h-9 sm:w-10 sm:h-10 object-contain drop-shadow"
                 />
                 <div className="flex flex-col leading-tight">
                   <span className="text-base sm:text-lg font-bold tracking-tight text-white">
-                    Study <span className="text-[#facc15]">Hub</span>
+                    PSC Study <span className="text-[#facc15]">Hub</span>
                   </span>
                   <span className="text-[11px] italic font-normal text-slate-200 tracking-wider">
                     Learn • Practice • Grow
@@ -261,12 +261,12 @@ const Navbar = () => {
                 <div className="flex items-center gap-2">
                   <img
                     src={samritaIcon}
-                    alt="Study Hub Logo"
+                    alt="PSC Study Hub Logo"
                     className="w-8 h-8 object-contain"
                   />
                   <div>
                     <div className="font-bold text-sm text-white">
-                      Study <span className="text-[#facc15]">Hub</span>
+                      PSC Study <span className="text-[#facc15]">Hub</span>
                     </div>
                     <div className="text-[10px] italic text-slate-300">
                       Learn • Practice • Grow

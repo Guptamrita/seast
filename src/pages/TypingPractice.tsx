@@ -543,7 +543,7 @@ export default function TypingPractice() {
             <div>
               <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono">
-                  Study Hub
+                  PSC Study Hub
                 </span>
                 <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                   <ShieldCheck size={12} /> PSC Certified Benchmarks
@@ -1550,7 +1550,7 @@ export default function TypingPractice() {
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold mb-2">
                 <Award size={14} className="text-blue-500" />
-                <span>Study Hub Evaluation</span>
+                <span>PSC Study Hub Evaluation</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-heading font-black">
                 Exam Practice Completed!
