@@ -4,9 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import {
   Menu, X, Home, GraduationCap, StickyNote, Keyboard,
-  Search, BookOpen, Shield
+  Search, BookOpen, Shield, Download, ChevronDown
 } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -40,6 +47,7 @@ const Navbar = () => {
   const isCoursesActive = location.pathname.startsWith("/courses");
   const isNotesActive = location.pathname === "/notes";
   const isTypingActive = location.pathname === "/typing";
+  const isDownloadsActive = location.pathname === "/downloads";
   const isSyllabusActive = location.pathname === "/syllabus";
 
   return (
@@ -125,18 +133,63 @@ const Navbar = () => {
                   <span>Typing</span>
                 </Link>
 
-                {/* Syllabus (Added in place of Downloads) */}
-                <Link
-                  to="/syllabus"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isSyllabusActive
-                      ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
-                      : "text-slate-200 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  <BookOpen className={`w-4 h-4 ${isSyllabusActive ? "text-[#facc15]" : "text-slate-300"}`} />
-                  <span>Syllabus</span>
-                </Link>
+                {/* Downloads with Dropdown showing Syllabus */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors outline-none cursor-pointer ${
+                        isDownloadsActive || isSyllabusActive
+                          ? "text-[#facc15] border-b-2 border-[#facc15] pb-1"
+                          : "text-slate-200 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <Download className={`w-4 h-4 ${isDownloadsActive || isSyllabusActive ? "text-[#facc15]" : "text-slate-300"}`} />
+                      <span>Downloads</span>
+                      <ChevronDown className="w-3.5 h-3.5 opacity-80" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    sideOffset={8}
+                    className="w-60 bg-[#072147] border border-[#0f3469] text-white p-1.5 shadow-2xl rounded-2xl z-50 backdrop-blur-xl animate-in fade-in-80"
+                  >
+                    <DropdownMenuItem
+                      onClick={() => navigate("/syllabus")}
+                      className="flex items-center gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition text-xs font-semibold text-white group"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <BookOpen className="w-4 h-4 text-amber-300" />
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="font-bold text-white group-hover:text-[#facc15] transition-colors">
+                          Syllabus (पाठ्यक्रम)
+                        </span>
+                        <span className="text-[10px] text-slate-300">
+                          17 Official Exam Syllabi
+                        </span>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator className="bg-white/10 my-1" />
+
+                    <DropdownMenuItem
+                      onClick={() => navigate("/downloads")}
+                      className="flex items-center gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-white/10 focus:bg-white/10 transition text-xs font-semibold text-white group"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Download className="w-4 h-4 text-cyan-300" />
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="font-bold text-white group-hover:text-cyan-300 transition-colors">
+                          Software & Downloads
+                        </span>
+                        <span className="text-[10px] text-slate-300">
+                          Office, Fonts & Typing Tools
+                        </span>
+                      </div>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
                 {/* Admin button if admin */}
                 {isAdmin && (
@@ -288,13 +341,22 @@ const Navbar = () => {
                       <span>Typing</span>
                     </Link>
                     <Link
+                      to="/downloads"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                        isDownloadsActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
+                      }`}
+                    >
+                      <Download className="w-4 h-4 text-cyan-400" />
+                      <span>Downloads & Software</span>
+                    </Link>
+                    <Link
                       to="/syllabus"
                       className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition ${
                         isSyllabusActive ? "bg-white/15 text-[#facc15]" : "text-slate-200 hover:bg-white/10"
                       }`}
                     >
                       <BookOpen className="w-4 h-4 text-amber-400" />
-                      <span>Syllabus</span>
+                      <span>Syllabus (पाठ्यक्रम)</span>
                     </Link>
                     {isAdmin && (
                       <Link

@@ -26,7 +26,6 @@ import { Navigate } from "react-router-dom";
 import Leaderboard from "./pages/Leaderboard";
 import AdminPanel from "./pages/AdminPanel";
 import CloudAdminGuard from "./components/CloudAdminGuard";
-import NepalLoadingScreen from "./components/NepalLoadingScreen";
 import DailyMCQPage from "./pages/DailyMCQPage";
 import Portfolio from "./pages/Portfolio";
 import Sahil from "./pages/Sahil";
@@ -40,61 +39,6 @@ const queryClient = new QueryClient();
 // Separate component for the main app content
 const AppContent = () => {
   const location = useLocation();
-  const [showLoading, setShowLoading] = useState(false);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-  useEffect(() => {
-    // Check if this is a fresh page load (not client-side navigation)
-    const navigationType = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-    const isReload = navigationType?.type === "reload";
-    
-    // Show loading only on homepage AND (first visit OR manual reload)
-    if (location.pathname === "/") {
-      // Check if we're coming from navigation (not full page reload)
-      const isClientSideNavigation = sessionStorage.getItem("clientSideNav") === "true";
-      
-      if (!isClientSideNavigation || isReload) {
-        setShowLoading(true);
-        // Set timeout to hide loading after 3 seconds
-        const timer = setTimeout(() => {
-          setShowLoading(false);
-        }, 3000);
-        return () => clearTimeout(timer);
-      } else {
-        setShowLoading(false);
-      }
-    } else {
-      setShowLoading(false);
-    }
-    
-    // Mark that we're doing client-side navigation
-    sessionStorage.setItem("clientSideNav", "true");
-    
-    // Reset on page unload
-    const handleBeforeUnload = () => {
-      sessionStorage.removeItem("clientSideNav");
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [location.pathname]);
-
-  // Prevent body scroll during loading
-  useEffect(() => {
-    if (showLoading) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    };
-  }, [showLoading]);
 
   // Site content protection: disable right-click, copy, cut, print shortcuts & drag
   useEffect(() => {
@@ -167,57 +111,51 @@ const AppContent = () => {
   }, []);
 
   return (
-    <>
-      {showLoading && <NepalLoadingScreen onComplete={() => setShowLoading(false)} />}
-      
-      <div style={{ display: showLoading ? 'none' : 'block' }}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route 
-              path="/admin" 
-              element={
-                <AdminGuard>
-                  <Admin />
-                </AdminGuard>
-              } 
-            />
-            <Route
-              path="/admin-panel"
-              element={
-                <CloudAdminGuard>
-                  <AdminPanel />
-                </CloudAdminGuard>
-              }
-            />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/sahil" element={<Navigate to="/" replace />} />
-            <Route path="/sahil-portfolio" element={<Navigate to="/" replace />} />
-            <Route element={<Layout />}>
-              <Route path="/" element={<Index />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:courseId" element={<CourseDetail />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/practice" element={<Practice />} />
-              <Route path="/quiz/:category/:setId?" element={<QuizPage />} />
-              <Route path="/old-is-gold" element={<OldIsGold />} />
-              <Route path="/online-exam" element={<OnlineExam />} />
-              <Route path="/practical" element={<Practical />} />
-              <Route path="/subjective" element={<SubjectiveQuestions />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/leaderboard" element={<Leaderboard />} />
-              <Route path="/syllabus" element={<Syllabus />} />
-              <Route path="/typing" element={<TypingPractice />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/downloads" element={<Downloads />} />
-              <Route path="/daily-mcq" element={<DailyMCQPage />} />
-              <Route path="/notices" element={<Navigate to="/" replace />} />
-              <Route path="/tu-notices" element={<Navigate to="/" replace />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AnimatePresence>
-      </div>
-    </>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route 
+          path="/admin" 
+          element={
+            <AdminGuard>
+              <Admin />
+            </AdminGuard>
+          } 
+        />
+        <Route
+          path="/admin-panel"
+          element={
+            <CloudAdminGuard>
+              <AdminPanel />
+            </CloudAdminGuard>
+          }
+        />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/sahil" element={<Navigate to="/" replace />} />
+        <Route path="/sahil-portfolio" element={<Navigate to="/" replace />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Index />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:courseId" element={<CourseDetail />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/practice" element={<Practice />} />
+          <Route path="/quiz/:category/:setId?" element={<QuizPage />} />
+          <Route path="/old-is-gold" element={<OldIsGold />} />
+          <Route path="/online-exam" element={<OnlineExam />} />
+          <Route path="/practical" element={<Practical />} />
+          <Route path="/subjective" element={<SubjectiveQuestions />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/syllabus" element={<Syllabus />} />
+          <Route path="/typing" element={<TypingPractice />} />
+          <Route path="/notes" element={<Notes />} />
+          <Route path="/downloads" element={<Downloads />} />
+          <Route path="/daily-mcq" element={<DailyMCQPage />} />
+          <Route path="/notices" element={<Navigate to="/" replace />} />
+          <Route path="/tu-notices" element={<Navigate to="/" replace />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 

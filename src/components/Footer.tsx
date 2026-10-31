@@ -20,16 +20,34 @@ import {
 import samritaIcon from "@/assets/samrita-icon-transparent.png";
 import amritaPhoto from "@/assets/amrita-photo.jpg";
 
-const learningLinks = [
-  { label: "TU Notices & Vacancies", path: "/notices" },
+const mainNavLinks = [
+  { label: "Home", path: "/" },
+  { label: "All Courses", path: "/courses" },
+  { label: "Study Notes", path: "/notes" },
+  { label: "Typing Master", path: "/typing" },
+  { label: "Official Syllabus", path: "/syllabus" },
+  { label: "Downloads & Tools", path: "/downloads" },
+];
+
+const topCourseLinks = [
+  { label: "1. Computer Fundamental", path: "/courses/computer-fundamental" },
+  { label: "2. Networking", path: "/courses/networking" },
+  { label: "3. Operating System", path: "/courses/operating-system" },
+  { label: "4. HTML & Web Design", path: "/courses/html" },
+  { label: "5. MS Word", path: "/courses/ms-word" },
+  { label: "6. MS Excel", path: "/courses/ms-excel" },
+  { label: "7. MS PowerPoint", path: "/courses/ms-powerpoint" },
+  { label: "8. MS Access & SQL", path: "/courses/ms-access" },
+  { label: "All 12 Course Modules →", path: "/courses" },
+];
+
+const practiceLinks = [
   { label: "MCQ Subject Practice", path: "/practice" },
   { label: "74+ Old Question Sets", path: "/old-is-gold" },
+  { label: "Practical Exam Sets", path: "/practical" },
   { label: "18+ Real Mock Exams", path: "/online-exam" },
-  { label: "120+ Speed Typing Master", path: "/typing" },
-  { label: "Subjective & Theory Sets", path: "/subjective" },
-  { label: "Study Notes & Formulas", path: "/notes" },
-  { label: "Official Syllabus", path: "/syllabus" },
-  { label: "Downloads & PDF Papers", path: "/downloads" },
+  { label: "Subjective Questions Bank", path: "/subjective" },
+  { label: "National Leaderboard", path: "/leaderboard" },
 ];
 
 const officialGovLinks = [
@@ -105,13 +123,13 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 3: Quick Preparation Modules */}
+          {/* Column 2: Main Navigation (Same as Header) */}
           <div className="space-y-4">
             <h4 className="text-xs font-black text-white tracking-widest uppercase flex items-center gap-2">
-              <BookOpen size={14} className="text-blue-400" /> Preparation Modules
+              <BookOpen size={14} className="text-blue-400" /> Navigation
             </h4>
             <ul className="space-y-2 text-xs">
-              {learningLinks.slice(0, 5).map((link) => (
+              {mainNavLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
@@ -124,13 +142,32 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 4: More Tools & Syllabus */}
+          {/* Column 3: Course Links */}
           <div className="space-y-4">
             <h4 className="text-xs font-black text-white tracking-widest uppercase flex items-center gap-2">
-              <Layers size={14} className="text-indigo-400" /> Tools & Resources
+              <GraduationCap size={14} className="text-emerald-400" /> Courses & Modules
             </h4>
             <ul className="space-y-2 text-xs">
-              {learningLinks.slice(5).map((link) => (
+              {topCourseLinks.map((course) => (
+                <li key={course.label}>
+                  <Link
+                    to={course.path}
+                    className="text-slate-400 hover:text-white transition-colors hover:translate-x-1 inline-block py-0.5 font-medium truncate max-w-[200px]"
+                  >
+                    {course.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Practice & Exam Hub */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-black text-white tracking-widest uppercase flex items-center gap-2">
+              <Trophy size={14} className="text-amber-400" /> Practice & Tests
+            </h4>
+            <ul className="space-y-2 text-xs">
+              {practiceLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
@@ -140,14 +177,6 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/leaderboard"
-                  className="text-amber-400 hover:text-amber-300 transition-colors inline-block py-0.5 font-bold"
-                >
-                  🏆 National Leaderboard
-                </Link>
-              </li>
             </ul>
           </div>
 
