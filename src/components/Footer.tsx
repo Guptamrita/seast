@@ -81,12 +81,12 @@ const Footer = () => {
             <Link to="/" className="flex items-center gap-3 group">
               <img
                 src={samritaIcon}
-                alt="Samrita Collections Logo"
+                alt="Study Hub Logo"
                 className="w-11 h-11 object-contain drop-shadow"
               />
               <div className="flex flex-col leading-tight">
                 <span className="text-lg font-bold tracking-tight text-white group-hover:text-blue-300 transition-colors">
-                  Samrita <span className="text-[#facc15]">Collections</span>
+                  Study <span className="text-[#facc15]">Hub</span>
                 </span>
                 <span className="text-xs italic font-normal text-slate-300 tracking-wider">
                   Learn • Practice • Grow
@@ -223,7 +223,7 @@ const Footer = () => {
           </div>
 
           <p className="flex items-center gap-1 font-medium text-center">
-            © 2026 Samrita Collection — Designed & Developed with <Heart size={12} className="text-red-500 fill-red-500 inline" /> by <strong className="text-white font-bold">Amrita Gupta</strong>
+            © 2026 Study Hub — Designed & Developed with <Heart size={12} className="text-red-500 fill-red-500 inline" /> by <strong className="text-white font-bold">Amrita Gupta</strong>
           </p>
 
           <button

@@ -73,8 +73,8 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex bg-[#f8fafc] text-slate-800">
       <SEO
-        title="Student Portal Login & Register | Samrita Collections"
-        description="Sign in or register for your Samrita Collections student account to track mock exam scores, save progress, and view national ranking."
+        title="Student Portal Login & Register | Study Hub"
+        description="Sign in or register for your Study Hub student account to track mock exam scores, save progress, and view national ranking."
         canonical="https://amritagupta.com.np/auth"
         noindex={true}
       />
@@ -82,10 +82,10 @@ const Auth = () => {
       <div className="hidden lg:flex flex-col justify-between flex-1 bg-[#0c2854] p-12 text-white relative overflow-hidden border-r border-blue-900/40">
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-xl font-bold mb-12 hover:opacity-90 transition">
-            <img src={samritaIcon} alt="Samrita Collections Logo" className="w-10 h-10 object-contain drop-shadow" />
+            <img src={samritaIcon} alt="Study Hub Logo" className="w-10 h-10 object-contain drop-shadow" />
             <div>
               <span className="font-heading font-bold text-white text-lg">
-                Samrita <span className="text-[#facc15]">Collections</span>
+                Study <span className="text-[#facc15]">Hub</span>
               </span>
               <span className="block text-[11px] italic text-sky-200">Learn • Practice • Grow</span>
             </div>
@@ -116,7 +116,7 @@ const Auth = () => {
             <FeatureBadge icon={<ShieldCheck size={18} />} label="Instant Login" />
           </div>
           <p className="text-slate-300 text-xs">
-            © 2026 Samrita Collections · Designed & Developed by Amrita Gupta
+            © 2026 Study Hub · Designed & Developed by Amrita Gupta
           </p>
         </div>
       </div>
@@ -129,7 +129,7 @@ const Auth = () => {
             <Link to="/" className="inline-flex flex-col items-center">
               <img src={samritaIcon} alt="Logo" className="w-12 h-12 mb-2 object-contain" />
               <p className="font-bold text-[#0c2854] text-lg">
-                Samrita <span className="text-[#0284c7]">Collections</span>
+                Study <span className="text-[#0284c7]">Hub</span>
               </p>
               <p className="text-xs text-slate-500 font-medium">Learn • Practice • Grow</p>
             </Link>

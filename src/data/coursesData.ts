@@ -63,7 +63,7 @@ export const coursesData: CourseItem[] = [
     // Google Drive PDF: View only (Download disabled, Protected with Copyright)
     driveEmbedUrl: "https://drive.google.com/file/d/1t9gvNZ4Q1Qfo4cDMzDYaKvc2VZzvmfhF/preview",
     allowDownload: false,
-    copyrightNotice: "© Copyright Samrita Collections. All Rights Reserved.",
+    copyrightNotice: "© Copyright Study Hub. All Rights Reserved.",
   },
   {
     id: "networking",

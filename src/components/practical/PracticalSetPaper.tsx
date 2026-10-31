@@ -34,8 +34,8 @@ export default function PracticalSetPaper({ data, onBack }: PracticalSetPaperPro
       <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-12 max-w-4xl mx-auto relative overflow-hidden font-sans text-slate-900 leading-relaxed print:border-none print:shadow-none print:p-0">
         
         {/* Subtle Watermark matching PDF */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.06] rotate-[-35deg] text-slate-900 text-6xl sm:text-8xl font-black">
-          samrita collections
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.06] rotate-[-35deg] text-slate-900 text-6xl sm:text-8xl font-black uppercase tracking-widest">
+          study hub
         </div>
 
         <div className="relative z-10 space-y-10">

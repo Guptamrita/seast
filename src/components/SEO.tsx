@@ -13,9 +13,9 @@ export interface SEOProps {
 }
 
 const BASE_URL = "https://amritagupta.com.np";
-const DEFAULT_TITLE = "Samrita Collections — Learn • Practice • Grow";
+const DEFAULT_TITLE = "Study Hub — Learn • Practice • Grow";
 const DEFAULT_DESCRIPTION = "Nepal's premier open-access Loksewa Computer Operator, IT Officer & Corporate Exam Suite. 15,000+ MCQs, 74+ Old Question Papers, Mock Exams & Typing Practice.";
-const DEFAULT_KEYWORDS = "Loksewa Nepal, Computer Operator Preparation, IT Officer Exam, Loksewa MCQ, Preeti Typing Test, Past Papers 2082, Amrita Gupta, Samrita Collections";
+const DEFAULT_KEYWORDS = "Loksewa Nepal, Computer Operator Preparation, IT Officer Exam, Loksewa MCQ, Preeti Typing Test, Past Papers 2082, Amrita Gupta, Study Hub";
 const DEFAULT_OG_IMAGE = "https://amritagupta.com.np/samrita-icon-transparent.png";
 
 export const SEO: React.FC<SEOProps> = ({
@@ -32,7 +32,7 @@ export const SEO: React.FC<SEOProps> = ({
   useEffect(() => {
     // 1. Page Title
     const fullTitle = title 
-      ? `${title} | Samrita Collections`
+      ? `${title} | Study Hub`
       : DEFAULT_TITLE;
     document.title = fullTitle;
 
@@ -72,7 +72,7 @@ export const SEO: React.FC<SEOProps> = ({
     setMetaTag('meta[property="og:url"]', "property", "og:url", canonicalUrl);
     setMetaTag('meta[property="og:type"]', "property", "og:type", ogType);
     setMetaTag('meta[property="og:image"]', "property", "og:image", ogImage);
-    setMetaTag('meta[property="og:site_name"]', "property", "og:site_name", "Samrita Collection");
+    setMetaTag('meta[property="og:site_name"]', "property", "og:site_name", "Study Hub");
 
     // Twitter Cards
     setMetaTag('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");

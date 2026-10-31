@@ -311,7 +311,7 @@ export default function Syllabus() {
         }
         description={
           currentSyllabus
-            ? `View ${currentSyllabus.title} official curriculum and syllabus PDF on Samrita Collections.`
+            ? `View ${currentSyllabus.title} official curriculum and syllabus PDF on Study Hub.`
             : "Comprehensive official PSC curriculum for Computer Operator, IT Assistant, Telecom, Oil Corporation, NEA, KUKL & Universities."
         }
         canonical="https://amritagupta.com.np/syllabus"
@@ -427,7 +427,7 @@ export default function Syllabus() {
               {/* Subtle watermark / copyright badge */}
               <div className="absolute bottom-3 right-4 z-20 pointer-events-none select-none bg-slate-900/80 backdrop-blur-md text-white/95 text-[10px] sm:text-xs font-semibold px-3 py-1.5 rounded-xl border border-white/20 shadow-lg flex items-center gap-1.5">
                 <Shield size={12} className="text-emerald-400" />
-                <span>© Samrita Collections</span>
+                <span>© Study Hub</span>
                 <span className="text-slate-400">•</span>
                 <span className="text-amber-300">Official Syllabus PDF</span>
               </div>
@@ -450,7 +450,7 @@ export default function Syllabus() {
                 <span>Official syllabus loaded securely (Protected read-only preview mode)</span>
               </span>
               <span className="font-semibold text-slate-700">
-                © 2026 Samrita Collections · All Rights Reserved
+                © 2026 Study Hub · All Rights Reserved
               </span>
             </div>
 

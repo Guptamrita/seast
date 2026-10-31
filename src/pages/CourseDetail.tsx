@@ -63,7 +63,7 @@ export default function CourseDetail() {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 pb-20">
       <SEO
         title={`${course.title} — Study Notes & PDF`}
-        description={`Read ${course.title} study notes, syllabus topics, and protected preparation materials on Samrita Collections.`}
+        description={`Read ${course.title} study notes, syllabus topics, and protected preparation materials on Study Hub.`}
         canonical={`https://amritagupta.com.np/courses/${course.id}`}
       />
 
@@ -156,7 +156,7 @@ export default function CourseDetail() {
                 </h3>
                 <p className="text-[11px] text-slate-500 flex items-center gap-1">
                   <Shield size={11} className="text-emerald-600 inline" />
-                  <span>{course.copyrightNotice || "Protected Document • © Samrita Collections"}</span>
+                  <span>{course.copyrightNotice || "Protected Document • © Study Hub"}</span>
                 </p>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function CourseDetail() {
             {/* Subtle watermark / copyright badge */}
             <div className="absolute bottom-3 right-4 z-20 pointer-events-none select-none bg-slate-900/80 backdrop-blur-md text-white/95 text-[10px] sm:text-xs font-semibold px-3 py-1.5 rounded-xl border border-white/20 shadow-lg flex items-center gap-1.5">
               <Shield size={12} className="text-emerald-400" />
-              <span>© Samrita Collections</span>
+              <span>© Study Hub</span>
               <span className="text-slate-400">•</span>
               <span className="text-amber-300">Protected Material</span>
             </div>
@@ -229,7 +229,7 @@ export default function CourseDetail() {
               <span>Document loaded securely (Protected read-only preview mode)</span>
             </span>
             <span className="font-semibold text-slate-700">
-              {course.copyrightNotice || "© 2026 Samrita Collections · All Rights Reserved"}
+              {course.copyrightNotice || "© 2026 Study Hub · All Rights Reserved"}
             </span>
           </div>
         </div>

@@ -31,7 +31,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-8 px-4 sm:px-6 lg:px-8">
       <SEO
         title="Amrita Gupta — Frontend Developer & Computer Operator Portfolio"
-        description="Official developer portfolio of Amrita Gupta: IT Support Executive, Computer Operator, Frontend Web Designer, and creator of Samrita Collections portal."
+        description="Official developer portfolio of Amrita Gupta: IT Support Executive, Computer Operator, Frontend Web Designer, and creator of Study Hub portal."
         canonical="https://amritagupta.com.np/portfolio"
       />
 

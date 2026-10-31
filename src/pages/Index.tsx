@@ -117,7 +117,7 @@ const Index = () => {
   return (
     <PageTransition>
       <SEO
-        title="Samrita Collections — Your Success in PSC Starts Here!"
+        title="Study Hub — Your Success in PSC Starts Here!"
         description="A complete learning platform for PSC aspirants. Get study materials, practice MCQs, improve typing skills and stay updated with the latest news."
         canonical="https://amritagupta.com.np/"
       />
@@ -303,7 +303,7 @@ const Index = () => {
                     Amrita Gupta
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-200 max-w-xl leading-relaxed">
-                    IT Support Executive & Frontend Web Designer. Created <strong>Samrita Collections</strong> to empower Loksewa, Provincial PSC, NOC & Banking IT aspirants with 100% free, premium test prep resources.
+                    IT Support Executive & Frontend Web Designer. Created <strong>Study Hub</strong> to empower Loksewa, Provincial PSC, NOC & Banking IT aspirants with 100% free, premium test prep resources.
                   </p>
                 </div>
               </div>
@@ -362,7 +362,7 @@ const Index = () => {
               "{quote}"
             </p>
             <p className="relative text-sky-200 text-xs mt-4 font-extrabold tracking-widest uppercase">
-              Samrita Collections · Developed by Amrita Gupta 💪
+              Study Hub · Developed by Amrita Gupta 💪
             </p>
           </section>
 
